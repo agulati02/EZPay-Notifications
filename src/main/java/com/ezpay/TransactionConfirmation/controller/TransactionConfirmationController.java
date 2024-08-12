@@ -67,9 +67,9 @@ public class TransactionConfirmationController {
 			}
 			
 			if(choice==5) {
-				TransactionSummary result=transConfService.getTransactionSummaryService(userId);
-				if(result!=null) {
-					System.out.println(result.toString());
+				TransactionSummary  transactionSummaryResult=transConfService.getTransactionSummaryService(userId);
+				if( transactionSummaryResult!=null) {
+					System.out.println( transactionSummaryResult.toString());
 				}
 				else {
 					System.out.println("No Transaction Performed by the User");
