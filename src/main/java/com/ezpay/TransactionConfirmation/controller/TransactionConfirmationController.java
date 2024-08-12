@@ -19,14 +19,15 @@ the user, to retrieve confirmation messages, and to count or list completed tran
 public class TransactionConfirmationController {
 	public static void main(String args[]) throws Exception,IOException {
 		/*
-		 * Transaction Confirmation Inputs by the User*/
+		  Transaction Confirmation Inputs by the User*/
 		TransactionConfirmationService service=new TransactionConfirmationService();
 		System.out.println("Enter the Transaction Confirmation Details");
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter the User Id");
 		Integer userId=Integer.parseInt(br.readLine());
-		System.out.println("Menu");
+		
 		while(true) {
+			System.out.println("Menu");
 			System.out.println("1. Has the user completed the transaction?");
 			System.out.println("2. Has the user enabled the notification?");
 			System.out.println("3. Get the Confirmation Messages of the Transaction by the User with above id");
@@ -39,7 +40,6 @@ public class TransactionConfirmationController {
 			if(opt==1) {
 				System.out.println("Enter the Transaction Id");
 				Integer transactionId=Integer.parseInt(br.readLine());
-				TransactionConfirmation tr=new TransactionConfirmation(userId,transactionId);
 				if(service.hasCompletedTransactionService(userId, transactionId)!=null) {
 					System.out.println("Transaction Completed");
 				}
@@ -49,7 +49,6 @@ public class TransactionConfirmationController {
 			}
 			
 			if(opt==2) {
-				TransactionConfirmation tr=new TransactionConfirmation(userId);
 				if(service.hasEnabledNotitificationService(userId)!=null) {
 					System.out.println("User "+userId+" has enabled the notification.");
 				}
@@ -61,17 +60,14 @@ public class TransactionConfirmationController {
 			if(opt==3) {
 				System.out.println("Enter the Transaction Id");
 				Integer transactionId=Integer.parseInt(br.readLine());
-				TransactionConfirmation tr=new TransactionConfirmation(userId,transactionId);
 				System.out.println(service.getConfirmationMessageService(userId, transactionId));	
 			}
 			
 			if(opt==4) {
-				TransactionConfirmation tr=new TransactionConfirmation(userId);
 				System.out.println("Number of Transactions Completed by "+ userId + " is "+service.numCompletedTransactionService(userId));
 			}
 			
 			if(opt==5) {
-				TransactionConfirmation tr=new TransactionConfirmation(userId);
 				List<Integer> res=service.completedTransactionService(userId);
 				if(res.size()==0) {
 					System.out.println("No Transaction Completed by "+userId);
@@ -87,7 +83,6 @@ public class TransactionConfirmationController {
 			if(opt==6) {
 				System.out.println("Enter the Transaction Id");
 				Integer transactionId=Integer.parseInt(br.readLine());
-				TransactionConfirmation tr=new TransactionConfirmation(userId,transactionId);
 				if(service.hasReceivedNotificationService(userId, transactionId)) {
 					System.out.println("User "+userId+" has received the notification");
 				}

@@ -12,20 +12,20 @@ the user, to retrieve confirmation messages, and to count or list completed tran
  The repository uses in-memory storage, making it ideal for testing and prototyping.*/
 public class TransactionConfirmation {
 	/*
-	 * Attributes 
-	 * userId: User performing the transaction 
-	 * hasCompleted: Whether the Transaction has Completed or Not 
-	 * enabledNotification: Whether Notification has been enabled by the User or Not 
-	 * confMessage: Confirmation Message sent by the System to the User 
-	 * transactionDetail: Transaction Details sent by the System to the User
-	 * hasReceived: Whether Notification has been received by the User or Not 
+	  Attributes 
+	 ** userId: User performing the transaction 
+	 ** hasCompleted: Whether the Transaction has Completed or Not 
+	 ** enabledNotification: Whether Notification has been enabled by the User or Not 
+	 ** confMessage: Confirmation Message sent by the System to the User 
+	 ** transactionDetail: Transaction Details sent by the System to the User
+	 ** hasReceived: Whether Notification has been received by the User or Not 
 	 * */
 	
 	private Integer userId;
+	private Integer transactionId;
 	private boolean hasCompleted;
 	private boolean enabledNotification;
 	private String confMessage;
-	private Integer transactionId;
 	private boolean hasReceived;
 	
 	/*Getter and Setter of the Attributes Defined Above*/
@@ -80,22 +80,11 @@ public class TransactionConfirmation {
 	}
 	
 	/*Constructor for the Transaction Confirmation(i)
-	 * 1: Default 
-	 * 2: Parameters Based( different for different scenario)
+	 ** 1: Default 
+	 ** 2: Parameters Based( different for different scenario)
 	 */
 	public TransactionConfirmation() {}
 	
-	public TransactionConfirmation(Integer userId,Integer transactionId) {
-		super();
-		setUserId(userId);
-		setTransactionId(transactionId);
-	}
-	
-
-	public TransactionConfirmation(Integer userId) {
-		super();
-		setUserId(userId);
-	}
 	
 	public TransactionConfirmation(Integer userId, boolean hasCompleted, boolean enabledNotification, String confMessage, Integer transactionId, boolean hasReceived) {
 		super();

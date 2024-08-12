@@ -29,13 +29,13 @@ public class TransactionConfirmationRepository {
         
     }
     
-    /* Check if the user with userId `uId` has completed the transaction with transactionId `tId` */
-    public TransactionConfirmation hasCompletedTransaction(Integer uId, Integer tId) {
-        for (TransactionConfirmation tr : transactionConfirmation) {
+    /* Check if the user with userId `userId` has completed the transaction with transactionId `transactionId` */
+    public TransactionConfirmation hasCompletedTransaction(Integer userId, Integer transactionId) {
+        for (TransactionConfirmation transConf : transactionConfirmation) {
             // Use equals to compare Integer values
-            if (tr.getUserId().equals(uId) && tr.getTransactionId().equals(tId)) {
-                if (tr.getHasCompleted()) {
-                    return tr;
+            if (transConf.getUserId().equals(userId) && transConf.getTransactionId().equals(transactionId)) {
+                if (transConf.getHasCompleted()) {
+                    return transConf;
                 } else {
                     return null;
                 }
@@ -44,42 +44,42 @@ public class TransactionConfirmationRepository {
         return null;
     }
     
-    /* Check if the user with userId `uId` has enabled notifications */
-    public TransactionConfirmation hasEnabledNotification(Integer uId) {
-        for (TransactionConfirmation tr : transactionConfirmation) {
+    /* Check if the user with userId `userId` has enabled notifications */
+    public TransactionConfirmation hasEnabledNotification(Integer userId) {
+        for (TransactionConfirmation transConf : transactionConfirmation) {
             // Use equals to compare Integer values
-            if (tr.getUserId().equals(uId)) {
-                if (tr.getEnabledNotification()) {
-                    return tr;
+            if (transConf.getUserId().equals(userId)) {
+                if (transConf.getEnabledNotification()) {
+                    return transConf;
                 }
             }
         }
         return null;
     }
     
-    /* Getting the Confirmation Message for the Transaction with `tId` performed by the User `uId` */
-    public String getConfirmationMessage(Integer uId,Integer tId) {
-    	for(TransactionConfirmation tr:transactionConfirmation) {
+    /* Getting the Confirmation Message for the Transaction with `transactionId` performed by the User `userId` */
+    public String getConfirmationMessage(Integer userId,Integer transactionId) {
+    	for(TransactionConfirmation transConf:transactionConfirmation) {
     		// Use equals to compare Integer values
-    		if(tr.getUserId().equals(uId) && tr.getTransactionId().equals(tId)) {
-    			if(tr.getHasCompleted()) {
-    				return tr.getConfMessage();
+    		if(transConf.getUserId().equals(userId) && transConf.getTransactionId().equals(transactionId)) {
+    			if(transConf.getHasCompleted()) {
+    				return transConf.getConfMessage();
     			}
     			else {
-    				return tr.getConfMessage();
+    				return transConf.getConfMessage();
     			}
     		}
     	}
     	return "Transaction not performed by User";
     }
     
-    /* Getting the Number of Transaction Completed by the User with `uId` */
-    public Integer numCompletedTransaction(Integer uId) {
+    /* Getting the Number of Transaction Completed by the User with `userId` */
+    public Integer numCompletedTransaction(Integer userId) {
     	Integer count=0;
-    	for(TransactionConfirmation tr:transactionConfirmation) {
+    	for(TransactionConfirmation transConf:transactionConfirmation) {
     		// Use equals to compare Integer values
-    		if(tr.getUserId().equals(uId)) {
-    			if(tr.getHasCompleted()) {
+    		if(transConf.getUserId().equals(userId)) {
+    			if(transConf.getHasCompleted()) {
     				count++;
     			}
     		}
@@ -87,26 +87,26 @@ public class TransactionConfirmationRepository {
     	return count;
     }
     
-    /* Getting all the Transaction Completed by the User with `uId` */
-    public List<Integer> completedTransaction(Integer uId){
+    /* Getting all the Transaction Completed by the User with `userId` */
+    public List<Integer> completedTransaction(Integer userId){
     	List<Integer> comTrans = new ArrayList<Integer>();
-    	for(TransactionConfirmation tr:transactionConfirmation) {
+    	for(TransactionConfirmation transConf:transactionConfirmation) {
     		// Use equals to compare Integer values
-    		if(tr.getUserId().equals(uId)) {
-    			if(tr.getHasCompleted()) {
-    				comTrans.add(tr.getTransactionId());
+    		if(transConf.getUserId().equals(userId)) {
+    			if(transConf.getHasCompleted()) {
+    				comTrans.add(transConf.getTransactionId());
     			}
     		}
     	}
     	return comTrans;
     }
     
-    /* Check whether the User with `uId` received the Notification or not */
-    public boolean hasReceivedNotification(Integer uId,Integer tId) {
-    	for(TransactionConfirmation tr:transactionConfirmation) {
+    /* Check whether the User with `userId` received the Notification or not */
+    public boolean hasReceivedNotification(Integer userId,Integer transactionId) {
+    	for(TransactionConfirmation transConf:transactionConfirmation) {
     		// Use equals to compare Integer values
-    		if(tr.getUserId().equals(uId)  && tr.getTransactionId().equals(tId)) {
-    			if(tr.getHasReceived()) {
+    		if(transConf.getUserId().equals(userId)  && transConf.getTransactionId().equals(transactionId)) {
+    			if(transConf.getHasReceived()) {
     				return true;
     			}
     		}
