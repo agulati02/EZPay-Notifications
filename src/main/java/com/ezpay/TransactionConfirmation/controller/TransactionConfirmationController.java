@@ -19,11 +19,11 @@ public class TransactionConfirmationController {
 	public static void main(String args[]) throws Exception,IOException {
 		/*
 		  Transaction Confirmation Inputs by the User*/
-		TransactionConfirmationService service=new TransactionConfirmationService();
+		TransactionConfirmationService transConfService=new TransactionConfirmationService();
 		System.out.println("Enter the Transaction Confirmation Details");
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader buffReader=new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter the User Id");
-		Integer userId=Integer.parseInt(br.readLine());
+		Integer userId=Integer.parseInt(buffReader.readLine());
 		
 		while(true) {
 			System.out.println("Menu");
@@ -34,12 +34,12 @@ public class TransactionConfirmationController {
 			System.out.println("5. Transaction Summary of all Transaction performed by User");
 			System.out.println("6. Has the Transaction Notification been received by the User or not?");
 			System.out.println("7. Exit");
-			Integer opt=Integer.parseInt(br.readLine());
+			Integer choice=Integer.parseInt(buffReader.readLine());
 			
-			if(opt==1) {
+			if(choice==1) {
 				System.out.println("Enter the Transaction Id");
-				Integer transactionId=Integer.parseInt(br.readLine());
-				if(service.hasCompletedTransactionService(userId, transactionId)!=null) {
+				Integer transactionId=Integer.parseInt(buffReader.readLine());
+				if(transConfService.hasCompletedTransactionService(userId, transactionId)!=null) {
 					System.out.println("Transaction Completed");
 				}
 				else {
@@ -47,8 +47,8 @@ public class TransactionConfirmationController {
 				}
 			}
 			
-			if(opt==2) {
-				if(service.hasEnabledNotitificationService(userId)!=null) {
+			if(choice==2) {
+				if(transConfService.hasEnabledNotitificationService(userId)!=null) {
 					System.out.println("User "+userId+" has enabled the notification.");
 				}
 				else {
@@ -56,18 +56,18 @@ public class TransactionConfirmationController {
 				}	
 			}
 			
-			if(opt==3) {
+			if(choice==3) {
 				System.out.println("Enter the Transaction Id");
-				Integer transactionId=Integer.parseInt(br.readLine());
-				System.out.println(service.getConfirmationMessageService(userId, transactionId));	
+				Integer transactionId=Integer.parseInt(buffReader.readLine());
+				System.out.println(transConfService.getConfirmationMessageService(userId, transactionId));	
 			}
 			
-			if(opt==4) {
-				System.out.println("Number of Transactions Completed by "+ userId + " is "+service.numCompletedTransactionService(userId));
+			if(choice==4) {
+				System.out.println("Number of Transactions Completed by "+ userId + " is "+transConfService.numCompletedTransactionService(userId));
 			}
 			
-			if(opt==5) {
-				TransactionSummary res=service.getTransactionSummaryService(userId);
+			if(choice==5) {
+				TransactionSummary res=transConfService.getTransactionSummaryService(userId);
 				if(res!=null) {
 					System.out.println(res.toString());
 				}
@@ -77,10 +77,10 @@ public class TransactionConfirmationController {
 				
 			}
 			
-			if(opt==6) {
+			if(choice==6) {
 				System.out.println("Enter the Transaction Id");
-				Integer transactionId=Integer.parseInt(br.readLine());
-				if(service.hasReceivedNotificationService(userId, transactionId)) {
+				Integer transactionId=Integer.parseInt(buffReader.readLine());
+				if(transConfService.hasReceivedNotificationService(userId, transactionId)) {
 					System.out.println("User "+userId+" has received the notification");
 				}
 				else {
@@ -88,7 +88,7 @@ public class TransactionConfirmationController {
 				}
 			}
 			
-			if(opt==7) {
+			if(choice==7) {
 				System.out.println("Exit");
 				break;
 			}
