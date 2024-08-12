@@ -1,0 +1,6 @@
+Transaction Confirmation Controller 
+The TransactionConfirmationController module handles user interactions related to transaction 
+confirmations. It provides a command-line interface for users to check the status of their transactions, 
+whether notifications have been enabled or received, and to retrieve details about completed transactions.
+ The module interacts with the `TransactionConfirmationService` to perform these operations based on user 
+ input.
