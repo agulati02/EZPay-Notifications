@@ -1,15 +1,15 @@
 package com.ezpay.TransactionConfirmation.service;
-
+import com.ezpay.TransactionConfirmation.model.TransactionSummary;
 import static org.junit.Assert.*;
 
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import com.ezpay.TransactionConfirmation.model.TransactionConfirmation;
-/*
- * Author Name: Akhil
- * Date : 11/08/2024
- */
+
 public class TransactionConfirmationServiceTest {
 	static TransactionConfirmationService transactionConfirmationService;
 	
@@ -115,11 +115,11 @@ public class TransactionConfirmationServiceTest {
     public void testCompletedTransactionServiceSuccess() {
         Integer userId = 1;
 
-        List<Integer> result = transactionConfirmationService.completedTransactionService(userId);
+        TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(userId);
 
-        assertEquals(2, result.size());
-        assertTrue(result.contains(5));
-        assertTrue(result.contains(15));
+        assertEquals(2, result.getCompletedTransactions().size());
+        assertTrue(result.getCompletedTransactions().contains(5));
+        assertTrue(result.getCompletedTransactions().contains(15));
     }
 
     // Test for retrieving an empty list if the user has no completed transactions.
@@ -127,9 +127,9 @@ public class TransactionConfirmationServiceTest {
     public void testCompletedTransactionServiceEmptyList() {
         Integer userId = 4;  // User with no completed transactions
 
-        List<Integer> result = transactionConfirmationService.completedTransactionService(userId);
+        TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(userId);
 
-        assertTrue(result.isEmpty());
+        assertTrue(result.getCompletedTransactions().isEmpty());
     }
 
     // Test for checking if the user has received the notification.
