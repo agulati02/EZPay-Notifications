@@ -18,40 +18,40 @@ import com.ezpay.TransactionConfirmation.model.TransactionSummary;
  * */
 public class TransactionConfirmationService {
 	
-	TransactionConfirmationRepository trRepoConfirmation;
+	TransactionConfirmationRepository transactionRepoConfirmation;
 	
 	public TransactionConfirmationService() {
-		trRepoConfirmation=new TransactionConfirmationRepository();
+		transactionRepoConfirmation=new TransactionConfirmationRepository();
 	}
 	
 	/* Check if the user with userId `userId` has completed the transaction with transactionId `transactionId` */
 	public TransactionConfirmation hasCompletedTransactionService(Integer userId,Integer transactionId) {
-		return trRepoConfirmation.hasCompletedTransaction(userId, transactionId);
+		return transactionRepoConfirmation.hasCompletedTransaction(userId, transactionId);
 	}
 	
 	/* Check if the user with userId `userId` has enabled notifications */
 	public TransactionConfirmation hasEnabledNotitificationService(Integer userId) {
-		return trRepoConfirmation.hasEnabledNotification(userId);
+		return transactionRepoConfirmation.hasEnabledNotification(userId);
 	}
 	
 	/* Getting the Confirmation Message for the Transaction with `transactionId` performed by the User `userId` */
 	public String getConfirmationMessageService(Integer userId,Integer transactionId) {
-		return trRepoConfirmation.getConfirmationMessage(userId, transactionId);
+		return transactionRepoConfirmation.getConfirmationMessage(userId, transactionId);
     }
 	
 	/* Getting the Number of Transaction Completed by the User with `userId` */
 	public Integer numCompletedTransactionService(Integer userId) {
-		return trRepoConfirmation.numCompletedTransaction(userId);
+		return transactionRepoConfirmation.numCompletedTransaction(userId);
     }
 	
 	/* Getting all the Transaction Completed by the User with `userId` */
 	public TransactionSummary getTransactionSummaryService(Integer userId){
-		return trRepoConfirmation.getTransactionSummary(userId);
+		return transactionRepoConfirmation.getTransactionSummary(userId);
 	}
 	
 	/* Check whether the User with `userId` received the Notification or not */
 	public boolean hasReceivedNotificationService(Integer userId,Integer transactionId) {
-		return trRepoConfirmation.hasReceivedNotification(userId, transactionId);
+		return transactionRepoConfirmation.hasReceivedNotification(userId, transactionId);
 	}	
 
 }

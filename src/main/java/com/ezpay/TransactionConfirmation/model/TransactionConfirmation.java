@@ -13,12 +13,12 @@ the user, to retrieve confirmation messages, and to count or list completed tran
 public class TransactionConfirmation {
 	/*
 	  Attributes 
-	  (i) userId: User performing the transaction 
-	  (ii) hasCompleted: Whether the Transaction has Completed or Not 
-	  (iii) enabledNotification: Whether Notification has been enabled by the User or Not 
-	  (iv) confMessage: Confirmation Message sent by the System to the User 
-	 (v) transactionDetail: Transaction Details sent by the System to the User
-	  (vi)hasReceived: Whether Notification has been received by the User or Not 
+	 ** userId: User performing the transaction 
+	 ** hasCompleted: Whether the Transaction has Completed or Not 
+	 ** enabledNotification: Whether Notification has been enabled by the User or Not 
+	 ** confMessage: Confirmation Message sent by the System to the User 
+	 ** transactionDetail: Transaction Details sent by the System to the User
+	 ** hasReceived: Whether Notification has been received by the User or Not 
 	 * */
 	
 	private Integer userId;
