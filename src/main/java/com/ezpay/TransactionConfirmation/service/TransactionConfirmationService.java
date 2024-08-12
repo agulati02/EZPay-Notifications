@@ -1,21 +1,20 @@
 package com.ezpay.TransactionConfirmation.service;
-import java.util.List;
-
 import com.ezpay.TransactionConfirmation.model.TransactionConfirmation;
 import com.ezpay.TransactionConfirmation.repo.*;
+import com.ezpay.TransactionConfirmation.model.TransactionSummary;
 
 /*
-  Author Name: Jai Singh 
- Date Details: 10/08/2024 ( Saturday )
+ * Author Name: Jai Singh 
+ * Date Details: 10/08/2024 * Saturday 
  * */
 
 /* Module Name 
-  The TransactionConfirmationService class serves as a service layer that interacts with the 
-  TransactionConfirmationRepository to manage transaction-related operations. It provides methods 
-  to check if a user has completed a transaction, enabled notifications, received notifications, and 
-  to retrieve confirmation messages. Additionally, it offers functionality to count and list transactions 
-  completed by a user. This service layer acts as an intermediary between the controller and repository, 
-  facilitating data retrieval and business logic execution.
+ * The TransactionConfirmationService class serves as a service layer that interacts with the 
+ * TransactionConfirmationRepository to manage transaction-related operations. It provides methods 
+ * to check if a user has completed a transaction, enabled notifications, received notifications, and 
+ * to retrieve confirmation messages. Additionally, it offers functionality to count and list transactions 
+ * completed by a user. This service layer acts as an intermediary between the controller and repository, 
+ * facilitating data retrieval and business logic execution.
  * */
 public class TransactionConfirmationService {
 	
@@ -46,8 +45,8 @@ public class TransactionConfirmationService {
     }
 	
 	/* Getting all the Transaction Completed by the User with `userId` */
-	public List<Integer> completedTransactionService(Integer userId){
-		return trRepoConfirmation.completedTransaction(userId);
+	public TransactionSummary getTransactionSummaryService(Integer userId){
+		return trRepoConfirmation.getTransactionSummary(userId);
 	}
 	
 	/* Check whether the User with `userId` received the Notification or not */

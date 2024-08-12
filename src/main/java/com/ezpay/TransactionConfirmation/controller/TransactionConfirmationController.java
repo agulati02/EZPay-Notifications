@@ -1,8 +1,7 @@
 package com.ezpay.TransactionConfirmation.controller;
-import com.ezpay.TransactionConfirmation.model.TransactionConfirmation;
 import com.ezpay.TransactionConfirmation.service.TransactionConfirmationService;
+import com.ezpay.TransactionConfirmation.model.TransactionSummary;
 import java.io.*;
-import java.util.List;
 /*
  * Author Name: Jai Singh 
  * Date Details: 10/08/2024 * Saturday 
@@ -32,7 +31,7 @@ public class TransactionConfirmationController {
 			System.out.println("2. Has the user enabled the notification?");
 			System.out.println("3. Get the Confirmation Messages of the Transaction by the User with above id");
 			System.out.println("4. Number of Transaction Completed by the User with above Id");
-			System.out.println("5. List of Transactions which are Completed by the User with above Id");
+			System.out.println("5. Transaction Summary of all Transaction performed by User");
 			System.out.println("6. Has the Transaction Notification been received by the User or not?");
 			System.out.println("7. Exit");
 			Integer opt=Integer.parseInt(br.readLine());
@@ -68,16 +67,14 @@ public class TransactionConfirmationController {
 			}
 			
 			if(opt==5) {
-				List<Integer> res=service.completedTransactionService(userId);
-				if(res.size()==0) {
-					System.out.println("No Transaction Completed by "+userId);
+				TransactionSummary res=service.getTransactionSummaryService(userId);
+				if(res!=null) {
+					System.out.println(res.toString());
 				}
 				else {
-					System.out.println("List of Transactions Completed by "+userId);
-					for(int i=0;i<res.size();i++) {
-						System.out.println("Transaction Id "+res.get(i));
-					}
+					System.out.println("No Transaction Performed by the User");
 				}
+				
 			}
 			
 			if(opt==6) {

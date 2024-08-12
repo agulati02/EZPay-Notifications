@@ -14,6 +14,7 @@ the user, to retrieve confirmation messages, and to count or list completed tran
 import java.util.ArrayList;
 import java.util.List;
 import com.ezpay.TransactionConfirmation.model.TransactionConfirmation;
+import com.ezpay.TransactionConfirmation.model.TransactionSummary;
 
 public class TransactionConfirmationRepository {
     
@@ -24,8 +25,8 @@ public class TransactionConfirmationRepository {
         transactionConfirmation.add(new TransactionConfirmation(1, false, false, "Transaction Incompleted", 2, false));
         transactionConfirmation.add(new TransactionConfirmation(2, true, true, "Transaction Completed", 4, true));
         transactionConfirmation.add(new TransactionConfirmation(3,false,true,"Transaction InCompleted",7,true));
-        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction Incompleted", 5, false));
-        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction Incompleted", 15, true));
+        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction completed", 5, false));
+        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction completed", 15, true));
         
     }
     
@@ -43,6 +44,7 @@ public class TransactionConfirmationRepository {
         }
         return null;
     }
+    
     
     /* Check if the user with userId `userId` has enabled notifications */
     public TransactionConfirmation hasEnabledNotification(Integer userId) {
@@ -87,18 +89,27 @@ public class TransactionConfirmationRepository {
     	return count;
     }
     
-    /* Getting all the Transaction Completed by the User with `userId` */
-    public List<Integer> completedTransaction(Integer userId){
-    	List<Integer> comTrans = new ArrayList<Integer>();
-    	for(TransactionConfirmation transConf:transactionConfirmation) {
-    		// Use equals to compare Integer values
-    		if(transConf.getUserId().equals(userId)) {
-    			if(transConf.getHasCompleted()) {
-    				comTrans.add(transConf.getTransactionId());
-    			}
-    		}
-    	}
-    	return comTrans;
+    
+    /* Method to get a summary of completed and incomplete transactions for a user*/
+    public TransactionSummary getTransactionSummary(Integer userId) {
+        int completedCount = 0;
+        int incompleteCount = 0;
+        List<Integer> completedTransactions = new ArrayList<Integer>();
+        List<Integer> incompleteTransactions = new ArrayList<Integer>();
+
+        for (TransactionConfirmation transConf : transactionConfirmation) {
+            if (transConf.getUserId().equals(userId)) {
+                if (transConf.getHasCompleted()) {
+                    completedCount++;
+                    completedTransactions.add(transConf.getTransactionId());
+                } else {
+                    incompleteCount++;
+                    incompleteTransactions.add(transConf.getTransactionId());
+                }
+            }
+        }
+
+        return new TransactionSummary(completedCount, incompleteCount, completedTransactions, incompleteTransactions);
     }
     
     /* Check whether the User with `userId` received the Notification or not */
@@ -113,5 +124,6 @@ public class TransactionConfirmationRepository {
     	}
     	return false;	
     }
+    
     
 }
