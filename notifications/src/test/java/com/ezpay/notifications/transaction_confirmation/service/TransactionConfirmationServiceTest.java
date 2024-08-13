@@ -107,28 +107,30 @@ public class TransactionConfirmationServiceTest {
 
         assertEquals(Integer.valueOf(0), result);
     }
-
-    // Test for retrieving a list of completed transactions.
+    
+ // Test for retrieving a summary of completed and incomplete transactions.
     @Test
-    public void testCompletedTransactionServiceSuccess() {
+    public void testGetTransactionSummaryServiceSuccess() {
         Integer userId = 1;
 
         TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(userId);
 
         assertEquals(2, result.getCompletedTransactions().size());
+        assertEquals(1, result.getIncompleteTransactions().size());
         assertTrue(result.getCompletedTransactions().contains(5));
         assertTrue(result.getCompletedTransactions().contains(15));
     }
-
-    // Test for retrieving an empty list if the user has no completed transactions.
+    
+ // Test for retrieving a summary for a user with no completed transactions.
     @Test
-    public void testCompletedTransactionServiceEmptyList() {
-        Integer userId = 4;  // User with no completed transactions
+    public void testGetTransactionSummaryServiceNoCompletedTransactions() {
+        Integer userId = 4; // User with no completed transactions
 
         TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(userId);
 
         assertTrue(result.getCompletedTransactions().isEmpty());
     }
+
 
     // Test for checking if the user has received the notification.
     @Test
