@@ -1,5 +1,0 @@
-                                   TransactionConfirmation
-model  class represents the details of a transaction performed by a user. It includes attributes such as 
-userId, transaction completion status, notification settings, confirmation messages, transaction details,
- and whether the user has received the notification. The class provides getter and setter methods for these 
- attributes and includes multiple constructors for initializing instances based on different scenarios.
