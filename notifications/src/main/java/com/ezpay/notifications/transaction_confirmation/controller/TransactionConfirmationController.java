@@ -37,37 +37,36 @@ public class TransactionConfirmationController {
 			System.out.println("7. Exit");
 			Integer choice=Integer.parseInt(buffReader.readLine());
 			
-			if(choice==1) {
+			Integer transactionId;
+			
+			switch(choice) {
+			case 1:
 				System.out.println("Enter the Transaction Id");
-				Integer transactionId=Integer.parseInt(buffReader.readLine());
+				transactionId=Integer.parseInt(buffReader.readLine());
 				if(transConfService.hasCompletedTransactionService(userId, transactionId)!=null) {
 					System.out.println("Transaction Completed");
 				}
 				else {
 					System.out.println("Transaction Not Completed");
 				}
-			}
-			
-			if(choice==2) {
+				break;
+			case 2:
 				if(transConfService.hasEnabledNotitificationService(userId)!=null) {
 					System.out.println("User "+userId+" has enabled the notification.");
 				}
 				else {
 					System.out.println("User "+userId+" has not enabled the notification.");
 				}	
-			}
-			
-			if(choice==3) {
+				break;
+			case 3:
 				System.out.println("Enter the Transaction Id");
-				Integer transactionId=Integer.parseInt(buffReader.readLine());
+				transactionId=Integer.parseInt(buffReader.readLine());
 				System.out.println(transConfService.getConfirmationMessageService(userId, transactionId));	
-			}
-			
-			if(choice==4) {
+				break;
+			case 4:
 				System.out.println("Number of Transactions Completed by "+ userId + " is "+transConfService.numCompletedTransactionService(userId));
-			}
-			
-			if(choice==5) {
+				break;
+			case 5:
 				TransactionSummary  transactionSummaryResult=transConfService.getTransactionSummaryService(userId);
 				if( transactionSummaryResult!=null) {
 					System.out.println( transactionSummaryResult.toString());
@@ -75,22 +74,22 @@ public class TransactionConfirmationController {
 				else {
 					System.out.println("No Transaction Performed by the User");
 				}
-				
-			}
-			
-			if(choice==6) {
+				break;
+			case 6:
 				System.out.println("Enter the Transaction Id");
-				Integer transactionId=Integer.parseInt(buffReader.readLine());
+				transactionId=Integer.parseInt(buffReader.readLine());
 				if(transConfService.hasReceivedNotificationService(userId, transactionId)) {
 					System.out.println("User "+userId+" has received the notification");
 				}
 				else {
 					System.out.println("User "+userId+" has not received the notification");
 				}
-			}
-			
-			if(choice==7) {
+				break;
+			case 7:
 				System.out.println("Exit");
+				return;
+			default:
+				System.out.println("Invalid choice");
 				break;
 			}
 			
