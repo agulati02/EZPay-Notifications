@@ -25,10 +25,9 @@ public class TransactionConfirmationServiceTest {
 	// Test for a scenario where the user has completed a transaction.
     @Test
     public void testHasCompletedTransactionServiceSuccess() {
-        Integer userId = 1;
-        Integer transactionId = 5;
 
-        TransactionConfirmation result = transactionConfirmationService.hasCompletedTransactionService(userId, transactionId);
+
+        TransactionConfirmation result = transactionConfirmationService.hasCompletedTransactionService(1,5);
 
         assertNotNull(result);
         assertTrue(result.getHasCompleted());
@@ -37,10 +36,8 @@ public class TransactionConfirmationServiceTest {
     // Test for a scenario where the user has not completed a transaction.
     @Test
     public void testHasCompletedTransactionServiceFailure() {
-        Integer userId = 1;
-        Integer transactionId = 2;
 
-        TransactionConfirmation result = transactionConfirmationService.hasCompletedTransactionService(userId, transactionId);
+        TransactionConfirmation result = transactionConfirmationService.hasCompletedTransactionService(1,2);
 
         assertNull(result);
     }
@@ -48,9 +45,8 @@ public class TransactionConfirmationServiceTest {
     // Test for a scenario where the user has enabled notifications.
     @Test
     public void testHasEnabledNotitificationServiceSuccess() {
-        Integer userId = 3;
 
-        TransactionConfirmation result = transactionConfirmationService.hasEnabledNotitificationService(userId);
+        TransactionConfirmation result = transactionConfirmationService.hasEnabledNotitificationService(3);
 
         assertNotNull(result);
         assertTrue(result.getEnabledNotification());
@@ -59,9 +55,8 @@ public class TransactionConfirmationServiceTest {
     // Test for a scenario where the user has not enabled notifications.
     @Test
     public void testHasEnabledNotitificationServiceFailure() {
-        Integer userId = 1;
 
-        TransactionConfirmation result = transactionConfirmationService.hasEnabledNotitificationService(userId);
+        TransactionConfirmation result = transactionConfirmationService.hasEnabledNotitificationService(1);
 
         assertNull(result);
     }
@@ -69,10 +64,8 @@ public class TransactionConfirmationServiceTest {
     // Test for retrieving the confirmation message when the transaction is completed.
     @Test
     public void testGetConfirmationMessageServiceSuccess() {
-        Integer userId = 1;
-        Integer transactionId = 15;
 
-        String result = transactionConfirmationService.getConfirmationMessageService(userId, transactionId);
+        String result = transactionConfirmationService.getConfirmationMessageService(1,15);
 
         assertNotEquals("Transaction not performed by User", result);
     }
@@ -80,10 +73,8 @@ public class TransactionConfirmationServiceTest {
     // Test for retrieving the confirmation message when the transaction ID doesn't match.
     @Test
     public void testGetConfirmationMessageServiceFailure() {
-        Integer userId = 1;
-        Integer transactionId = 99;  // Non-existent transaction ID
 
-        String result = transactionConfirmationService.getConfirmationMessageService(userId, transactionId);
+        String result = transactionConfirmationService.getConfirmationMessageService(1,99);
 
         assertEquals("Transaction not performed by User", result);
     }
@@ -91,9 +82,8 @@ public class TransactionConfirmationServiceTest {
     // Test for the number of completed transactions for a user.
     @Test
     public void testNumCompletedTransactionServiceSuccess() {
-        Integer userId = 1;
 
-        Integer result = transactionConfirmationService.numCompletedTransactionService(userId);
+        Integer result = transactionConfirmationService.numCompletedTransactionService(1);
 
         assertEquals(Integer.valueOf(2), result);
     }
@@ -101,9 +91,8 @@ public class TransactionConfirmationServiceTest {
     // Test for the number of completed transactions for a user with no completed transactions.
     @Test
     public void testNumCompletedTransactionServiceNoCompletedTransactions() {
-        Integer userId = 3;  // User with no completed transactions
 
-        Integer result = transactionConfirmationService.numCompletedTransactionService(userId);
+        Integer result = transactionConfirmationService.numCompletedTransactionService(3);
 
         assertEquals(Integer.valueOf(0), result);
     }
@@ -111,9 +100,8 @@ public class TransactionConfirmationServiceTest {
  // Test for retrieving a summary of completed and incomplete transactions.
     @Test
     public void testGetTransactionSummaryServiceSuccess() {
-        Integer userId = 1;
-
-        TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(userId);
+	    
+        TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(1);
 
         assertEquals(2, result.getCompletedTransactions().size());
         assertEquals(1, result.getIncompleteTransactions().size());
@@ -124,9 +112,8 @@ public class TransactionConfirmationServiceTest {
  // Test for retrieving a summary for a user with no completed transactions.
     @Test
     public void testGetTransactionSummaryServiceNoCompletedTransactions() {
-        Integer userId = 4; // User with no completed transactions
 
-        TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(userId);
+        TransactionSummary result = transactionConfirmationService.getTransactionSummaryService(4);
 
         assertTrue(result.getCompletedTransactions().isEmpty());
     }
@@ -135,10 +122,8 @@ public class TransactionConfirmationServiceTest {
     // Test for checking if the user has received the notification.
     @Test
     public void testHasReceivedNotificationServiceSuccess() {
-        Integer userId = 1;
-        Integer transactionId = 15;
 
-        boolean result = transactionConfirmationService.hasReceivedNotificationService(userId, transactionId);
+        boolean result = transactionConfirmationService.hasReceivedNotificationService(1,15);
 
         assertTrue(result);
     }
@@ -149,7 +134,7 @@ public class TransactionConfirmationServiceTest {
         Integer userId = 1;
         Integer transactionId = 5;
 
-        boolean result = transactionConfirmationService.hasReceivedNotificationService(userId, transactionId);
+        boolean result = transactionConfirmationService.hasReceivedNotificationService(1,5);
 
         assertFalse(result);
     }
