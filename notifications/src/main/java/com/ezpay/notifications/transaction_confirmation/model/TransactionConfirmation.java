@@ -96,5 +96,18 @@ public class TransactionConfirmation {
 		setTransactionId(transactionId);
 		setHasReceived(hasReceived);
 	}
+	
+	public TransactionConfirmation(Integer userId, Integer transactionId) {
+		super();
+		setUserId(userId);
+		setTransactionId(transactionId);
+
+	}
+
+	public TransactionConfirmation(Integer userId) {
+		super();
+		setUserId(userId);
+
+	}
 
 }
