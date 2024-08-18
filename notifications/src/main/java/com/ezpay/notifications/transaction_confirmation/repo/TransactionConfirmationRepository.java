@@ -26,8 +26,8 @@ public class TransactionConfirmationRepository {
         transactionConfirmation.add(new TransactionConfirmation(1, false, false, "Transaction Incompleted", 2, false));
         transactionConfirmation.add(new TransactionConfirmation(2, true, true, "Transaction Completed", 4, true));
         transactionConfirmation.add(new TransactionConfirmation(3,false,true,"Transaction InCompleted",7,true));
-        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction completed", 5, false));
-        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction completed", 15, true));
+        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction Completed", 5, false));
+        transactionConfirmation.add(new TransactionConfirmation(1, true, false, "Transaction Completed", 15, true));
         
     }
     
