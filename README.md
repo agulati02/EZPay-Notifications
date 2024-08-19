@@ -31,12 +31,36 @@ Compliance with financial regulations
 - Development must be completed within the specified timeframe and budget.
 - The app must comply with relevant financial regulations and data protection laws.
 
+---
+
+## Notification System
+### User story 1: Transaction Confirmations
+
+- Actors: User, System
+- Description: The system sends transaction confirmation to the user.
+- Preconditions: User has completed a transaction and has enabled notifications.
+- Normal Course:
+  1. The system processes a completed transaction.
+  2. The system generates a confirmation message with transaction details.
+  3. The system sends the confirmation to the user via push notification and email.
+  4. The user receives and views the confirmation.
+
+### User story 2: Payment Reminders
+
+- Actors: User, System
+- Description: The system sends payment reminders to the user.
+- Preconditions: The user has scheduled payments or recurring bills in the system and has enabled reminders.
+- Normal Course:
+  1. The system identifies upcoming payments based on the user's schedule.
+  2. The system generates reminder messages for payments due within the next 3 days.
+  3. The system sends reminders to the user via push notification and email.
+  4. The user receives and views the reminders.
+
+## Architecture Diagram
+
+ ![image](https://github.com/user-attachments/assets/43160711-927a-4032-8d9a-8bb7d5f26b4b)
 
 
 
-
-
-
-
-__By:__ Doneela Das, Geethapriya, Akhil Kholia, Anurag Gulati, Jai Singh
+__By__ Doneela Das, Geethapriya, Akhil Kholia, Anurag Gulati, Jai Singh
 <hr/>
