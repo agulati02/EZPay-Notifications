@@ -16,18 +16,15 @@ import org.junit.After;
 public class TransactionConfirmationServiceTest {
 
 	private TransactionConfirmationService transactionConfirmationService;
-	private TransactionConfirmation transactionConfirmation;
 
 	@Before
 	public void setUp() {
 		transactionConfirmationService = new TransactionConfirmationService();
-		transactionConfirmation = new TransactionConfirmation(1, 5);
 	}
 
 	@After
 	public void tearDown() {
 		transactionConfirmationService = null;
-		transactionConfirmation = null;
 	}
 
 	@Test
