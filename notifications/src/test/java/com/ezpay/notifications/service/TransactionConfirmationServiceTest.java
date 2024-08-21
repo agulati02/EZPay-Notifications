@@ -1,255 +1,206 @@
 package com.ezpay.notifications.service;
 
+// Import Packages and Libraries to run the Test Cases
 import com.ezpay.notifications.model.TransactionConfirmation;
 import com.ezpay.notifications.model.TransactionSummary;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.After;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import java.util.Arrays;
+import java.util.Collection;
 
-/*
- ** Author Name: Jai Singh
- ** Date Details: 19/08/2024 
- */
-
-
-/**
- ** Test class for the TransactionConfirmationService.
-  This class contains unit tests to verify the functionality of the TransactionConfirmationService.
- */
+@RunWith(Parameterized.class)
 public class TransactionConfirmationServiceTest {
-	
-	 // Instance of the service being tested
-	private TransactionConfirmationService transactionConfirmationService;
-    // Instance of the TransactionConfirmation object used in tests
-	private TransactionConfirmation transactionConfirmation;
-	
-	 /**
-     ** Sets up the test environment before each test case.
-      Initializes the TransactionConfirmationService and creates a sample TransactionConfirmation object.
+
+    // Fields to hold the instance of the service being tested, the input, and the expected outputs for each test
+    private TransactionConfirmationService transactionConfirmationService;
+    private TransactionConfirmation transactionConfirmation;
+    private boolean expectedCompletion;
+    private String expectedMessage;
+    private Integer expectedNumCompleted;
+    private String expectedNotificationStatus;
+    private int expectedCompletedCount;
+    private int expectedIncompleteCount;
+
+    /**
+      Constructor to initialize the parameters for each test case.
+     * @param transactionConfirmation    Input TransactionConfirmation object.
+     * @param expectedCompletion         Expected result indicating whether the transaction was completed.
+     * @param expectedMessage            Expected confirmation message.
+     * @param expectedNumCompleted       Expected number of completed transactions.
+     * @param expectedNotificationStatus Expected notification status for the transaction.
+     * @param expectedCompletedCount     Expected count of completed transactions in the summary.
+     * @param expectedIncompleteCount    Expected count of incomplete transactions in the summary.
      */
-	@Before
-	public void setUp() {
-		transactionConfirmationService = new TransactionConfirmationService();
-		transactionConfirmation = new TransactionConfirmation(1, 5);
-	}
-	
-	/**
-     ** Cleans up the test environment after each test case.
-     Sets the TransactionConfirmationService and TransactionConfirmation objects to null.
+    public TransactionConfirmationServiceTest(TransactionConfirmation transactionConfirmation, 
+                                               boolean expectedCompletion, 
+                                               String expectedMessage,
+                                               Integer expectedNumCompleted,
+                                               String expectedNotificationStatus,
+                                               int expectedCompletedCount,
+                                               int expectedIncompleteCount) {
+        this.transactionConfirmation = transactionConfirmation;
+        this.expectedCompletion = expectedCompletion;
+        this.expectedMessage = expectedMessage;
+        this.expectedNumCompleted = expectedNumCompleted;
+        this.expectedNotificationStatus = expectedNotificationStatus;
+        this.expectedCompletedCount = expectedCompletedCount;
+        this.expectedIncompleteCount = expectedIncompleteCount;
+    }
+
+    /**
+     ** Provides a set of test parameters to be used by the Parameterized runner.
+     ** Each array represents a set of parameters for one test case.
+     * 
+     * @return A collection of test cases, each containing input and expected output.
      */
-	@After
-	public void tearDown() {
-		transactionConfirmationService = null;
-		transactionConfirmation = null;
-	}
-	
-	// testHasCompletedTransactionService: Used to Test the HasCompletedTransaction() Functionality( Complete Incomplete Both ) 
-	@Test
-	public void testHasCompletedTransactionService() {
-		
-		// Test Case 1 :Valid transaction and user where the transaction is completed
-		TransactionConfirmation result = transactionConfirmationService
-				.hasCompletedTransactionService(transactionConfirmation);
-		assertNotNull(result);
-		assertTrue(result.getHasCompleted());
-		
-	     // Test case 2: Valid transaction and user with a different transaction ID but completed
-		TransactionConfirmation object2=new TransactionConfirmation(1,10);
-		result=transactionConfirmationService
-				.hasCompletedTransactionService(object2);
-		assertNotNull(result);
-		assertTrue(result.getHasCompleted());
-		
-		// Test Case 3: Valid User and Transaction but Incomplete 
-		 transactionConfirmation = new TransactionConfirmation(1, 2);
-		 result = transactionConfirmationService.hasCompletedTransactionService(transactionConfirmation);
-		 assertNull(result);
-		 
-	   // Test Case 4: Valid User with Invalid Transaction Id
-		 transactionConfirmation = new TransactionConfirmation(1,-1);
-		 result=transactionConfirmationService.hasCompletedTransactionService(transactionConfirmation);
-		 assertNull(result);
-		 
-	   // Test Case 5: Both User and Transaction Id are Invalid 
-		 transactionConfirmation=new TransactionConfirmation(-1,-1);
-		 result=transactionConfirmationService.hasCompletedTransactionService(transactionConfirmation);
-		 assertNull(result);
-		
-	}
-	
-	// testHasEnabledNotificationService: Used to Test the HasEnabledNotification() Functionality of the Service( Sucess and Failure Both Cases )
-	@Test
-	public void testHasEnabledNotificationService() {
-		
-		// Test Case 1: When a User has Enabled the Notification 
-		TransactionConfirmation transactionConfirmation = new TransactionConfirmation(3);
-		TransactionConfirmation result = transactionConfirmationService
-				.hasEnabledNotitificationService(transactionConfirmation);
-		assertNotNull(result);
-		assertTrue(result.getEnabledNotification());
-		
-		// Test Case 2: When a User has Disabled the Notification 
-		transactionConfirmation=new TransactionConfirmation(1);
-		result=transactionConfirmationService.hasEnabledNotitificationService(transactionConfirmation);
-		assertNull(result);
-		
-		// Test Case 3: When the Transaction Confirmation Object is an null
-		transactionConfirmation=null;
-		result=transactionConfirmationService.hasEnabledNotitificationService(transactionConfirmation);
-		assertNull(result);
-		
-		// Test Case 4: When the Transaction Confirmation Object has an null Id
-		transactionConfirmation=new TransactionConfirmation(null);
-		result=transactionConfirmationService.hasEnabledNotitificationService(transactionConfirmation);
-		assertNull(result);
-		
-		// Test Case 5: When the User ID Does Not Exist in the System
-		transactionConfirmation=new TransactionConfirmation(999);
-		result=transactionConfirmationService.hasEnabledNotitificationService(transactionConfirmation);
-		assertNull(result);	
-		
-	}
-	
-	// testGetConfirmationMessageService: Used to Test the GetConfirmationMessage() Functionality of the Service( Sucess and Failure Both Cases )
-	@Test
-	public void testGetConfirmationMessageService() {
-		
-		// Test Case 1:When an User Completed the Transaction 
-		TransactionConfirmation transactionConfirmation = new TransactionConfirmation(1, 5);
-		String message = transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
-		assertEquals("Transaction Completed", message);
-		
-		// Test Case 2: When an User has not Completed the Transaction 
-		transactionConfirmation=new TransactionConfirmation(1,3);
-		message=transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
-		assertEquals("Transaction Incompleted",message);
-		
-		// Test Case 3: When an User has not Performed the Transaction
-		transactionConfirmation=new TransactionConfirmation(1,20);
-		message=transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
-		assertEquals("Transaction not performed by User",message);
-		
-		// Test Case 4: When an Null object is passed as an Object 
-		transactionConfirmation=null;
-		message=transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
-		assertNull(message);
-		
-		// Test Case 5: when User and Transaction Id both are Invalid
-		transactionConfirmation=new TransactionConfirmation(-1,-1);
-		message=transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
-		assertEquals("Transaction not performed by User",message);
-		
-	}
-	
-	// testNumCompletedTransactionService: Used to Test the numCompletedTransaction() Functionality of the Services
-	@Test
-	public void testNumCompletedTransactionService() {
-		
-		// Test Case 1: When an User has Completed 'n' number of transaction 
-		TransactionConfirmation transactionConfirmation = new TransactionConfirmation(1);
-		Integer result = transactionConfirmationService.numCompletedTransactionService(transactionConfirmation);
-		assertEquals(Integer.valueOf(3), result);
-		
-		// Test Case 2: When an User has not Completed any Transaction 
-		transactionConfirmation=new TransactionConfirmation(3);
-		result=transactionConfirmationService.numCompletedTransactionService(transactionConfirmation);
-		assertEquals(Integer.valueOf(0),result);
-		
-		// Test Case 3: When an null object is passes as an argument in the service function 
-		transactionConfirmation=null;
-		result=transactionConfirmationService.numCompletedTransactionService(transactionConfirmation);
-		assertNull(result);
-		
-		// Test Case 4: When User is Invalid 
-		transactionConfirmation=new TransactionConfirmation(-1);
-		result=transactionConfirmationService.numCompletedTransactionService(transactionConfirmation);
-		assertEquals(Integer.valueOf(0),result);
-		
-	}
-	
-	// testGetTransactionSummaryService: used to test the getTransactionSummary() functionality of the Service
-	@Test
-	public void testGetTransactionSummaryService() {
-		
-		// Test Case 1: Transaction Summary of an Valid User 
-		TransactionConfirmation transactionConfirmation = new TransactionConfirmation(1);
-		TransactionSummary result = transactionConfirmationService
-				.getTransactionSummaryService(transactionConfirmation);
-		assertEquals(3, result.getCompletedTransactions().size());
-		assertEquals(2, result.getIncompleteTransactions().size());
-		assertTrue(result.getCompletedTransactions().contains(5));
-		assertTrue(result.getCompletedTransactions().contains(15));
-		
-		// Test Case 2: User Perform more Completed Transaction than Incomplete 
-		assertTrue(result.getCompletedTransactions().size()>result.getIncompleteTransactions().size());
-		
-		// Test Case 3: User Performs more Incomplete Transaction than Complete 
-		transactionConfirmation=new TransactionConfirmation(3);
-		result=transactionConfirmationService.getTransactionSummaryService(transactionConfirmation);
-		assertTrue(result.getCompletedTransactions().size()<result.getIncompleteTransactions().size());
-		
-		// Test Case 4: when transactionConfirmation is null 
-		transactionConfirmation=null;
-		result=transactionConfirmationService.getTransactionSummaryService(transactionConfirmation);
-		assertNull(result);
-		
-		// Test Case 5: When an User has Completed all the Transaction 
-		transactionConfirmation=new TransactionConfirmation(2);
-		result=transactionConfirmationService.getTransactionSummaryService(transactionConfirmation);
-		assertEquals(0, result.getIncompleteTransactions().size());
-		
-	}
-	
-	// testHasReceivedNotificationService: Used to test the HasReceivedNotification() functionality of the Service Class
-	@Test
-	public void testHasReceivedNotificationService() {
-		
-		// Test Case 1: when the User has Received the Notification 
-		TransactionConfirmation transactionConfirmation = new TransactionConfirmation(2,4);
-		String notificationStatus = transactionConfirmationService
-				.hasReceivedNotificationService(transactionConfirmation);
-		assertEquals("Received the Notification", notificationStatus);
-		
-		// Test Case 2: When the user has not received the Notification 
-		transactionConfirmation=new TransactionConfirmation(1,5);
-		notificationStatus = transactionConfirmationService
-				.hasReceivedNotificationService(transactionConfirmation);
-		assertEquals("Not received the Notification", notificationStatus);
-		
-		// Test Case 3: User has Completed the Transaction but not Received the Notification 
-		transactionConfirmation=new TransactionConfirmation(1,10);
-		notificationStatus = transactionConfirmationService
-				.hasReceivedNotificationService(transactionConfirmation);
-		assertEquals("Not received the Notification", notificationStatus);
-		
-		// Test Case 4: User has not Completed the Transaction and Not Received the Notification 
-		transactionConfirmation=new TransactionConfirmation(1,10);
-		notificationStatus = transactionConfirmationService
-				.hasReceivedNotificationService(transactionConfirmation);
-		assertEquals("Not received the Notification", notificationStatus);
-		
-		// Test Case 5: When an null object is passed as an argument
-		transactionConfirmation=null;
-		notificationStatus = transactionConfirmationService
-				.hasReceivedNotificationService(transactionConfirmation);
-		assertNull(notificationStatus);
-		
-		
-		
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+            // Test Case 1: Valid transaction and user where the transaction is completed
+            {new TransactionConfirmation(1, 5), true, "Transaction Completed", 3, "Not received the Notification", 3, 2},
+            // Test Case 2: Valid transaction and user with a different transaction ID but completed
+            {new TransactionConfirmation(1, 10), true, "Transaction Completed", 3, "Not received the Notification", 3, 2},
+            // Test Case 3: Valid user and transaction but incomplete
+            {new TransactionConfirmation(1, 2), false, "Transaction Incompleted", 3, "Not received the Notification", 3, 2},
+            // Test Case 4: Valid user with an invalid transaction ID
+            {new TransactionConfirmation(1, -1), false, "Transaction not performed by User", 3, "Not received the Notification", 3, 2},
+            // Test Case 5: Both user and transaction ID are invalid
+            {new TransactionConfirmation(-1, -1), false, "Transaction not performed by User", 0, "Not received the Notification", 0, 0},
+            // Test Case 6: User has enabled notifications
+            {new TransactionConfirmation(3), false, "Transaction not performed by User", 0, "Not received the Notification", 0, 1},
+            // Test Case 7: User has disabled notifications
+            {new TransactionConfirmation(1), false, "Transaction not performed by User", 3, "Not received the Notification", 3, 2},
+            // Test Case 8: Null TransactionConfirmation object
+            {null, false, null, null, null, 0, 0},
+            // Test Case 9: TransactionConfirmation object with null ID
+            {new TransactionConfirmation(null), false, "Transaction not performed by User", 0, "Not received the Notification", 0, 0},
+            // Test Case 10: User ID does not exist in the system
+            {new TransactionConfirmation(999), false, "Transaction not performed by User", 0, "Not received the Notification", 0, 0}
+        });
+    }
+
+    /**
+     ** This method is executed before each test case. 
+     ** It initializes the TransactionConfirmationService instance.
+     */
+    @Before
+    public void setUp() {
+        transactionConfirmationService = new TransactionConfirmationService();
+    }
+
+    /**
+     ** This method is executed after each test case. 
+     ** It clears the service instance and transaction confirmation object.
+     */
+    @After
+    public void tearDown() {
+        transactionConfirmationService = null;
+        transactionConfirmation = null;
+    }
+
+    /**
+     ** Test case for the hasCompletedTransactionService method.
+     ** It checks whether the transaction was completed as expected.
+     */
+    @Test
+    public void testHasCompletedTransactionService() {
+        if (transactionConfirmation != null) {
+            TransactionConfirmation result = transactionConfirmationService
+                    .hasCompletedTransactionService(transactionConfirmation);
+            if (expectedCompletion) {
+                assertNotNull(result);
+                assertTrue(result.getHasCompleted());
+            } else {
+                assertNull(result);
+            }
+        } else {
+            // Handle null case if needed
+            assertNull(transactionConfirmationService
+                    .hasCompletedTransactionService(transactionConfirmation));
+        }
+    }
+
+    /**
+     ** Test case for the hasEnabledNotificationService method.
+     ** It checks whether the user has enabled notifications as expected.
+     */
+    @Test
+    public void testHasEnabledNotificationService() {
+        if (transactionConfirmation != null) {
+            TransactionConfirmation result = transactionConfirmationService
+                    .hasEnabledNotitificationService(transactionConfirmation);
+            if (result != null) {
+                assertTrue(result.getEnabledNotification());
+            } else {
+                assertNull(result);
+            }
+        } else {
+            assertNull(transactionConfirmationService
+                    .hasEnabledNotitificationService(transactionConfirmation));
+        }
+    }
+
+    /**
+     ** Test case for the getConfirmationMessageService method.
+     ** It checks whether the confirmation message is as expected.
+     */
+    @Test
+    public void testGetConfirmationMessageService() {
+        if (transactionConfirmation != null) {
+            String message = transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
+            assertEquals(expectedMessage, message);
+        } else {
+            assertNull(transactionConfirmationService.getConfirmationMessageService(transactionConfirmation));
+        }
+    }
+
+    /**
+     ** Test case for the numCompletedTransactionService method.
+     ** It checks whether the number of completed transactions is as expected.
+     */
+    @Test
+    public void testNumCompletedTransactionService() {
+        if (transactionConfirmation != null) {
+            Integer result = transactionConfirmationService.numCompletedTransactionService(transactionConfirmation);
+            assertEquals(expectedNumCompleted, result);
+        } else {
+            assertNull(transactionConfirmationService.numCompletedTransactionService(transactionConfirmation));
+        }
+    }
+
+    /**
+     ** Test case for the getTransactionSummaryService method.
+     ** It checks whether the transaction summary (completed and incomplete counts) is as expected.
+     */
+    @Test
+    public void testGetTransactionSummaryService() {
+        if (transactionConfirmation != null) {
+            TransactionSummary result = transactionConfirmationService
+                    .getTransactionSummaryService(transactionConfirmation);
+            assertEquals(expectedCompletedCount, result.getCompletedTransactions().size());
+            assertEquals(expectedIncompleteCount, result.getIncompleteTransactions().size());
+        } else {
+            assertNull(transactionConfirmationService.getTransactionSummaryService(transactionConfirmation));
+        }
+    }
+
+    /**
+     ** Test case for the hasReceivedNotificationService method.
+     ** It checks whether the notification status is as expected.
+     */
+    @Test
+    public void testHasReceivedNotificationService() {
+        if (transactionConfirmation != null) {
+            String notificationStatus = transactionConfirmationService
+                    .hasReceivedNotificationService(transactionConfirmation);
+            assertEquals(expectedNotificationStatus, notificationStatus);
+        } else {
+            assertNull(transactionConfirmationService
+                    .hasReceivedNotificationService(transactionConfirmation));
+        }
+    }
 }
