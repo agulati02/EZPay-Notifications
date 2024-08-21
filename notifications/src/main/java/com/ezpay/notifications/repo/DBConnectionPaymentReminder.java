@@ -79,8 +79,24 @@ public class DBConnectionPaymentReminder {
     }
 
     // Method to fetch payment reminders for a user
+//    public ResultSet fetchPaymentReminders(String userId) {
+//        String query = "SELECT * FROM PaymentReminder WHERE userId = ?";
+//        try {
+//            PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+//            preparedStatement.setString(1, userId);
+//            return preparedStatement.executeQuery();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+    
+    
+    
+ // Method to fetch payment reminders for a user with due date in the past or within the next 3 days
+    
     public ResultSet fetchPaymentReminders(String userId) {
-        String query = "SELECT * FROM PaymentReminder WHERE userId = ?";
+        String query = "SELECT * FROM PaymentReminder WHERE userId = ? AND dueDate <= SYSDATE + INTERVAL '3' DAY";
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(query);
             preparedStatement.setString(1, userId);
