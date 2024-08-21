@@ -21,4 +21,9 @@ INSERT INTO transaction_confirmation (user_id, has_completed, enabled_notificati
 INSERT INTO transaction_confirmation (user_id, has_completed, enabled_notification, conf_message, transaction_id, has_received) VALUES (3, 0, 1,'Transaction Incompleted',7,1);
 INSERT INTO transaction_confirmation (user_id, has_completed, enabled_notification, conf_message, transaction_id, has_received) VALUES (1, 1, 0, 'Transaction Completed', 5, 0);
 INSERT INTO transaction_confirmation (user_id, has_completed, enabled_notification, conf_message, transaction_id, has_received) VALUES (1, 1, 0, 'Transaction Completed', 15, 1);
+INSERT INTO transaction_confirmation (user_id, has_completed, enabled_notification, conf_message, transaction_id, has_received) VALUES (1, 1, 0, 'Transaction Completed', 10, 0);
+INSERT INTO transaction_confirmation (user_id, has_completed, enabled_notification, conf_message, transaction_id, has_received) VALUES (1, 0, 0, 'Transaction Incompleted',3, 0);
+
+
+
 
