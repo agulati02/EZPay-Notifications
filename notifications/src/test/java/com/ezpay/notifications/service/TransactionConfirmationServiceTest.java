@@ -1,11 +1,5 @@
 package com.ezpay.notifications.service;
 
-/* 
-* Author: Jai Singh
-* Date: 20.08.2024
-*/
-
-
 // Import Packages and Libraries to run the Test Cases
 import com.ezpay.notifications.model.TransactionConfirmation;
 import com.ezpay.notifications.model.TransactionSummary;
