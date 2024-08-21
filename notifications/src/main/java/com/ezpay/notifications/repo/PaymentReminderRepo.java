@@ -65,9 +65,7 @@ public class PaymentReminderRepo {
 	 * user.
 	 * 
 	 * @return (Integer) Number of reminders deleted as an acknowledgement.
-	 * 
-	 * Author : Anurag Gulati
-	 * Date: 11.08.2024
+	 *
 	 */
 
     public Integer deleteAllUserReminders(String userId) {

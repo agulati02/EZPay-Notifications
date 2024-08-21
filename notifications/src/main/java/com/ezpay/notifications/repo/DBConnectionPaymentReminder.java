@@ -1,8 +1,9 @@
 package com.ezpay.notifications.repo;
 
-//Author: Doneela Das
-//Date: 19.08.2024
-
+/*
+* Author Name: Doneela Das
+* Date Details: 19/08/2024 
+*/
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -77,25 +78,14 @@ public class DBConnectionPaymentReminder {
             return false;
         }
     }
-
-    // Method to fetch payment reminders for a user
-//    public ResultSet fetchPaymentReminders(String userId) {
-//        String query = "SELECT * FROM PaymentReminder WHERE userId = ?";
-//        try {
-//            PreparedStatement preparedStatement = this.connection.prepareStatement(query);
-//            preparedStatement.setString(1, userId);
-//            return preparedStatement.executeQuery();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-    
     
     
  // Method to fetch payment reminders for a user with due date in the past or within the next 3 days
-    
     public ResultSet fetchPaymentReminders(String userId) {
+        if (userId == null || userId.isEmpty()) {
+            throw new IllegalArgumentException("User ID cannot be null or empty.");
+        }
+
         String query = "SELECT * FROM PaymentReminder WHERE userId = ? AND dueDate <= SYSDATE + INTERVAL '3' DAY";
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(query);
@@ -106,6 +96,7 @@ public class DBConnectionPaymentReminder {
             return null;
         }
     }
+
 
     // Method to delete all reminders for a user
     public int deleteAllUserReminders(String userId) {
