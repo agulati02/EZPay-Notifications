@@ -75,7 +75,6 @@ public class TransactionConfirmationServiceTest {
 		 transactionConfirmation=new TransactionConfirmation(-1,-1);
 		 result=transactionConfirmationService.hasCompletedTransactionService(transactionConfirmation);
 		 assertNull(result);
-		
 	}
 	
 	// testHasEnabledNotificationService: Used to Test the HasEnabledNotification() Functionality of the Service( Sucess and Failure Both Cases )
@@ -108,7 +107,6 @@ public class TransactionConfirmationServiceTest {
 		transactionConfirmation=new TransactionConfirmation(999);
 		result=transactionConfirmationService.hasEnabledNotitificationService(transactionConfirmation);
 		assertNull(result);	
-		
 	}
 	
 	// testGetConfirmationMessageService: Used to Test the GetConfirmationMessage() Functionality of the Service( Sucess and Failure Both Cases )
@@ -139,7 +137,6 @@ public class TransactionConfirmationServiceTest {
 		transactionConfirmation=new TransactionConfirmation(-1,-1);
 		message=transactionConfirmationService.getConfirmationMessageService(transactionConfirmation);
 		assertEquals("Transaction not performed by User",message);
-		
 	}
 	
 	// testNumCompletedTransactionService: Used to Test the numCompletedTransaction() Functionality of the Services
@@ -165,7 +162,6 @@ public class TransactionConfirmationServiceTest {
 		transactionConfirmation=new TransactionConfirmation(-1);
 		result=transactionConfirmationService.numCompletedTransactionService(transactionConfirmation);
 		assertEquals(Integer.valueOf(0),result);
-		
 	}
 	
 	// testGetTransactionSummaryService: used to test the getTransactionSummary() functionality of the Service
@@ -198,7 +194,6 @@ public class TransactionConfirmationServiceTest {
 		transactionConfirmation=new TransactionConfirmation(2);
 		result=transactionConfirmationService.getTransactionSummaryService(transactionConfirmation);
 		assertEquals(0, result.getIncompleteTransactions().size());
-		
 	}
 	
 	// testHasReceivedNotificationService: Used to test the HasReceivedNotification() functionality of the Service Class
@@ -233,23 +228,6 @@ public class TransactionConfirmationServiceTest {
 		transactionConfirmation=null;
 		notificationStatus = transactionConfirmationService
 				.hasReceivedNotificationService(transactionConfirmation);
-		assertNull(notificationStatus);
-		
-		
-		
-		
-		
-		
-		
-		
+		assertNull(notificationStatus);		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
