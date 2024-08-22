@@ -6,10 +6,11 @@ import java.util.Date;
 
 import com.ezpay.notifications.model.PaymentReminder;
 import com.ezpay.notifications.repo.PaymentReminderRepo;
-//import com.ezpay.notifications.repo.PaymentReminderRepo;
 
 /**
- * This is the service layer for payment reminders.
+ * This is the service layer for payment reminders. User input
+ * is validated before relaying to the repository for business logic execution.
+ * 
  * Author: Anurag Gulati
  * Date: 11.08.2024
  */
@@ -22,10 +23,10 @@ public class PaymentReminderService {
 	/**
 	 * Parameterized constructor in case repository is obtained from external source.
 	 * 
-	 * @param	repo: (PaymentReminderRepo) Repository obtained externally.
+	 * @param	paymentReminderRepo: (PaymentReminderRepo) Repository obtained externally.
 	 */
-	public PaymentReminderService(PaymentReminderRepo repo) {
-		this.paymentReminderRepo = repo;
+	public PaymentReminderService(PaymentReminderRepo paymentReminderRepo) {
+		this.paymentReminderRepo = paymentReminderRepo;
 	}
 
 	/**
