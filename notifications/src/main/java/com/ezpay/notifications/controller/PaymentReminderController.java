@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import com.ezpay.notifications.model.PaymentReminder;
 import com.ezpay.notifications.repo.PaymentReminderRepo;
 import com.ezpay.notifications.service.PaymentReminderService;
 
@@ -87,12 +88,12 @@ public class PaymentReminderController {
 	public void fetchPaymentRemindersController(PaymentReminderService paymentReminderService, BufferedReader bufReader) throws IOException {
 		System.out.print("Enter your user ID: ");
 		String userId = bufReader.readLine();
-		ArrayList<String> listOfReminders = paymentReminderService.fetchPaymentRemindersService(userId);
+		ArrayList<PaymentReminder> listOfReminders = paymentReminderService.fetchPaymentRemindersService(userId);
 		if(listOfReminders.isEmpty()) {
 			System.out.println("No payment reminders were found!");
 		} else {
-			for(String reminder : listOfReminders) {
-				System.out.println("- " + reminder);
+			for(PaymentReminder reminder : listOfReminders) {
+				System.out.println(reminder);
 			}
 		}
 	}
