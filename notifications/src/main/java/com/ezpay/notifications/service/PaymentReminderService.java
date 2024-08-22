@@ -1,9 +1,12 @@
 package com.ezpay.notifications.service;
 
 import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 
+import com.ezpay.notifications.model.PaymentReminder;
 import com.ezpay.notifications.repo.PaymentReminderRepo;
+//import com.ezpay.notifications.repo.PaymentReminderRepo;
 
 /**
  * This is the service layer for payment reminders.
@@ -39,7 +42,7 @@ public class PaymentReminderService {
 	public boolean addPaymentReminderService(String reminderId, String userId, Double amount, Date dueDate,
 			String status) {
 		if (reminderId != null && userId != null) {
-			return this.paymentReminderRepo.addPaymentReminder(reminderId, userId, amount, dueDate, status);
+			return this.paymentReminderRepo.addPaymentReminder(reminderId, userId, amount, new java.sql.Date(dueDate.getTime()), status);
 		} else {
 			return false;
 		}
@@ -85,11 +88,11 @@ public class PaymentReminderService {
 	 * @return (ArrayList<String>) List of reminder messages corresponding to the
 	 * given user.
 	 */
-	public ArrayList<String> fetchPaymentRemindersService(String userId) {
+	public ArrayList<PaymentReminder> fetchPaymentRemindersService(String userId) {
 		if (userId != null) {
 			return this.paymentReminderRepo.fetchPaymentReminders(userId);
 		} else {
-			return new ArrayList<String>();
+			return new ArrayList<PaymentReminder>();
 		}
 	}
 	
