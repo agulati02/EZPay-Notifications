@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -54,17 +55,8 @@ public class PaymentReminderServiceTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClassNotFoundException, SQLException {
         paymentReminderService = new PaymentReminderService(new PaymentReminderRepo());
-    }
-
-    // Helper method to parse dates
-    private Date parseDate(String date) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
     }
 
     @Parameterized.Parameters
@@ -89,7 +81,7 @@ public class PaymentReminderServiceTest {
     }
 
     @Test
-    public void testAddPaymentReminderService() {
+    public void testAddPaymentReminderService() throws SQLException {
     	Assume.assumeTrue(userId.equals("U001"));
     	
         boolean result = paymentReminderService.addPaymentReminderService(reminderId, userId, amount, dueDate, status);
@@ -97,7 +89,7 @@ public class PaymentReminderServiceTest {
     }
 
     @Test
-    public void testDeletePaymentReminderService() {
+    public void testDeletePaymentReminderService() throws SQLException {
     	Assume.assumeTrue(userId.equals("U02") || userId.equals("U100"));
     	
         boolean result = paymentReminderService.deletePaymentReminderService(reminderId);
@@ -105,7 +97,7 @@ public class PaymentReminderServiceTest {
     }
 
     @Test
-    public void testDeleteAllUserRemindersService() {
+    public void testDeleteAllUserRemindersService() throws SQLException {
     	Assume.assumeTrue(userId.equals("U03") || userId.equals("U300"));
     	
         int result = paymentReminderService.deleteAllUserRemindersService(userId);
