@@ -1,3 +1,9 @@
+/*
+ * Author Name: Geethapriya Thandavamurthi  
+ * Date Details: 19/08/2024 * Monday 
+ */
+
+
 begin
    execute immediate 'drop table transaction_confirmation';
 exception
