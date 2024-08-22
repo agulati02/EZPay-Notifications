@@ -38,16 +38,16 @@ public class PaymentReminderController {
 	 * Prompt the user for reminder details and add a new
 	 * payment reminder.
 	 */
-	public void addPaymentReminderController(PaymentReminderService paymentReminderService, BufferedReader bufReader) throws IOException, ParseException {
+	public void addPaymentReminderController(PaymentReminderService paymentReminderService, BufferedReader bufferedReader) throws IOException, ParseException {
 		String reminderId = Integer.toString((new Random()).nextInt(Integer.MAX_VALUE));
 		System.out.print("Enter your user ID: ");
-		String userId = bufReader.readLine();
+		String userId = bufferedReader.readLine();
 		System.out.print("Enter the amount (Rs.): ");
-		Double amount = Double.parseDouble(bufReader.readLine());
+		Double amount = Double.parseDouble(bufferedReader.readLine());
 		System.out.print("Enter the due date (DD-MM-YYYY): ");
-		Date dueDate = (new SimpleDateFormat("dd-MM-yyyy")).parse(bufReader.readLine());
+		Date dueDate = (new SimpleDateFormat("dd-MM-yyyy")).parse(bufferedReader.readLine());
 		System.out.print("Enter the status: ");
-		String status = bufReader.readLine();
+		String status = bufferedReader.readLine();
 		
 		boolean addStatus = paymentReminderService.addPaymentReminderService(reminderId, userId, amount, dueDate, status);
 		if(addStatus) {
@@ -60,9 +60,9 @@ public class PaymentReminderController {
 	/**
 	 * Prompt the user for reminder ID to be deleted.
 	 */
-	public void deletePaymentReminderController(PaymentReminderService paymentReminderService, BufferedReader bufReader) throws IOException {
+	public void deletePaymentReminderController(PaymentReminderService paymentReminderService, BufferedReader bufferedReader) throws IOException {
 		System.out.print("Enter the reminder ID to be deleted: ");
-		String reminderId = bufReader.readLine();
+		String reminderId = bufferedReader.readLine();
 		boolean deleteStatus = paymentReminderService.deletePaymentReminderService(reminderId);
 		if(deleteStatus) {
 			System.out.println("Reminder deleted successfully!");
@@ -74,9 +74,9 @@ public class PaymentReminderController {
 	/**
 	 * Prompt the user for their details to remove all reminders.
 	 */
-	public void deleteAllUserRemindersController(PaymentReminderService paymentReminderService, BufferedReader bufReader) throws IOException {
+	public void deleteAllUserRemindersController(PaymentReminderService paymentReminderService, BufferedReader bufferedReader) throws IOException {
 		System.out.print("Enter your user ID: ");
-		String userId = bufReader.readLine();
+		String userId = bufferedReader.readLine();
 		Integer deleteCount = paymentReminderService.deleteAllUserRemindersService(userId);
 		System.out.println(deleteCount + " payment reminders were deleted!");
 	}
@@ -85,9 +85,9 @@ public class PaymentReminderController {
 	 * Prompt the user for their details to display all the 
 	 * upcoming or pending payments within the next 3 days.
 	 */
-	public void fetchPaymentRemindersController(PaymentReminderService paymentReminderService, BufferedReader bufReader) throws IOException {
+	public void fetchPaymentRemindersController(PaymentReminderService paymentReminderService, BufferedReader bufferedReader) throws IOException {
 		System.out.print("Enter your user ID: ");
-		String userId = bufReader.readLine();
+		String userId = bufferedReader.readLine();
 		ArrayList<PaymentReminder> listOfReminders = paymentReminderService.fetchPaymentRemindersService(userId);
 		if(listOfReminders.isEmpty()) {
 			System.out.println("No payment reminders were found!");
@@ -100,7 +100,7 @@ public class PaymentReminderController {
 	
 	public static void main(String[] args) throws IOException, ParseException {
 		
-		BufferedReader bufReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		PaymentReminderController paymentReminderController = new PaymentReminderController();
 		
 		PaymentReminderRepo paymentReminderRepo = new PaymentReminderRepo();
@@ -109,27 +109,27 @@ public class PaymentReminderController {
 		while(true) {
 			paymentReminderController.displayMenu();
 			System.out.print("Choose an option (1/2/3/4): ");
-			Integer choice = Integer.parseInt(bufReader.readLine());
+			Integer choice = Integer.parseInt(bufferedReader.readLine());
 			
 			switch(choice) {
 			case 1:	// CASE: Add a new payment reminder
 			{
-				paymentReminderController.addPaymentReminderController(paymentReminderService, bufReader);
+				paymentReminderController.addPaymentReminderController(paymentReminderService, bufferedReader);
 				break;
 			}
 			case 2:	// CASE: Delete a unique payment reminder
 			{
-				paymentReminderController.deletePaymentReminderController(paymentReminderService, bufReader);
+				paymentReminderController.deletePaymentReminderController(paymentReminderService, bufferedReader);
 				break;
 			}
 			case 3:	// CASE: Display all reminders of a user (due within 3 days)
 			{
-				paymentReminderController.fetchPaymentRemindersController(paymentReminderService, bufReader);
+				paymentReminderController.fetchPaymentRemindersController(paymentReminderService, bufferedReader);
 				break;
 			}
 			case 4:	// CASE: Delete all reminders of a user
 			{
-				paymentReminderController.deleteAllUserRemindersController(paymentReminderService, bufReader);
+				paymentReminderController.deleteAllUserRemindersController(paymentReminderService, bufferedReader);
 				break;
 			}
 			case 5: // CASE: Exit the program
