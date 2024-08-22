@@ -3,11 +3,10 @@ package com.ezpay.notifications.model;
 import java.util.Date;
 
 /**
- * This module outlines the attributes and core 
- * functionalities of a payment reminder.
+ * This module outlines the attributes and core functionalities of a payment
+ * reminder.
  * 
- * Author: Anurag Gulati
- * Date: 10.08.2024
+ * Author: Anurag Gulati Date: 10.08.2024
  */
 public class PaymentReminder {
 
@@ -30,11 +29,11 @@ public class PaymentReminder {
 	}
 
 	/**
-	 * @param reminderId	Primary key for a reminder.
-	 * @param userId		User ID associated with a reminder.
-	 * @param amount		Amount due in the payment.
-	 * @param dueDate		Due date of the payment.
-	 * @param status		Reminder status.
+	 * @param reminderId Primary key for a reminder.
+	 * @param userId     User ID associated with a reminder.
+	 * @param amount     Amount due in the payment.
+	 * @param dueDate    Due date of the payment.
+	 * @param status     Reminder status.
 	 */
 	public PaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status) {
 		super();
@@ -115,5 +114,10 @@ public class PaymentReminder {
 		this.status = status;
 	}
 
-}
+	@Override
+	public String toString() {
+		return "[REM. ID:" + this.reminderId + "] Payment of Rs. " + String.format("%.2f", this.amount) + " due on "
+				+ this.dueDate.toString();
+	}
 
+}
