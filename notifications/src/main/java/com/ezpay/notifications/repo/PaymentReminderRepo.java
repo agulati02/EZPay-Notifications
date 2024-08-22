@@ -5,100 +5,112 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import com.ezpay.notifications.model.PaymentReminder;
 
 /**
  * A repository for payment reminders using JDBC.
- * 
- * Sprint: 2 Author: Doneela Das Date: 20.08.2024
+ * <p>
+ * Sprint: 2
+ * Author: Doneela Das
+ * Date: 20.08.2024
  */
-
-//@SuppressWarnings("deprecation")
 public class PaymentReminderRepo {
-	private DBConnectionPaymentReminder dbConnection;
+    private DBConnectionPaymentReminder dbConnection;
 
-	public PaymentReminderRepo() {
-		this.dbConnection = new DBConnectionPaymentReminder();
-	}
+    /**
+     * Initializes the repository and establishes a database connection.
+     */
+    public PaymentReminderRepo() {
+        try {
+            this.dbConnection = new DBConnectionPaymentReminder();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Database driver class not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Database connection error.");
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * Add a new payment reminder.
-	 * 
-	 * @param reminderId: (String) Unique key of the payment reminder.
-	 * @param userId:     (String) Key to identify the user associated with the
-	 *                    reminder.
-	 * @param amount:     (Double) Amount due in the payment.
-	 * @param dueDate:    (Date) Due date of the payment.
-	 * @param status:     (String) Status of the payment reminder.
-	 * 
-	 * @return (Boolean) A boolean to acknowledge the addition of a payment
-	 *         reminder.
-	 */
+    /**
+     * Add a new payment reminder.
+     *
+     * @param reminderId the unique key of the payment reminder.
+     * @param userId     the key to identify the user associated with the reminder.
+     * @param amount     the amount due in the payment.
+     * @param dueDate    the due date of the payment.
+     * @param status     the status of the payment reminder.
+     * @return true if the payment reminder was added successfully, false otherwise.
+     */
+    public boolean addPaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status) {
+        try {
+            return dbConnection.addPaymentReminder(reminderId, userId, amount, new java.sql.Date(dueDate.getTime()), status);
+        } catch (SQLException e) {
+            System.err.println("Failed to add payment reminder with ID: " + reminderId);
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	public boolean addPaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status) {
-		return dbConnection.addPaymentReminder(reminderId, userId, amount, new java.sql.Date(dueDate.getTime()),
-				status);
-	}
+    /**
+     * Delete a payment reminder.
+     *
+     * @param reminderId the unique ID to identify the record to be deleted.
+     * @return true if the payment reminder was deleted successfully, false otherwise.
+     */
+    public boolean deletePaymentReminder(String reminderId) {
+        try {
+            return dbConnection.deletePaymentReminder(reminderId);
+        } catch (SQLException e) {
+            System.err.println("Failed to delete payment reminder with ID: " + reminderId);
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	/**
-	 * Delete a payment reminder.
-	 * 
-	 * @param reminderId: (String) Unique to identify the record to be deleted.
-	 * 
-	 * @return (Boolean) A boolean to acknowledge the deletion of a payment
-	 *         reminder.
-	 */
+    /**
+     * Delete all payment reminders corresponding to a user.
+     *
+     * @param userId the unique ID to find and delete all reminders for a user.
+     * @return the number of reminders deleted.
+     */
+    public Integer deleteAllUserReminders(String userId) {
+        try {
+            return dbConnection.deleteAllUserReminders(userId);
+        } catch (SQLException e) {
+            System.err.println("Failed to delete all reminders for user ID: " + userId);
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
-	public boolean deletePaymentReminder(String reminderId) {
-		return dbConnection.deletePaymentReminder(reminderId);
-	}
+    /**
+     * Fetch all payment reminders for a given user with due date in the past or within the next 3 days.
+     *
+     * @param userId the unique ID to identify the user.
+     * @return a list of payment reminders corresponding to the given user.
+     */
+    public ArrayList<PaymentReminder> fetchPaymentReminders(String userId) {
+        ArrayList<PaymentReminder> paymentReminders = new ArrayList<>();
+        try (Connection connection = dbConnection.getConnection();
+             ResultSet resultSet = dbConnection.fetchPaymentReminders(userId)) {
 
-	/**
-	 * Delete all payment reminders corresponding to a user.
-	 * 
-	 * @param userId: (String) Unique key to find and delete all reminders for a
-	 *                user.
-	 * 
-	 * @return (Integer) Number of reminders deleted as an acknowledgement.
-	 *
-	 */
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    String reminderId = resultSet.getString("reminderId");
+                    String user = resultSet.getString("userId");
+                    Double amount = resultSet.getDouble("amount");
+                    Date dueDate = resultSet.getDate("dueDate");
+                    String status = resultSet.getString("status");
 
-	public Integer deleteAllUserReminders(String userId) {
-		return dbConnection.deleteAllUserReminders(userId);
-	}
-
-	/**
-	 * Fetch all payment reminders for a given user with due date in the past or
-	 * within the next 3 days.
-	 * 
-	 * @param userId: (String) Unique key identify the user.
-	 * 
-	 * @return (ArrayList<String>) List of reminder messages corresponding to the
-	 *         given user.
-	 */
-	public ArrayList<PaymentReminder> fetchPaymentReminders(String userId) {
-		ArrayList<PaymentReminder> paymentReminders = new ArrayList<>();
-		try (Connection connection = dbConnection.getConnection()) {
-			ResultSet resultSet = dbConnection.fetchPaymentReminders(userId);
-
-			if (resultSet != null) {
-				while (resultSet.next()) {
-					String reminderId = resultSet.getString("reminderId");
-					String user = resultSet.getString("userId");
-					Double amount = resultSet.getDouble("amount");
-					Date dueDate = resultSet.getDate("dueDate");
-					String status = resultSet.getString("status");
-
-					PaymentReminder paymentReminder = new PaymentReminder(reminderId, user, amount, dueDate, status);
-					paymentReminders.add(paymentReminder);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return paymentReminders;
-	}
-
+                    PaymentReminder paymentReminder = new PaymentReminder(reminderId, user, amount, dueDate, status);
+                    paymentReminders.add(paymentReminder);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to fetch payment reminders for user ID: " + userId);
+            e.printStackTrace();
+        }
+        return paymentReminders;
+    }
 }
