@@ -12,56 +12,79 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * NotificationService class This service class handles the business logic for
+ * processing transactions and managing notifications. It interacts with the
+ * repository layer to perform CRUD operations on Transaction and Notification
+ * entities.
+ * 
+ * @author Akhil Kholia
+ * @date 2024-08-31
+ */
 @Service
 public class NotificationService {
 
-    @Autowired
-    NotificationRepo notificationRepo;
-    @Autowired
-    UserRepo userRepo;
-    @Autowired
-    TransactionRepo transactionRepo;
+	@Autowired
+	NotificationRepo notificationRepo;
 
+	@Autowired
+	UserRepo userRepo;
 
-    public void processTransation(Transaction transaction) {
-        //find user from UID
-        Long uid = transaction.getUserId();
-        System.out.println("UID: "+ uid);
-        User user = userRepo.findUserById(uid);
-        if(user != null) {
+	@Autowired
+	TransactionRepo transactionRepo;
 
-            //add transaction to the db (process transaction)
-            try {
-                transactionRepo.save(transaction);
-            }catch (Exception e){
-                System.out.println("Exception occured while adding Transaction!! "+e);
-            }
+	/**
+     * Processes a transaction by saving it to the database and generating a notification if the user has enabled notifications.
+     * 
+     * @param transaction The transaction object to be processed.
+     */
+	public void processTransaction(Transaction transaction) {
+		// Extract the user ID from the transaction
+		Long userId = transaction.getUserId();
+//		System.out.println("UID: " + uid);
+		User user = userRepo.findUserById(userId);
+		if (user != null) {
 
+			// Save the transaction to the database
+			try {
+				transactionRepo.save(transaction);
+			} catch (Exception e) {
+				System.out.println("Exception occured while saving Transaction: " + e);
+			}
 
-            if(user.isNotificationEnabled())
-                //add new notification
-                notificationRepo.save(new Notification("Transaction "+transaction.getStatus()+" Transaction ID: "+ transaction.getId(), uid, transaction.getId()));
-        }else {
-            System.out.println("User Not Found!");
-        }
-    }
+			// Check if notifications are enabled for the user
+			if (user.isNotificationsEnabled()) {
+				// Create and save a new notification for the transaction
+				Notification notification = new Notification("Transaction " + transaction.getStatus() + " - Transaction ID: " + transaction.getId(), userId, transaction.getId());
+                notificationRepo.save(notification);
+			}
+		} else {
+			System.out.println("User not found with ID: " + userId);
+		}
+	}
+	
 
+	/**
+     * Retrieves the list of notifications for a given user ID.
+     * 
+     * @param userId The ID of the user for whom to retrieve notifications.
+     * @return A list of Notification objects for the user, or null if notifications are disabled or user not found.
+     */
+	public List<Notification> getNotificationsForUser(Long userId) {
+		// Find user by ID
+		User user = userRepo.findUserById(userId);
+		if (user != null) {
+			// Check if notifications are enabled for the user
+			if (user.isNotificationsEnabled()) {
+				return notificationRepo.findByUserId(userId);
+			} else {
+				System.out.println("Notifications are disabled for user with ID: " + userId);
+				return null;
+			}
+		} else {
+			System.out.println("User not found with ID: " + userId);
+		}
 
-    public List<Notification> getNotificationsForUser(Long uId){
-        //find user from UID
-
-        User user = userRepo.findUserById(uId);
-        if(user != null) {
-            if(user.isNotificationEnabled()) {
-                return notificationRepo.findByUserId(uId);
-            }else {
-                System.out.println("Notification Disabled for this user");
-                return null;
-            }
-        }else {
-            System.out.println("User Not Found!");
-        }
-
-        return null;
-    }
+		return null;
+	}
 }
