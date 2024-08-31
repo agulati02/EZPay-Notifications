@@ -7,6 +7,13 @@ import jakarta.persistence.Id;
 
 import java.util.Date;
 
+/**
+ * Transaction class
+ * Represents a financial transaction entity.
+ * 
+ * @author Akhil Kholia
+ * @date 2024-08-31
+ */
 @Entity
 public class Transaction {
     @Id
@@ -17,6 +24,8 @@ public class Transaction {
     private double amount;
     private Date date;
     private String status;
+    
+    public Transaction() {}
 
     public String getType() {
         return type;
@@ -58,7 +67,5 @@ public class Transaction {
         return userId;
     }
 
-    public Transaction() {
-
-    }
+    
 }
