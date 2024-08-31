@@ -9,63 +9,66 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * User class Represents a user entity with basic authentication and
+ * notification settings.
+ * 
+ * @author Akhil Kholia
+ * @date 2024-08-31
+ */
 @Entity
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private boolean notificationEnabled;
-    private String userName;
-    private String password;
-    private String email;
-    private Date regDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private boolean notificationsEnabled;
+	private String username;
+	private String password;
+	private String email;
+	private Date registrationDate;
 
-    public String getUserName() {
-        return userName;
-    }
+	public User() {
+		notificationsEnabled = true;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public boolean isNotificationsEnabled() {
+		return notificationsEnabled;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setNotificationsEnabled(boolean notificationsEnabled) {
+		this.notificationsEnabled = notificationsEnabled;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public Date getRegDate() {
-        return regDate;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public User() {
-        notificationEnabled = true;
-    }
-    public boolean isNotificationEnabled() {
-        return notificationEnabled;
-    }
-    public void setNotificationEnabled(boolean notificationEnabled) {
-        this.notificationEnabled = notificationEnabled;
-    }
-    public Long getId() {
-        return id;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
 
-
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
 
 }
