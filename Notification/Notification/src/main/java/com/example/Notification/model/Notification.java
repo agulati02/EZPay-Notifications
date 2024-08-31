@@ -6,6 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.aspectj.weaver.ast.Not;
 
+/**
+ * Notification class
+ * Represents a notification entity linked to a user and transaction.
+ * 
+ * @author Akhil Kholia
+ * @date 2024-08-31
+ */
+
 @Entity
 public class Notification {
     @Id
@@ -13,21 +21,31 @@ public class Notification {
     private Long id;
     private Long userId;
     private Long transactionId;
-    private String notificationString;
+    private String notificationContent;
+    
+    /**
+     * Constructor to initialize Notification with details.
+     * 
+     * @param notificationContent Content of the notification.
+     * @param userId User ID associated with the notification.
+     * @param transactionId Transaction ID linked to the notification.
+     */
 
-    public Notification(String notificationString, Long userId, Long tid) {
-        setNotificationString(notificationString);
+    public Notification(String notificationContent, Long userId, Long transactionId) {
+    	this.notificationContent = notificationContent;
         this.userId = userId;
-        this.transactionId = tid;
+        this.transactionId = transactionId;
     }
     public Notification(){}
+    
+ // Getters and setters
 
-    public String getNotificationString() {
-        return notificationString;
+    public String getNotificationContent() {
+        return notificationContent;
     }
 
-    public void setNotificationString(String notificationString) {
-        this.notificationString = notificationString;
+    public void setNotificationContent(String notificationContent) {
+        this.notificationContent = notificationContent;
     }
 
     public Long getTransactionId() {
