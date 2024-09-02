@@ -34,14 +34,15 @@ public class NotificationService {
 	TransactionRepo transactionRepo;
 
 	/**
-     * Processes a transaction by saving it to the database and generating a notification if the user has enabled notifications.
-     * 
-     * @param transaction The transaction object to be processed.
-     */
+	 * Processes a transaction by saving it to the database and generating a
+	 * notification if the user has enabled notifications.
+	 * 
+	 * @param transaction The transaction object to be processed.
+	 */
 	public void processTransaction(Transaction transaction) {
 		// Extract the user ID from the transaction
 		Long userId = transaction.getUserId();
-//		System.out.println("UID: " + uid);
+		// System.out.println("UID: " + uid);
 		User user = userRepo.findUserById(userId);
 		if (user != null) {
 
@@ -55,21 +56,23 @@ public class NotificationService {
 			// Check if notifications are enabled for the user
 			if (user.isNotificationsEnabled()) {
 				// Create and save a new notification for the transaction
-				Notification notification = new Notification("Transaction " + transaction.getStatus() + " - Transaction ID: " + transaction.getId(), userId, transaction.getId());
-                notificationRepo.save(notification);
+				Notification notification = new Notification(
+						"Transaction " + transaction.getStatus() + " - Transaction ID: " + transaction.getId(), userId,
+						transaction.getId());
+				notificationRepo.save(notification);
 			}
 		} else {
 			System.out.println("User not found with ID: " + userId);
 		}
 	}
-	
 
 	/**
-     * Retrieves the list of notifications for a given user ID.
-     * 
-     * @param userId The ID of the user for whom to retrieve notifications.
-     * @return A list of Notification objects for the user, or null if notifications are disabled or user not found.
-     */
+	 * Retrieves the list of notifications for a given user ID.
+	 * 
+	 * @param userId The ID of the user for whom to retrieve notifications.
+	 * @return A list of Notification objects for the user, or null if notifications
+	 *         are disabled or user not found.
+	 */
 	public List<Notification> getNotificationsForUser(Long userId) {
 		// Find user by ID
 		User user = userRepo.findUserById(userId);

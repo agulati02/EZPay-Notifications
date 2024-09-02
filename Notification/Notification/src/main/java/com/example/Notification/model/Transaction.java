@@ -24,8 +24,9 @@ public class Transaction {
     private double amount;
     private Date date;
     private String status;
-    
-    public Transaction() {}
+
+    public Transaction() {
+    }
 
     public String getType() {
         return type;
@@ -67,5 +68,4 @@ public class Transaction {
         return userId;
     }
 
-    
 }

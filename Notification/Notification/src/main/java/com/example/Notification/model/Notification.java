@@ -22,23 +22,25 @@ public class Notification {
     private Long userId;
     private Long transactionId;
     private String notificationContent;
-    
+
     /**
      * Constructor to initialize Notification with details.
      * 
      * @param notificationContent Content of the notification.
-     * @param userId User ID associated with the notification.
-     * @param transactionId Transaction ID linked to the notification.
+     * @param userId              User ID associated with the notification.
+     * @param transactionId       Transaction ID linked to the notification.
      */
 
     public Notification(String notificationContent, Long userId, Long transactionId) {
-    	this.notificationContent = notificationContent;
+        this.notificationContent = notificationContent;
         this.userId = userId;
         this.transactionId = transactionId;
     }
-    public Notification(){}
-    
- // Getters and setters
+
+    public Notification() {
+    }
+
+    // Getters and setters
 
     public String getNotificationContent() {
         return notificationContent;

@@ -12,8 +12,8 @@ import java.util.List;
  * NotificationController class Handles REST API requests for notifications and
  * transactions.
  * 
- * @author Akhil Kholia
- * @date 2024-08-31
+ * author Akhil Kholia
+ * date 2024-08-31
  */
 
 @RestController
@@ -22,10 +22,10 @@ public class NotificationController {
 	@Autowired
 	NotificationService notificationService;
 
-//    @GetMapping("/test")
-//    public String test(){
-//        return "testing";
-//    }
+	// @GetMapping("/test")
+	// public String test(){
+	// return "testing";
+	// }
 
 	/**
 	 * Processes a transaction and triggers notification logic.
@@ -36,7 +36,8 @@ public class NotificationController {
 	@PostMapping("/processTransaction")
 	public void processTransaction(@RequestBody Transaction transaction) {
 		// Log transaction details for debugging
-//		System.out.println(transaction.getId() + "---------" + transaction.getUserId());
+		// System.out.println(transaction.getId() + "---------" +
+		// transaction.getUserId());
 		notificationService.processTransaction(transaction);
 	}
 
