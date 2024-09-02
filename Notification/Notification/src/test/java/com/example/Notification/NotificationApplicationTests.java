@@ -6,7 +6,7 @@ import com.example.Notification.model.User;
 import com.example.Notification.repository.NotificationRepo;
 import com.example.Notification.repository.TransactionRepo;
 import com.example.Notification.repository.UserRepo;
-import com.example.Notification.service.NotificationService;
+import com.example.Notification.service.TransactionConfirmationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,8 +20,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 /**
- * Test class for the NotificationService.
- * This class contains unit tests to verify the functionality of the NotificationService.
+ * Test class for the TransactionConfirmationService.
+ * This class contains unit tests to verify the functionality of the TransactionConfirmationService.
  * 
  * @author Geethapriya Thandavamurthi
  * @date 2024-09-02
@@ -42,7 +42,7 @@ class NotificationApplicationTests {
     private TransactionRepo transactionRepo;
 
     @InjectMocks
-    private NotificationService notificationService;
+    private TransactionConfirmationService transactionConfirmationService;
 
     @BeforeEach
     void setUp() {
@@ -64,7 +64,7 @@ class NotificationApplicationTests {
 
         when(userRepo.findUserById(1L)).thenReturn(user);
        
-        notificationService.processTransaction(transaction);
+        transactionConfirmationService.processTransaction(transaction);
      
         verify(transactionRepo, times(1)).save(transaction);
         verify(notificationRepo, times(1)).save(any(Notification.class));
@@ -79,7 +79,7 @@ class NotificationApplicationTests {
         //User with id = 2L does not exist
         when(userRepo.findUserById(2L)).thenReturn(null);
       
-        notificationService.processTransaction(transaction);
+        transactionConfirmationService.processTransaction(transaction);
 
         verify(transactionRepo, never()).save(transaction);
         verify(notificationRepo, never()).save(any(Notification.class));
@@ -103,7 +103,7 @@ class NotificationApplicationTests {
         when(userRepo.findUserById(1L)).thenReturn(user);
         when(notificationRepo.findByUserId(1L)).thenReturn(notifications);
 
-        List<Notification> result = notificationService.getNotificationsForUser(1L);
+        List<Notification> result = transactionConfirmationService.getNotificationsForUser(1L);
 
         assertEquals(2, result.size());
         verify(notificationRepo, times(1)).findByUserId(1L);
@@ -114,7 +114,7 @@ class NotificationApplicationTests {
     	//User with id = 3L does not exist
         when(userRepo.findUserById(3L)).thenReturn(null);
 
-        List<Notification> result = notificationService.getNotificationsForUser(3L);
+        List<Notification> result = transactionConfirmationService.getNotificationsForUser(3L);
 
         assertEquals(null, result);
         verify(notificationRepo, never()).findByUserId(3L);
