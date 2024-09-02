@@ -20,6 +20,7 @@ import java.util.List;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
 	private boolean notificationsEnabled;
 	private String username;
@@ -31,6 +32,11 @@ public class User {
 		notificationsEnabled = true;
 	}
 
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public boolean isNotificationsEnabled() {
 		return notificationsEnabled;
 	}
