@@ -1,10 +1,11 @@
-package main.java.com.example.Notification.service;
+package com.example.Notification.service;
 
-import com.ezpay.notifications.model.PaymentReminder;
-import com.ezpay.notifications.repo.PaymentReminderRepo;
+import com.example.Notification.model.PaymentReminder;
+import com.example.Notification.repository.PaymentReminderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
 public class PaymentReminderService {
 
     @Autowired
-    private PaymentReminderRepo paymentReminderRepo;
+    private PaymentReminderRepository paymentReminderRepo;
 
     /**
      * Adds a new payment reminder.
@@ -33,7 +34,7 @@ public class PaymentReminderService {
      * @param status:     Reminder status.
      * @return Boolean Acknowledging the addition of the payment reminder.
      */
-    public boolean addPaymentReminder(String reminderId, String userId, Double amount, java.sql.Date dueDate,
+    public boolean addPaymentReminderService(String reminderId, String userId, Double amount, Date dueDate,
             String status) {
         if (reminderId != null && userId != null) {
             return paymentReminderRepo.addPaymentReminder(reminderId, userId, amount, dueDate, status);
@@ -47,7 +48,7 @@ public class PaymentReminderService {
      * @param reminderId: Unique reminder ID to identify the record to be deleted.
      * @return Boolean Acknowledging the deletion of the payment reminder.
      */
-    public boolean deletePaymentReminder(String reminderId) {
+    public boolean deletePaymentReminderService(String reminderId) {
         if (reminderId != null) {
             return paymentReminderRepo.deletePaymentReminder(reminderId);
         }
@@ -60,7 +61,7 @@ public class PaymentReminderService {
      * @param userId: Unique key to find and delete all reminders for a user.
      * @return Integer Number of reminders deleted as an acknowledgement.
      */
-    public int deleteAllUserReminders(String userId) {
+    public int deleteAllUserRemindersService(String userId) {
         if (userId != null) {
             return paymentReminderRepo.deleteAllUserReminders(userId);
         }
@@ -73,9 +74,9 @@ public class PaymentReminderService {
      * @param userId: Unique key to identify the user.
      * @return List<PaymentReminder> List of payment reminders for the given user.
      */
-    public List<PaymentReminder> fetchPaymentReminders(String userId) {
+    public List<PaymentReminder> fetchPaymentRemindersService(String userId) {
         if (userId != null) {
-            return paymentReminderRepo.fetchPaymentReminders(userId);
+            return paymentReminderRepo.findByUserId(userId);
         }
         return List.of(); // Return an empty list if userId is null
     }
