@@ -1,6 +1,6 @@
-package main.java.com.example.Notification.model;
+package com.example.Notification.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 /**
