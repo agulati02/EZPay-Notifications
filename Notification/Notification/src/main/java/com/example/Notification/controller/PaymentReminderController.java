@@ -1,8 +1,8 @@
-package main.java.com.example.Notification.controller;
+package com.example.Notification.controller;
 
 
-import com.ezpay.notifications.model.PaymentReminder;
-import com.ezpay.notifications.service.PaymentReminderService;
+import com.example.Notification.model.PaymentReminder;
+import com.example.Notification.service.PaymentReminderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
