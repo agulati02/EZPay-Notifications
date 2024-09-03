@@ -61,22 +61,34 @@ public interface PaymentReminderRepo extends JpaRepository<PaymentReminder, Stri
         return count;
     }
 
+    // /**
+    // * Fetches all payment reminders for a specific user.
+    // *
+    // * @param userId the unique user ID.
+    // * @return a list of PaymentReminder objects.
+    // */
+    // List<PaymentReminder> findByUserId(String userId);
+
+    // /**
+    // * Fetches all payment reminders for a user with a due date between the
+    // * specified dates.
+    // *
+    // * @param userId the unique user ID.
+    // * @param fromDate the start date.
+    // * @param toDate the end date.
+    // * @return a list of PaymentReminder objects.
+    // */
+    // List<PaymentReminder> findByUserIdAndDueDateBetween(String userId, Date
+    // fromDate, Date toDate);
+
     /**
-     * Fetches all payment reminders for a specific user.
+     * Fetches payment reminders for a specific user that are due within the next 3
+     * days.
      * 
      * @param userId the unique user ID.
      * @return a list of PaymentReminder objects.
      */
-    List<PaymentReminder> findByUserId(String userId);
 
-    /**
-     * Fetches all payment reminders for a user with a due date between the
-     * specified dates.
-     * 
-     * @param userId   the unique user ID.
-     * @param fromDate the start date.
-     * @param toDate   the end date.
-     * @return a list of PaymentReminder objects.
-     */
-    List<PaymentReminder> findByUserIdAndDueDateBetween(String userId, Date fromDate, Date toDate);
+    @Query("SELECT pr FROM PaymentReminder pr WHERE pr.userId = :userId AND pr.dueDate BETWEEN CURRENT_DATE AND CURRENT_DATE + 3")
+    List<PaymentReminder> findByUserId(@Param("userId") String userId);
 }
