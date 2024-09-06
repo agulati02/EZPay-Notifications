@@ -1,5 +1,25 @@
 package com.example.Notification;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import com.example.Notification.model.Notification;
 import com.example.Notification.model.Transaction;
 import com.example.Notification.model.User;
@@ -7,18 +27,6 @@ import com.example.Notification.repository.NotificationRepo;
 import com.example.Notification.repository.TransactionRepo;
 import com.example.Notification.repository.UserRepo;
 import com.example.Notification.service.TransactionConfirmationService;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import java.util.Arrays;
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 /**
  * Test class for the NotificationService.
@@ -31,7 +39,7 @@ import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
-class NotificationApplicationTests {
+public class NotificationApplicationTests {
 
 
     @Mock
@@ -46,7 +54,33 @@ class NotificationApplicationTests {
     @InjectMocks
     private TransactionConfirmationService transactionConfirmationService;
 
-    @BeforeEach
+    // Static nested configuration class
+    @Configuration
+    static class TestConfig {
+
+        // Define beans that are required for this test or mock them
+        @Bean
+        public TransactionConfirmationService transactionConfirmationService() {
+            return new TransactionConfirmationService();
+        }
+
+        @Bean
+        public NotificationRepo notificationRepo() {
+            return mock(NotificationRepo.class);
+        }
+
+        @Bean
+        public UserRepo userRepo() {
+            return mock(UserRepo.class);
+        }
+
+        @Bean
+        public TransactionRepo transactionRepo() {
+            return mock(TransactionRepo.class);
+        }
+    }
+    
+    @Before
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
