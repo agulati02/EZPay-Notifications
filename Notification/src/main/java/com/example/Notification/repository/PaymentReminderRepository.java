@@ -14,11 +14,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * PaymentReminderRepo interface Repository interface for PaymentReminder
- * entity, providing CRUD operations. This interface allows for interaction with
- * the database for PaymentReminder-related queries.
+ * PaymentReminderRepository interface
+ * Repository interface for PaymentReminder entity, providing CRUD operations.
+ * This interface allows for interaction with the database for
+ * PaymentReminder-related queries.
  * 
- * Author: Doneela Das Date: 02-09-2024
+ * Author: Doneela Das
+ * Date: 02-09-2024
  */
 @Repository
 public interface PaymentReminderRepository extends JpaRepository<PaymentReminder, String> {
@@ -62,7 +64,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	@Modifying
 	@Query("DELETE FROM PaymentReminder pr WHERE pr.userId = :userId")
 	int deleteAllByUserId(@Param("userId") String userId);
-	
+
 	/**
 	 * Fetches payment reminders for a specific user that are due within the next 3
 	 * days.
@@ -74,7 +76,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	default List<PaymentReminder> findRemindersByUserId(@Param("userId") String userId) {
 		List<PaymentReminder> reminderList = findByUserId(userId);
 		Iterator<PaymentReminder> iterator = reminderList.iterator();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Long differenceMilliseconds = iterator.next().getDueDate().getTime() - (new Date()).getTime();
 			Long differenceDays = TimeUnit.MILLISECONDS.toDays(differenceMilliseconds) + 1;
 			if (differenceDays >= 3) {
@@ -83,7 +85,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 		}
 		return reminderList;
 	}
-	
+
 	List<PaymentReminder> findByUserId(String userId);
 
 }

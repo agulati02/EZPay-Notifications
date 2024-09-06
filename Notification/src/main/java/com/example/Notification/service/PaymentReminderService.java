@@ -14,30 +14,29 @@ import java.util.List;
  * It interacts with the repository layer to perform CRUD operations on
  * PaymentReminder entities.
  * 
- * @author Doneela Das
- * @date 02-09-2024
+ * Author: Doneela Das
+ * Date: 02-09-2024
  */
-
 @Service
 public class PaymentReminderService {
 
     @Autowired
-    private PaymentReminderRepository paymentReminderRepo;
+    private PaymentReminderRepository paymentReminderRepository;
 
     /**
      * Adds a new payment reminder.
      * 
-     * @param reminderId: Unique reminder ID.
-     * @param userId:     Unique user identification code.
-     * @param amount:     Amount due in the payment.
-     * @param dueDate:    Due date of the payment.
-     * @param status:     Reminder status.
+     * @param reminderId Unique reminder ID.
+     * @param userId     Unique user identification code.
+     * @param amount     Amount due in the payment.
+     * @param dueDate    Due date of the payment.
+     * @param status     Reminder status.
      * @return Boolean Acknowledging the addition of the payment reminder.
      */
     public boolean addPaymentReminderService(String reminderId, String userId, Double amount, Date dueDate,
             String status) {
         if (reminderId != null && userId != null) {
-            return paymentReminderRepo.addPaymentReminder(reminderId, userId, amount, dueDate, status);
+            return paymentReminderRepository.addPaymentReminder(reminderId, userId, amount, dueDate, status);
         }
         return false;
     }
@@ -45,12 +44,12 @@ public class PaymentReminderService {
     /**
      * Deletes a payment reminder based on the unique reminder ID.
      * 
-     * @param reminderId: Unique reminder ID to identify the record to be deleted.
+     * @param reminderId Unique reminder ID to identify the record to be deleted.
      * @return Boolean Acknowledging the deletion of the payment reminder.
      */
     public boolean deletePaymentReminderService(String reminderId) {
         if (reminderId != null) {
-            return paymentReminderRepo.deletePaymentReminder(reminderId);
+            return paymentReminderRepository.deletePaymentReminder(reminderId);
         }
         return false;
     }
@@ -58,12 +57,12 @@ public class PaymentReminderService {
     /**
      * Deletes all payment reminders for a specific user.
      * 
-     * @param userId: Unique key to find and delete all reminders for a user.
+     * @param userId Unique key to find and delete all reminders for a user.
      * @return Integer Number of reminders deleted as an acknowledgement.
      */
     public int deleteAllUserRemindersService(String userId) {
         if (userId != null) {
-            return paymentReminderRepo.deleteAllByUserId(userId);
+            return paymentReminderRepository.deleteAllByUserId(userId);
         }
         return 0;
     }
@@ -71,12 +70,12 @@ public class PaymentReminderService {
     /**
      * Fetches all payment reminders for a specific user.
      * 
-     * @param userId: Unique key to identify the user.
+     * @param userId Unique key to identify the user.
      * @return List<PaymentReminder> List of payment reminders for the given user.
      */
     public List<PaymentReminder> fetchPaymentRemindersService(String userId) {
         if (userId != null) {
-            return paymentReminderRepo.findRemindersByUserId(userId);
+            return paymentReminderRepository.findRemindersByUserId(userId);
         }
         return List.of(); // Return an empty list if userId is null
     }
