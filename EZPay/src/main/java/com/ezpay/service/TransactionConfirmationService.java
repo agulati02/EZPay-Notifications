@@ -6,10 +6,17 @@ import com.ezpay.entity.User;
 import com.ezpay.repository.NotificationRepo;
 import com.ezpay.repository.TransactionRepo;
 import com.ezpay.repository.UserRepo;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.text.SimpleDateFormat;
+
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
  * TransactionConfirmationService class This service class handles the business
@@ -32,6 +39,9 @@ public class TransactionConfirmationService {
 
 	@Autowired
 	TransactionRepo transactionRepo;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	/**
 	 * Processes a transaction by saving it to the database and generating a
@@ -44,6 +54,8 @@ public class TransactionConfirmationService {
 		String userId = transaction.getUserId();
 		// System.out.println("UID: " + uid);
 		User user = userRepo.findUserById(userId);
+		
+		String toEmail = "sjai48578@gmail.com";
 		if (user != null) {
 
 			// Save the transaction to the database
@@ -63,11 +75,12 @@ public class TransactionConfirmationService {
 					    "Transaction ID: " + transaction.getId() + "\n" +
 					    "Amount: ₹" + String.format("%.2f", transaction.getAmount()) + "\n" +
 					    "Type: " + transaction.getType() + "\n" +
-					    "Date: " + formattedDate,
+					    "Date of Transaction: " + formattedDate,
 					    userId,
 					    transaction.getId()
 					);
 				notificationRepo.save(notification);
+				sendNotificationEmail(toEmail,transaction);
 			}
 		} else {
 			System.out.println("User not found with ID: " + userId);
@@ -127,5 +140,44 @@ public class TransactionConfirmationService {
         return false;
     }
 	
+    /**
+     * Sends the notification to the user's email address.
+     * 
+     * @param toEmail The recipient's email address.
+     * @param content The content to be sent.
+     */
+    private void sendNotificationEmail(String toEmail, Transaction transaction) {
+        MimeMessage message = mailSender.createMimeMessage();
+        
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(toEmail);
+            helper.setSubject("You have notification(s) regarding your transactions!");
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = formatter.format(transaction.getDateOfTransaction());
+
+            String content = "<p>Hi " + transaction.getUserId() + ",</p>"
+                    + "<p>We are pleased to inform you that your transaction has been successfully processed. Below are the details of the transaction:</p>"
+                    + "<p><span style='font-weight:bold;'>Transaction ID:</span> " + transaction.getId() + "<br>"
+                    + "<span style='font-weight:bold;'>Amount:</span> ₹" + String.format("%.2f", transaction.getAmount()) + "<br>"
+                    + "<span style='font-weight:bold;'>Transaction Type:</span> " + transaction.getType() + "<br>"
+                    + "<span style='font-weight:bold;'>Date of Transaction:</span> " + formattedDate + "</p><br>"
+                    + "<p><span style='font-weight:bold;'>If you didn't initiate this transaction, contact us immediately.</span></p>" 
+                    + "<p>If you have any questions, please don't hesitate to contact us.</p>"
+                    + "<p>Thank you for using our services!</p>"
+                    + "<p>Best regards,<br>EZPay</p>";
+
+            helper.setText(content, true); // Set 'true' for HTML content
+
+            // Send the email
+            mailSender.send(message);
+            
+        } catch (MessagingException e) {
+            System.out.println("Failed to send email: " + e.getMessage());
+        }
+    }
+
+
 	
 }
