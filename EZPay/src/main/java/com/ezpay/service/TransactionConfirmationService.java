@@ -39,7 +39,7 @@ public class TransactionConfirmationService {
 
 	@Autowired
 	TransactionRepo transactionRepo;
-
+	
 	@Autowired
 	private JavaMailSender mailSender;
 
@@ -54,8 +54,7 @@ public class TransactionConfirmationService {
 		String userId = transaction.getUserId();
 		// System.out.println("UID: " + uid);
 		User user = userRepo.findUserById(userId);
-
-		String toEmail = "sjai48578@gmail.com";
+		
 		if (user != null) {
 
 			// Save the transaction to the database
@@ -69,17 +68,18 @@ public class TransactionConfirmationService {
 			if (user.isNotificationsEnabled()) {
 				// Create and save a new notification for the transaction
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				String formattedDate = formatter.format(transaction.getDateOfTransaction());
+		        String formattedDate = formatter.format(transaction.getDateOfTransaction());
 				Notification notification = new Notification(
-						"Transaction " + transaction.getStatus() + "\n" +
-								"Transaction ID: " + transaction.getId() + "\n" +
-								"Amount: ₹" + String.format("%.2f", transaction.getAmount()) + "\n" +
-								"Type: " + transaction.getType() + "\n" +
-								"Date of Transaction: " + formattedDate,
-						userId,
-						transaction.getId());
+					    "Transaction "+ transaction.getStatus() + "\n" +
+					    "Transaction ID: " + transaction.getId() + "\n" +
+					    "Amount: ₹" + String.format("%.2f", transaction.getAmount()) + "\n" +
+					    "Type: " + transaction.getType() + "\n" +
+					    "Date of Transaction: " + formattedDate,
+					    userId,
+					    transaction.getId()
+					);
 				notificationRepo.save(notification);
-				sendNotificationEmail(toEmail, transaction);
+				sendNotificationEmail(user.getEmail(),transaction);
 			}
 		} else {
 			System.out.println("User not found with ID: " + userId);
@@ -110,71 +110,73 @@ public class TransactionConfirmationService {
 
 		return null;
 	}
-
+	
 	/**
-	 * Deletes all notification for a given user ID.
-	 * 
-	 * @param userID The ID of the user whose notifications are to be deleted.
-	 */
+     * Deletes all notification for a given user ID.
+     * 
+     * @param userID The ID of the user whose notifications are to be deleted.
+     */
 	public void deleteAllNotifications(String userId) {
 		// Find notifications by userId
 		List<Notification> notifications = notificationRepo.findByUserId(userId);
-		if (notifications != null && !notifications.isEmpty()) {
-			// Delete all notifications
-			notificationRepo.deleteAll(notifications);
-		}
-	}
-
+        if (notifications != null && !notifications.isEmpty()) {
+        	// Delete all notifications
+            notificationRepo.deleteAll(notifications);
+        }
+    }
+	
 	/**
-	 * Deletes a specific notification by its ID.
-	 * 
-	 * @param notificationId The ID of the notification to delete.
-	 * @return true if deletion is successful, false if not found.
-	 */
-	public boolean deleteNotificationById(Long notificationId) {
-		if (notificationRepo.existsById(notificationId)) {
-			notificationRepo.deleteById(notificationId);
-			return true;
-		}
-		return false;
-	}
+     * Deletes a specific notification by its ID.
+     * 
+     * @param notificationId The ID of the notification to delete.
+     * @return true if deletion is successful, false if not found.
+     */
+    public boolean deleteNotificationById(Long notificationId) {
+        if (notificationRepo.existsById(notificationId)) {
+            notificationRepo.deleteById(notificationId);
+            return true;
+        }
+        return false;
+    }
+	
+    /**
+     * Sends the notification to the user's email address.
+     * 
+     * @param toEmail The recipient's email address.
+     * @param content The content to be sent.
+     */
+    private void sendNotificationEmail(String toEmail, Transaction transaction) {
+        MimeMessage message = mailSender.createMimeMessage();
+        
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(toEmail);
+            helper.setSubject("You have notification(s) regarding your transactions!");
 
-	/**
-	 * Sends the notification to the user's email address.
-	 * 
-	 * @param toEmail The recipient's email address.
-	 * @param content The content to be sent.
-	 */
-	private void sendNotificationEmail(String toEmail, Transaction transaction) {
-		MimeMessage message = mailSender.createMimeMessage();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = formatter.format(transaction.getDateOfTransaction());
 
-		try {
-			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-			helper.setTo(toEmail);
-			helper.setSubject("EZPay : Your Recent Transaction Confirmation");
+            String content = "<p>Hi " + transaction.getUserId() + ",</p>"
+                    + "<p>We are pleased to inform you that your transaction has been successfully processed. Below are the details of the transaction:</p>"
+                    + "<p><span style='font-weight:bold;'>Transaction ID:</span> " + transaction.getId() + "<br>"
+                    + "<span style='font-weight:bold;'>Amount:</span> ₹" + String.format("%.2f", transaction.getAmount()) + "<br>"
+                    + "<span style='font-weight:bold;'>Transaction Type:</span> " + transaction.getType() + "<br>"
+                    + "<span style='font-weight:bold;'>Date of Transaction:</span> " + formattedDate + "</p><br>"
+                    + "<p><span style='font-weight:bold;'>If you didn't initiate this transaction, contact us immediately.</span></p>" 
+                    + "<p>If you have any questions, please don't hesitate to contact us.</p>"
+                    + "<p>Thank you for using our services!</p>"
+                    + "<p>Best regards,<br>EZPay</p>";
 
-			SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-			String formattedDate = formatter.format(transaction.getDateOfTransaction());
+            helper.setText(content, true); // Set 'true' for HTML content
 
-			String content = "<p>Dear " + transaction.getUserId() + ",</p>"
-					+ "<p>We are pleased to confirm that your recent transaction has been successfully processed. Below are the details for your reference:</p>"
-					+ "<p><strong>Transaction ID:</strong> " + transaction.getId() + "<br>"
-					+ "<strong>Amount:</strong> ₹" + String.format("%.2f", transaction.getAmount()) + "<br>"
-					+ "<strong>Transaction Type:</strong> " + transaction.getType() + "<br>"
-					+ "<strong>Date of Transaction:</strong> " + formattedDate + "</p><br>"
-					+ "<p>If you did not initiate this transaction, please contact us immediately.</p>"
-					+ "<p>For any other questions or assistance, feel free to reach out. We are always here to help.</p>"
-					+ "<p>Thank you for choosing EZPay. We value your continued trust in our services.</p>"
-					+ "<p>Best regards,<br>EZPay Customer Support</p>";
+            // Send the email
+            mailSender.send(message);
+            
+        } catch (MessagingException e) {
+            System.out.println("Failed to send email: " + e.getMessage());
+        }
+    }
 
-			helper.setText(content, true); // Set 'true' for HTML content
 
-			// Send the email
-			mailSender.send(message);
-
-		} catch (MessagingException e) {
-			System.out.println("Failed to send email: " + e.getMessage());
-		}
-	}
-
+	
 }
