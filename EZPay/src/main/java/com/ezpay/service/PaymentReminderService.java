@@ -159,7 +159,7 @@ public class PaymentReminderService {
                     + "<strong>Due Date:</strong> " + formattedDueDate + "</p>"
                     + "<p>If you have already made this payment, please disregard this reminder.</p>"
                     + "<p>Thank you for using our services!</p>"
-                    + "<p>Best regards,<br>EZPay Customer Service Team</p>";
+                    + "<p>Best regards,<br>EZPay Customer Support</p>";
 
             helper.setText(content, true); // Set to true for HTML content
             mailSender.send(email);
