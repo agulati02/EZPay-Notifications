@@ -35,6 +35,15 @@ public class PaymentReminderService {
 
     /**
      * Adds a new payment reminder.
+     * 
+     * @param reminderId Unique reminder ID.
+     * @param userId     Unique user identification code.
+     * @param amount     Amount due in the payment.
+     * @param dueDate    Due date of the payment.
+     * @param status     Reminder status.
+     * @return Boolean Acknowledging the addition of the payment reminder.
+     * 
+     *         Adds a new payment reminder.
      */
     public boolean addPaymentReminderService(String reminderId, String userId, Double amount, Date dueDate,
             String status) {
@@ -46,7 +55,11 @@ public class PaymentReminderService {
 
     /**
      * Deletes a payment reminder based on the unique reminder ID.
+     * 
+     * @param reminderId Unique reminder ID to identify the record to be deleted.
+     * @return Boolean Acknowledging the deletion of the payment reminder.
      */
+
     public boolean deletePaymentReminderService(String reminderId) {
         if (reminderId != null) {
             return paymentReminderRepository.deletePaymentReminder(reminderId);
@@ -56,6 +69,9 @@ public class PaymentReminderService {
 
     /**
      * Deletes all payment reminders for a specific user.
+     * 
+     * @param userId Unique key to find and delete all reminders for a user.
+     * @return Integer Number of reminders deleted as an acknowledgement.
      */
     public int deleteAllUserRemindersService(String userId) {
         if (userId != null) {
@@ -65,11 +81,31 @@ public class PaymentReminderService {
     }
 
     /**
-     * Fetches all payment reminders for a specific user.
+     * Fetches all payment reminders for a specific user and filters the reminders
+     * that
+     * are due within the next 3 days.
+     * 
+     * @param userId Unique key to identify the user.
+     * @return List<PaymentReminder> List of payment reminders due within the next 3
+     *         days.
      */
-    public List<PaymentReminder> fetchPaymentRemindersService(String userId) {
+    public List<PaymentReminder> fetchUpcomingRemindersService(String userId) {
         if (userId != null) {
             return paymentReminderRepository.findRemindersByUserId(userId);
+        }
+        return List.of(); // Return an empty list if userId is null
+    }
+
+    /**
+     * Fetches all payment reminders for a specific user.
+     * 
+     * @param userId Unique key to identify the user.
+     * @return List<PaymentReminder> List of all payment reminders for the given
+     *         user.
+     */
+    public List<PaymentReminder> fetchAllRemindersService(String userId) {
+        if (userId != null) {
+            return paymentReminderRepository.findByUserId(userId);
         }
         return List.of(); // Return an empty list if userId is null
     }
