@@ -36,13 +36,20 @@ export const Login = () => {
     <div className="container login-container">
       <div className="main-title">
         <div className="heading-div">
-          <h1 className="heading">
-            <span>EZ</span>Pay
-          </h1>
+          <div className="heading">
+            <div className="adj-list">
+              <ul>
+                <li>Your one-stop solution for</li>
+                <li><span className="word-secure">SECURE</span></li>
+                <li><span className="word-easy">SEAMLESS</span></li>
+                <li>Digital Payments</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="subheading-div">
+        {/* <div className="subheading-div">
           <h2 className="subheading">SECURE AND EFFICIENT DIGITAL PAYMENT SOLUTION</h2>
-        </div>
+        </div> */}
         <div className="desc-div">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae semper nulla, a ultrices tellus. Curabitur interdum finibus ex sit amet rhoncus. Nam ut nibh finibus, egestas libero quis, lacinia.
@@ -50,11 +57,13 @@ export const Login = () => {
         </div>
       </div>
       <div className="login-box">
-        <h2 className="login-header">Login Page</h2>
+        <h2 className="login-header">
+          <span>EZPay</span> Login
+        </h2>
 
         <div className="form-group mb-3">
           <label className="form-label">
-            User ID <span style={{'color':'red'}}>*</span>
+            User ID <span style={{ 'color': 'red' }}>*</span>
           </label>
           <input
             type="text"
@@ -68,7 +77,7 @@ export const Login = () => {
 
         <div className="form-group mb-3">
           <label className="form-label">
-            Password <span style={{'color':'red'}}>*</span>
+            Password <span style={{ 'color': 'red' }}>*</span>
           </label>
           <input
             type="password"

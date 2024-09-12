@@ -41,20 +41,72 @@
 }
 
 .heading {
-  font-size: 4rem;
+  font-size: 3rem;
   background: none;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 10vh;
+  /* background-color: #05437a; */
   /* text-transform: uppercase; */
-  font-style: italic;
-  letter-spacing: 2px;
-  margin-bottom: -2vh;
+  /* font-style: italic; */
+  /* letter-spacing: 2px; */
+  /* margin-bottom: -2vh; */
   /* margin-top: -20vh; */
 }
 
+ul {
+  /* background-color: #05437a; */
+  display: inline-block;
+  list-style: none;
+  /* margin-top: -4rem; */
+  /* margin-bottom: -4rem; */
+  padding: 0;
+  line-height: 4rem;
+  height: 4.5rem;
+  overflow: hidden;
+}
+
+@keyframes slide-up {
+
+  0%,
+  20% {
+    transform: translateY(0%);
+  }
+
+  25%,
+  45% {
+    transform: translateY(-100%);
+  }
+
+  50%,
+  70% {
+    transform: translateY(-200%);
+  }
+
+  75%,
+  95% {
+    transform: translateY(-300%);
+  }
+}
+
+ul li {
+  animation: slide-up 8s infinite;
+}
+
 .heading span {
-  color: #ffd180;
+  color: #f5c777;
   /* -webkit-text-stroke: 2px #333; */
+}
+
+.word-secure {
+  animation: animateSecure 2s infinite;
+}
+
+.word-easy {
+  animation: animateEasy 2s infinite;
 }
 
 .subheading {
@@ -90,7 +142,10 @@
   text-align: center;
   color: #05437a;
   font-weight: bold;
-  text-transform: uppercase;
+}
+
+.login-header span {
+  font-style: italic;
 }
 
 /* Input Fields */
@@ -147,7 +202,7 @@
 }
 
 .login-btn:active {
-  background: linear-gradient(135deg, #6b6b6b, #333);
+  /* background: linear-gradient(135deg, #6b6b6b, #333); */
   transform: translateY(1px);
   /* Pressed effect */
 }
