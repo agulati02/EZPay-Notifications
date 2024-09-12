@@ -47,6 +47,12 @@ public class PaymentReminder {
     private String status;
 
     /**
+     * The email address of the user for sending reminders.
+     */
+    @Column(name = "user_email")  // Add the user email field
+    private String userEmail;
+
+    /**
      * Default constructor.
      */
     public PaymentReminder() {
@@ -61,14 +67,18 @@ public class PaymentReminder {
      * @param amount     Amount due in the payment.
      * @param dueDate    Due date of the payment.
      * @param status     Reminder status.
+     * @param userEmail  Email address of the user.
      */
-    public PaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status) {
+    public PaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status, String userEmail) {
         this.reminderId = reminderId;
         this.userId = userId;
         this.amount = amount;
         this.dueDate = dueDate;
         this.status = status;
+        this.userEmail = userEmail;
     }
+
+    // Getters and setters
 
     /**
      * Gets the reminder ID.
@@ -158,6 +168,24 @@ public class PaymentReminder {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * Gets the user email associated with the reminder.
+     * 
+     * @return the user email.
+     */
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    /**
+     * Sets the user email associated with the reminder.
+     * 
+     * @param userEmail the email to set.
+     */
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     /**
