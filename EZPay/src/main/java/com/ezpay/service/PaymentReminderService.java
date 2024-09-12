@@ -1,38 +1,35 @@
 package com.ezpay.service;
-
 import com.ezpay.entity.PaymentReminder;
 import com.ezpay.repository.PaymentReminderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 /**
  * PaymentReminderService class
- * This service class handles the business logic for managing payment reminders
- * and sending email notifications for upcoming payments.
+ * This service class handles the business logic for managing payment reminders.
+ * It interacts with the repository layer to perform CRUD operations on
+ * PaymentReminder entities.
  * 
  * Author: Doneela Das
- * Date: 12-09-2024
+ * Date: 02-09-2024
  */
 @Service
 public class PaymentReminderService {
-
     @Autowired
     private PaymentReminderRepository paymentReminderRepository;
-
-    @Autowired
     private JavaMailSender mailSender;
 
+
+    // Constructor injection for PaymentReminderRepo and JavaMailSender
+    public PaymentReminderService(PaymentReminderRepository paymentReminderRepository, JavaMailSender mailSender) {
+        this.paymentReminderRepo = paymentReminderRepo;
+        this.mailSender = mailSender;
+    }
     /**
      * Adds a new payment reminder.
      * 
@@ -42,8 +39,6 @@ public class PaymentReminderService {
      * @param dueDate    Due date of the payment.
      * @param status     Reminder status.
      * @return Boolean Acknowledging the addition of the payment reminder.
-     * 
-     *         Adds a new payment reminder.
      */
     public boolean addPaymentReminderService(String reminderId, String userId, Double amount, Date dueDate,
             String status) {
@@ -52,21 +47,18 @@ public class PaymentReminderService {
         }
         return false;
     }
-
     /**
      * Deletes a payment reminder based on the unique reminder ID.
      * 
      * @param reminderId Unique reminder ID to identify the record to be deleted.
      * @return Boolean Acknowledging the deletion of the payment reminder.
      */
-
     public boolean deletePaymentReminderService(String reminderId) {
         if (reminderId != null) {
             return paymentReminderRepository.deletePaymentReminder(reminderId);
         }
         return false;
     }
-
     /**
      * Deletes all payment reminders for a specific user.
      * 
@@ -79,9 +71,11 @@ public class PaymentReminderService {
         }
         return 0;
     }
-
     /**
      * Fetches all payment reminders for a specific user.
+     * 
+     * @param userId Unique key to identify the user.
+     * @return List<PaymentReminder> List of payment reminders for the given user.
      */
     public List<PaymentReminder> fetchPaymentRemindersService(String userId) {
         if (userId != null) {
@@ -90,61 +84,58 @@ public class PaymentReminderService {
         return List.of(); // Return an empty list if userId is null
     }
 
-    /**
-     * Scheduled task to send email notifications for payment reminders.
-     * This method runs once a day.
-     */
-    @Scheduled(cron = "0 0 9 * * ?") // Runs daily at 9 AM
-    public void sendReminderEmails() {
-        List<PaymentReminder> reminders = paymentReminderRepository.findAll(); // Fetch all reminders
+    public String getReminderEmail(String reminderId) {
+        PaymentReminder reminder = paymentReminderRepository.findById(reminderId);
+        if (reminder != null) {
+            String userEmail = userRepository.findById(reminder.getUserId()).getEmail(); 
+            return userEmail;
+        }
+        return null; // Or handle accordingly if reminder not found.
+    }
 
-        Date today = new Date();
+    /**
+     * Send reminder emails for payments due within the next 3 days or on the due date.
+     */
+    public void sendReminderEmails() {
+        List<PaymentReminder> reminders = fetchPaymentRemindersWithinNext3Days();
+        
         for (PaymentReminder reminder : reminders) {
-            long daysDifference = calculateDaysDifference(today, reminder.getDueDate());
-            if (daysDifference == 0) {
-                sendReminderEmail(reminder, "Today is the payment deadline.");
-            } else if (daysDifference == 1) {
-                sendReminderEmail(reminder, "Your payment is due tomorrow.");
-            } else if (daysDifference == 3) {
-                sendReminderEmail(reminder, "Your payment is due in 3 days.");
+            String recipientEmail = reminder.getUserEmail();  // Assuming this field exists in PaymentReminder
+            String subject = "Payment Reminder: Payment Due Soon";
+            String message = generateEmailMessage(reminder);
+            
+            try {
+                sendEmail(recipientEmail, subject, message);
+            } catch (MessagingException e) {
+                // Handle email sending exception (log it, notify admin, etc.)
+                System.err.println("Failed to send email to " + recipientEmail);
+                e.printStackTrace();
             }
         }
     }
 
     /**
-     * Helper method to calculate the difference in days between two dates.
+     * Generate email message content based on the reminder.
      */
-    private long calculateDaysDifference(Date currentDate, Date dueDate) {
-        long diffInMillies = Math.abs(dueDate.getTime() - currentDate.getTime());
-        return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    private String generateEmailMessage(PaymentReminder reminder) {
+        return "Dear " + reminder.getUserName() + ",\n\n"
+                + "This is a reminder that your payment of " + reminder.getAmountDue()
+                + " is due on " + reminder.getDueDate() + ". Please make your payment on or before the due date.\n\n"
+                + "Thank you,\nYour Payment Service";
     }
 
     /**
-     * Sends the reminder email to the user.
+     * Send email using Spring's JavaMailSender and MimeMessageHelper.
      */
-    private void sendReminderEmail(PaymentReminder reminder, String message) {
-        try {
-            MimeMessage email = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(email, true, "UTF-8");
-            helper.setTo(reminder.getUserEmail());
-            helper.setSubject("EZPay : Payment Reminder");
+    private void sendEmail(String to, String subject, String content) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDueDate = formatter.format(reminder.getDueDate());
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(content);
 
-            String content = "<p>Dear " + reminder.getUserId() + ",</p>"
-                    + "<p>" + message + " Please find the details below:</p>"
-                    + "<p><strong>Reminder ID:</strong> " + reminder.getReminderId() + "<br>"
-                    + "<strong>Amount:</strong> ₹" + String.format("%.2f", reminder.getAmount()) + "<br>"
-                    + "<strong>Due Date:</strong> " + formattedDueDate + "</p>"
-                    + "<p>If you have already made this payment, please disregard this reminder.</p>"
-                    + "<p>Thank you for using our services!</p>"
-                    + "<p>Best regards,<br>EZPay Customer Support</p>";
-
-            helper.setText(content, true); // Set to true for HTML content
-            mailSender.send(email);
-        } catch (MessagingException e) {
-            System.out.println("Failed to send reminder email: " + e.getMessage());
-        }
+        mailSender.send(mimeMessage);
+        System.out.println("Sent message successfully to " + to);
     }
 }
