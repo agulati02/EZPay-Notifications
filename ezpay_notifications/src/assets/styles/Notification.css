@@ -1,0 +1,151 @@
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-thin-straight/css/uicons-thin-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+
+/* Container for the Notification Section */
+.notification-container {
+    display: block;
+    overflow: auto;
+    scrollbar-width: none;
+    /* flex-direction: column; */
+    height: 100vh; /* Full viewport height */
+    width: 92vw;
+    background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8vh 8vh 0 0;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 2vh;
+    /* background-image: url('../images/dollar.jpg'); Add your background image here */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent repeating */
+}
+
+
+
+/* Notification List Item */
+.notification {
+    background-color: #fff;
+    width: 80%;
+    margin: 1.5vh auto;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,.175);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 200ms ease, background-color 200ms ease;
+    position: relative;
+}
+
+.notification:hover {
+    /* background-color: #f0f0f0; */
+    transform: scale(1.02);
+}
+
+/* Text inside Notification */
+.rem-text {
+    font-size: 1.1rem;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+}
+
+/* Delete Button Styling */
+.delete-notification-button {
+    background: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 200ms ease, transform 200ms ease;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.delete-notification-button:hover {
+    color: #c82333;
+    transform: scale(1.1);
+}
+
+/* Message Display */
+.message {
+    width: 80%;
+    margin: 2vh auto;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+@keyframes sizeChange {
+0% {
+    font-size: 4rem;
+}
+50% {
+    font-size: 4.25rem;
+}
+100% {
+    font-size: 4rem;
+}
+}
+
+.tick-mark {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: #dc3545; */
+    text-align: center;
+}
+
+.tick-mark i {
+    font-size: 3rem;
+    color: #348ddc;
+    translate: 0 0 5px;
+    animation: sizeChange 1s infinite ease-in-out;
+}
+
+.message span {
+    /* position: absolute; */
+    margin-top: 2vh;
+}
+
+.clear-notif-btn-div {
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color:#333; */
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Clear Notifications Button */
+.btn-danger {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 12px;
+    background-color: #05437a;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    transition: background-color 200ms ease, transform 200ms ease;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.no-notifications {
+    font-size: 5rem;
+}

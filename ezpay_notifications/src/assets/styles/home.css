@@ -1,0 +1,98 @@
+body {
+    background: linear-gradient(to bottom right, #348ddc, #c8e8ff);
+}
+
+/* General Styles */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    width: 92vw;
+    background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8vh 8vh 0 0;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 2vh;
+    /* background-image: url('../images/dollar.jpg'); Add your background image here */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent repeating */
+}
+
+/* Welcome Section Styles */
+.welcome-section {
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: flex-start; Align items at the start (top) */
+    /* flex-grow: 1; */
+    text-align: center;
+    /* position: relative; Ensure relative positioning for the heading */
+}
+
+.welcome-heading {
+    /* position: absolute; */
+    /* top: var(--welcome-heading-top, 1%); Use a CSS variable for top position, default to 1% */
+    width: 50%;
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto;
+    text-transform: uppercase;
+    /* transform: translateX(-50%); Center horizontally */
+    font-size: 3rem; /* Very large font size for the heading */
+    color: #05437a; /* Black text */
+    /* text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); */
+    /* Remove transition and hover effects */
+}
+
+/* Authors Heading Styles */
+.authors-heading {
+    text-align: center; /* Center align the heading */
+    margin: 20px 0; /* Margin around the heading */
+}
+
+.authors-heading h2 {
+    font-size: 2rem; /* Font size for the heading */
+    color: #05437a; /* Darker color for better readability */
+    margin: 0; /* Remove default margin */
+}
+
+/* Author Sections Styles */
+.author-sections {
+    display: flex;
+    justify-content: space-evenly; /* Space between author sections */
+    padding: 1vh;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+.author-section {
+    background-color: #ffffff; /* White background for each section */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow with more depth */
+    padding: 20px;
+    margin: 10px; /* Space around sections */
+    flex: 1 1 calc(25% - 20px); /* Flex grow, shrink, and basis with accounting for gap */
+    max-width: calc(25% - 20px); /* Maximum width with gap adjustment */
+    text-align: left; /* Align text to the left */
+    position: relative; /* Position relative for possible absolute children */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.author-section:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.author-section h3 {
+    color: #05437a;
+}
+
+/* Variable for Top Position */
+:root {
+    --author-section-top: 100px; /* Default top position for author sections */
+}
+
+/* Use variable in an example context */
+.some-example-context {
+    margin-top: var(--author-section-top); /* Adjust top position */
+}

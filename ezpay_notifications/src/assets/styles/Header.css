@@ -1,0 +1,70 @@
+@import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css');
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    /* background-color: #c67bef; */
+    /* Purple background for the navbar */
+    padding: 15px 20px;
+    /* box-shadow: inset 0 -5px 20px rgba(0, 0, 0, 0.1); */
+    /* White text color */
+}
+
+.navbar-left span {
+    margin-right: 20px;
+    font-size: 1.2rem;
+    /* Increase size for Home and About */
+    cursor: pointer;
+}
+
+.navbar-right {
+    display: flex;
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.navbar-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    /* Font size for buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-button:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slight zoom effect on hover */
+}
+
+.nav-link {
+    margin-right: 30px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 200ms;
+    transition: text-shadow 100ms;
+}
+
+.nav-link i {
+    font-size: 2rem;
+}
+
+.nav-link:hover {
+    color: #333333;
+    text-shadow: 0 0 2px #6b6b6b;
+}
+

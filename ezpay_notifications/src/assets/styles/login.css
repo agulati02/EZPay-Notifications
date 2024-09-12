@@ -1,0 +1,162 @@
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css');
+
+/* General Styling */
+@keyframes backgroundZoom {
+  0% {
+    background-size: 100% 100%;
+  }
+
+  50% {
+    background-size: 110% 110%;
+  }
+
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+.login-container {
+  /* background-image: url('../images/dollar.jpg'); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  animation: backgroundZoom 15s ease infinite;
+}
+
+.main-title {
+  /* background-color: #fff; */
+  display: flex;
+  /* position: absolute; */
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 50vw;
+  height: 50vh;
+  padding: 5vh;
+  color: #fff;
+}
+
+.heading {
+  font-size: 4rem;
+  background: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  font-style: italic;
+  letter-spacing: 2px;
+  margin-bottom: -2vh;
+  /* margin-top: -20vh; */
+}
+
+.heading span {
+  color: #ffd180;
+  /* -webkit-text-stroke: 2px #333; */
+}
+
+.subheading {
+  font-size: 17px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5vh;
+}
+
+
+.login-box {
+  background: rgba(255, 255, 255, 0.251);
+  /* Glassmorphism effect */
+  backdrop-filter: blur(10px);
+  padding: 5vh;
+  border-radius: 3vh;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Login Header */
+.login-header {
+  margin-bottom: 20px;
+  font-size: 26px;
+  text-align: center;
+  color: #05437a;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Input Fields */
+.form-group {
+  margin-bottom: 4vh;
+}
+
+.form-group input {
+  width: 90%;
+}
+
+.form-control {
+  border-radius: 15px;
+  border: none;
+  padding: 2vh;
+  width: 20vw;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  /* border-color: #0056b3; */
+  box-shadow: 0 0 10px rgba(0, 91, 255, 0.3);
+}
+
+/* Checkbox */
+.form-check-input {
+  accent-color: #6b6b6b;
+}
+
+.form-check-label {
+  margin-left: 8px;
+  font-size: 0.95rem;
+}
+
+/* Button Styling */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #348ddc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+  /* box-shadow: 0 4px 10px rgba(0, 91, 255, 0.2); */
+  transition: background 300ms;
+}
+
+.login-btn:hover {
+  background-color: #05437a;
+}
+
+.login-btn:active {
+  background: linear-gradient(135deg, #6b6b6b, #333);
+  transform: translateY(1px);
+  /* Pressed effect */
+}
+
+/* Additional form styling */
+.form-label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: bold;
+  display: block;
+}

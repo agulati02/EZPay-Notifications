@@ -1,0 +1,18 @@
+.content-title {
+    height: 8vh;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.content-title h3 {
+    font-size: 2rem;
+    margin-top: 0vh;
+    color: #05437a;
+    text-transform: uppercase;
+}
