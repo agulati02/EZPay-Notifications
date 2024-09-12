@@ -33,10 +33,12 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	 * @param amount     the amount to be reminded about.
 	 * @param dueDate    the due date of the payment.
 	 * @param status     the status of the reminder.
+	 * @param email      the email address associated with the reminder.
 	 * @return the created PaymentReminder object.
 	 */
-	default boolean addPaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status) {
-		PaymentReminder reminder = new PaymentReminder(reminderId, userId, amount, dueDate, status);
+	default boolean addPaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status,
+			String email) {
+		PaymentReminder reminder = new PaymentReminder(reminderId, userId, amount, dueDate, status, email);
 		return save(reminder) != null;
 	}
 
@@ -66,7 +68,8 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	int deleteAllByUserId(@Param("userId") String userId);
 
 	/**
-	 * Fetches payment reminders for a specific user and returns the ones that are due within the 
+	 * Fetches payment reminders for a specific user and returns the ones that are
+	 * due within the
 	 * next 3 days.
 	 * 
 	 * @param userId the unique user ID.

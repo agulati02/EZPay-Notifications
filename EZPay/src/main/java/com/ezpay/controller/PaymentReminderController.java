@@ -20,7 +20,7 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping("/api/payment-reminders")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PaymentReminderController {
 
     @Autowired
@@ -33,18 +33,20 @@ public class PaymentReminderController {
      * @param amount  Amount to be reminded about.
      * @param dueDate Due date for the payment.
      * @param status  Status of the payment.
+     * @param email   Email associated with the reminder.
      * @return Success or failure message.
      */
     @PostMapping("/add")
     public String addPaymentReminder(@RequestParam String userId,
             @RequestParam Double amount,
             @RequestParam String dueDate,
-            @RequestParam String status) throws ParseException {
+            @RequestParam String status,
+            @RequestParam String email) throws ParseException {
         String reminderId = Integer.toString((new Random()).nextInt(Integer.MAX_VALUE));
         Date parsedDueDate = new SimpleDateFormat("dd-MM-yyyy").parse(dueDate);
 
         boolean addStatus = paymentReminderService.addPaymentReminderService(reminderId, userId, amount, parsedDueDate,
-                status);
+                status, email);
         return addStatus ? "Reminder added successfully!" : "Reminder addition failed!";
     }
 
