@@ -81,31 +81,11 @@ public class PaymentReminderService {
     }
 
     /**
-     * Fetches all payment reminders for a specific user and filters the reminders
-     * that
-     * are due within the next 3 days.
-     * 
-     * @param userId Unique key to identify the user.
-     * @return List<PaymentReminder> List of payment reminders due within the next 3
-     *         days.
+     * Fetches all payment reminders for a specific user.
      */
-    public List<PaymentReminder> fetchUpcomingRemindersService(String userId) {
+    public List<PaymentReminder> fetchPaymentRemindersService(String userId) {
         if (userId != null) {
             return paymentReminderRepository.findRemindersByUserId(userId);
-        }
-        return List.of(); // Return an empty list if userId is null
-    }
-
-    /**
-     * Fetches all payment reminders for a specific user.
-     * 
-     * @param userId Unique key to identify the user.
-     * @return List<PaymentReminder> List of all payment reminders for the given
-     *         user.
-     */
-    public List<PaymentReminder> fetchAllRemindersService(String userId) {
-        if (userId != null) {
-            return paymentReminderRepository.findByUserId(userId);
         }
         return List.of(); // Return an empty list if userId is null
     }
