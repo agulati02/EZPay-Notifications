@@ -1,4 +1,5 @@
 package com.ezpay.repository;
+
 import com.ezpay.entity.PaymentReminder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 /**
  * PaymentReminderRepository interface
  * Repository interface for PaymentReminder entity, providing CRUD operations.
@@ -35,6 +37,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 		PaymentReminder reminder = new PaymentReminder(reminderId, userId, amount, dueDate, status);
 		return save(reminder) != null;
 	}
+
 	/**
 	 * Deletes a payment reminder by reminder ID.
 	 * 
@@ -48,6 +51,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 		}
 		return false;
 	}
+
 	/**
 	 * Deletes all payment reminders for a specific user.
 	 * 
@@ -58,8 +62,10 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	@Modifying
 	@Query("DELETE FROM PaymentReminder pr WHERE pr.userId = :userId")
 	int deleteAllByUserId(@Param("userId") String userId);
+
 	/**
-	 * Fetches payment reminders for a specific user and returns the ones that are due within the 
+	 * Fetches payment reminders for a specific user and returns the ones that are
+	 * due within the
 	 * next 3 days.
 	 * 
 	 * @param userId the unique user ID.
@@ -78,6 +84,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 		}
 		return reminderList;
 	}
+
 	/**
 	 * Fetches all payment reminders for a specific user.
 	 * 
@@ -85,4 +92,7 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	 * @return a list of PaymentReminder objects.
 	 */
 	List<PaymentReminder> findByUserId(String userId);
+
+	@Query("SELECT pr FROM PaymentReminder pr WHERE pr.dueDate <= :date")
+	List<PaymentReminder> findDueReminders(@Param("date") Date date);
 }

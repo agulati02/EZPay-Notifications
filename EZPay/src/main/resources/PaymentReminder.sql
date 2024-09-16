@@ -14,8 +14,8 @@ CREATE TABLE payment_reminder (
     due_date DATE NOT NULL,
     status VARCHAR2(20) NOT NULL
 );    
-INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R01U01', 'U01', 150.75, TO_DATE('2024-09-05', 'YYYY-MM-DD'), 'Pending');
-INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R02U01', 'U01', 200.00, TO_DATE('2024-09-11', 'YYYY-MM-DD'), 'Pending');
+INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R01U01', 'U01', 150.75, TO_DATE('2024-09-13', 'YYYY-MM-DD'), 'Pending');
+INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R02U01', 'U01', 200.00, TO_DATE('2024-09-15', 'YYYY-MM-DD'), 'Pending');
 INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R03U01', 'U01', 320.50, TO_DATE('2024-09-15', 'YYYY-MM-DD'), 'Completed');
 INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R04U01', 'U01', 450.00, TO_DATE('2024-09-03', 'YYYY-MM-DD'), 'Pending');
 INSERT INTO payment_reminder (reminder_id, user_id, amount, due_date, status) VALUES ('R01U02', 'U02', 75.20, TO_DATE('2024-08-22', 'YYYY-MM-DD'), 'Pending');

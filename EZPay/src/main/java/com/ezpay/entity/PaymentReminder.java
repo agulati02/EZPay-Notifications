@@ -150,4 +150,7 @@ public class PaymentReminder {
         return "[REM. ID:" + this.reminderId + "] Payment of Rs. " + String.format("%.2f", this.amount) + " due on "
                 + this.dueDate.toString();
     }
+    public String getUserEmail() {
+        throw new UnsupportedOperationException("Unimplemented method 'getUserEmail'");
+    }
 }
