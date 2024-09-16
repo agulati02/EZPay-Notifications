@@ -17,6 +17,7 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping("/api/payment-reminders")
+@CrossOrigin(origins="http://localhost:3000")
 public class PaymentReminderController {
     @Autowired
     private PaymentReminderService paymentReminderService;
