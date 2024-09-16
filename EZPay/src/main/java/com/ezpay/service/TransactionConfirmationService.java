@@ -151,21 +151,21 @@ public class TransactionConfirmationService {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setTo(toEmail);
-            helper.setSubject("You have notification(s) regarding your transactions!");
+            helper.setSubject("EZPay : Your Recent Transaction Confirmation");
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = formatter.format(transaction.getDateOfTransaction());
 
-            String content = "<p>Hi " + transaction.getUserId() + ",</p>"
-                    + "<p>We are pleased to inform you that your transaction has been successfully processed. Below are the details of the transaction:</p>"
+            String content = "<p>Dear  " + transaction.getUserId() + ",</p>"
+                    + "<p>We are pleased to inform you that your transaction has been successfully processed. Below are the details for your reference:</p>"
                     + "<p><span style='font-weight:bold;'>Transaction ID:</span> " + transaction.getId() + "<br>"
                     + "<span style='font-weight:bold;'>Amount:</span> ₹" + String.format("%.2f", transaction.getAmount()) + "<br>"
                     + "<span style='font-weight:bold;'>Transaction Type:</span> " + transaction.getType() + "<br>"
                     + "<span style='font-weight:bold;'>Date of Transaction:</span> " + formattedDate + "</p><br>"
                     + "<p><span style='font-weight:bold;'>If you didn't initiate this transaction, contact us immediately.</span></p>" 
-                    + "<p>If you have any questions, please don't hesitate to contact us.</p>"
-                    + "<p>Thank you for using our services!</p>"
-                    + "<p>Best regards,<br>EZPay</p>";
+                    + "<p>For any other questions or assistance, feel free to reach out. We are always here to help.</p>"
+                    + "<p>Thank you for choosing EZPay. We value your continued trust in our services.</p>"
+                    + "<p>Best regards,<br>EZPay Customer Support</p>";
 
             helper.setText(content, true); // Set 'true' for HTML content
 
