@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/login.css'; // Import the CSS file
+import BubblesBackground from './BubblesBackground';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -33,27 +34,36 @@ export const Login = () => {
   };
 
   return (
+    <>
+    <BubblesBackground />
     <div className="container login-container">
       <div className="main-title">
-        <div className="heading-div">
-          <div className="heading">
-            <div className="adj-list">
-              <ul>
-                <li>Your one-stop solution for</li>
-                <li><span className="word-secure">SECURE</span></li>
-                <li><span className="word-easy">SEAMLESS</span></li>
-                <li>Digital Payments</li>
-              </ul>
+        <div className="main-title-div">
+          <div className="heading-line-1">
+            <h1>Your one-stop solution for</h1>
+          </div>
+          <div className="heading-div">
+            <div className="heading">
+              <div className="adj-list">
+                <ul>
+                  <li><span>SECURE</span> <i class="fi fi-bs-padlock-check"></i></li>
+                  <li><span>SMOOTH</span> <i class="fi fi-bs-gears"></i></li>
+                  <li><span>QUICK</span> <i class="fi fi-bs-time-fast"></i></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        {/* <div className="subheading-div">
-          <h2 className="subheading">SECURE AND EFFICIENT DIGITAL PAYMENT SOLUTION</h2>
-        </div> */}
-        <div className="desc-div">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae semper nulla, a ultrices tellus. Curabitur interdum finibus ex sit amet rhoncus. Nam ut nibh finibus, egestas libero quis, lacinia.
-          </p>
+          <div className="heading-line-2">
+            <h1>digital payments.</h1>
+          </div>
+          {/* <div className="subheading-div">
+            <h2 className="subheading">SECURE AND EFFICIENT DIGITAL PAYMENT SOLUTION</h2>
+          </div> */}
+          <div className="desc-div">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae semper nulla, a ultrices tellus. Curabitur interdum finibus ex sit amet rhoncus. Nam ut nibh finibus, egestas libero quis, lacinia.
+            </p>
+          </div>
         </div>
       </div>
       <div className="login-box">
@@ -70,7 +80,7 @@ export const Login = () => {
             className="form-control"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
-            placeholder="Enter Username"
+            placeholder="Enter User ID"
             required
           />
         </div>
@@ -107,5 +117,6 @@ export const Login = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };

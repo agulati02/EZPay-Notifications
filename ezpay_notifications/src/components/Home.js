@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
-import '../assets/styles/home.css'; // Import the CSS file for styling
+import '../assets/styles/home.css';
+import '../assets/styles/common-styles.css'
 import Header from './Header';
 import { useNavigate } from 'react-router-dom';
+import BubblesBackground from './BubblesBackground';
+import { authors } from './AppConstants';
+import AuthorCard from './AuthorCard';
 
 export const Home = () => {
 
@@ -17,8 +21,9 @@ export const Home = () => {
 
   return (
     <>
+      <BubblesBackground />
       <Header />
-      <div className="home-container">
+      <div className="main-container">
         {/* Welcome Heading */}
         <div className="welcome-section">
           <h1 className="welcome-heading">WELCOME TO <span>EZPay</span></h1>
@@ -31,41 +36,13 @@ export const Home = () => {
 
         {/* Author Sections */}
         <div className="author-sections">
-          <div className="author-section">
-            <h3>Akhil Kholia</h3>
-            <p>
-              Software Engineer <br />
-              <b>Email:</b> akhilkholia9@gmail.com
-            </p>
-          </div>
-          <div className="author-section">
-            <h3>Anurag Gulati</h3>
-            <p>
-              Software Engineer <br />
-              <b>Email:</b> anuraggulati1902@gmail.com
-            </p>
-          </div>
-          <div className="author-section">
-            <h3>Doneela Das</h3>
-            <p>
-              Software Engineer <br />
-              <b>Email:</b> doneeladas@gmail.com
-            </p>
-          </div>
-          <div className="author-section">
-            <h3>Geethapriya Thandavamurthi</h3>
-            <p>
-              Software Engineer <br />
-              <b>Email:</b> geethathands@gmail.com
-            </p>
-          </div>
-          <div className="author-section">
-            <h3>Jai Singh</h3>
-            <p>
-              Software Engineer <br />
-              <b>Email:</b> sjai48578@gmail.com
-            </p>
-          </div>
+        {
+          authors.map((author, index) => {
+            return (
+              <AuthorCard author={author} />
+            )
+          })
+        }
         </div>
       </div>
     </>

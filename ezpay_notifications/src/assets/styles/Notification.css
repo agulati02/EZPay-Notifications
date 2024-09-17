@@ -1,27 +1,14 @@
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-thin-straight/css/uicons-thin-straight.css');
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
 
-/* Container for the Notification Section */
-.notification-container {
-    display: block;
-    overflow: auto;
-    scrollbar-width: none;
-    /* flex-direction: column; */
-    height: 100vh; /* Full viewport height */
-    width: 92vw;
-    background-color: #fff;
+.today-title-div {
+    width: 50vw;
+    /* background-color: #05437a; */
     margin-left: auto;
     margin-right: auto;
-    border-radius: 8vh 8vh 0 0;
-    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.3);
-    margin-top: 2vh;
-    /* background-image: url('../images/dollar.jpg'); Add your background image here */
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent repeating */
+    text-align: center;
+    font-size: 1.25rem;
 }
-
-
 
 /* Notification List Item */
 .notification {
@@ -103,7 +90,7 @@
 
 .tick-mark i {
     font-size: 3rem;
-    color: #348ddc;
+    color: #05437a;
     translate: 0 0 5px;
     animation: sizeChange 1s infinite ease-in-out;
 }

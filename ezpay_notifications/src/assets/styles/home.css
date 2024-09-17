@@ -2,28 +2,6 @@ body {
     background: linear-gradient(to bottom right, #00539b, #a1d8ff);
 }
 
-/* General Styles */
-.home-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    /* Full viewport height */
-    width: 92vw;
-    background-color: #fff;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8vh 8vh 0 0;
-    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.3);
-    margin-top: 2vh;
-    /* background-image: url('../images/dollar.jpg'); Add your background image here */
-    background-size: cover;
-    /* Cover the entire container */
-    background-position: center;
-    /* Center the background image */
-    background-repeat: no-repeat;
-    /* Prevent repeating */
-}
-
 /* Welcome Section Styles */
 .welcome-section {
     /* display: flex; */
@@ -80,51 +58,4 @@ body {
     padding: 1vh;
     flex-wrap: wrap;
     /* Allow wrapping if needed */
-}
-
-.author-section {
-    background-color: #ffffff;
-    /* White background for each section */
-    border: 1px solid #ddd;
-    /* Light gray border */
-    border-radius: 12px;
-    /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow with more depth */
-    padding: 20px;
-    margin: 10px;
-    /* Space around sections */
-    flex: 1 1 calc(25% - 20px);
-    /* Flex grow, shrink, and basis with accounting for gap */
-    max-width: calc(25% - 20px);
-    /* Maximum width with gap adjustment */
-    text-align: left;
-    /* Align text to the left */
-    position: relative;
-    /* Position relative for possible absolute children */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Smooth transitions */
-}
-
-.author-section:hover {
-    transform: translateY(-5px);
-    /* Slight lift on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    /* Enhanced shadow on hover */
-}
-
-.author-section h3 {
-    color: #05437a;
-}
-
-/* Variable for Top Position */
-:root {
-    --author-section-top: 100px;
-    /* Default top position for author sections */
-}
-
-/* Use variable in an example context */
-.some-example-context {
-    margin-top: var(--author-section-top);
-    /* Adjust top position */
 }

@@ -1,8 +1,9 @@
 import Header from "./Header";
 import ReminderTitle from "./ReminderTitle";
 import "../assets/styles/PaymentReminder.css";
-import { Modal } from "react-bootstrap";
+import "../assets/styles/common-styles.css";
 import { useEffect, useRef, useState } from "react";
+import BubblesBackground from "./BubblesBackground";
 
 function PaymentReminder() {
 
@@ -95,9 +96,10 @@ function PaymentReminder() {
 
     return (
         <>
+        <BubblesBackground />
         <Header />
         
-        <div className="home-container">
+        <div className="main-container">
             <ReminderTitle />
             {
                 reminderList.map((rem, index) => {

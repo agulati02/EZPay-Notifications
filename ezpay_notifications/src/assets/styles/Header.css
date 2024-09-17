@@ -59,6 +59,10 @@
     transition: text-shadow 100ms;
 }
 
+.nav-link span:hover {
+    color: #fff;
+}
+
 .nav-link i {
     font-size: 2rem;
 }

@@ -1,4 +1,10 @@
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
 
 /* General Styling */
 @keyframes backgroundZoom {
@@ -29,26 +35,47 @@
 }
 
 .main-title {
-  /* background-color: #fff; */
+  /* background-color: #f5c777; */
   display: flex;
   /* position: absolute; */
   flex-direction: column;
   justify-content: space-evenly;
-  width: 50vw;
+  width: 50%;
   height: 50vh;
   padding: 5vh;
   color: #fff;
 }
 
+.main-title-div {
+  /* background-color: #05437a; */
+}
+
+.heading-line-1 {
+  /* background-color: #f5c777; */
+  /* height: 10vh; */
+  margin-bottom: -2vw;
+  margin-top: -1vw;
+}
+
+.heading-line-2 {
+  /* background-color: #f5c777; */
+  /* height: 10vh; */
+  margin-top: -4vw;
+}
+
+.main-title h1 {
+  font-size: 4vw;
+}
+
 .heading {
-  font-size: 3rem;
+  font-size: 4vw;
   background: none;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 10vh;
+  height: 6vw;
   /* background-color: #05437a; */
   /* text-transform: uppercase; */
   /* font-style: italic; */
@@ -57,43 +84,50 @@
   /* margin-top: -20vh; */
 }
 
-ul {
+.adj-list ul {
   /* background-color: #05437a; */
-  display: inline-block;
+  /* display: inline-block; */
+  position: relative;
   list-style: none;
   /* margin-top: -4rem; */
   /* margin-bottom: -4rem; */
   padding: 0;
-  line-height: 4rem;
-  height: 4.5rem;
+  line-height: 6vw;
+  height: 5vw;
+  margin-top: -1%;
   overflow: hidden;
 }
 
-@keyframes slide-up {
-
-  0%,
-  20% {
-    transform: translateY(0%);
-  }
-
-  25%,
-  45% {
-    transform: translateY(-100%);
-  }
-
-  50%,
-  70% {
-    transform: translateY(-200%);
-  }
-
-  75%,
-  95% {
-    transform: translateY(-300%);
-  }
+.adj-list ul li {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  color: #f5c777;
+  animation: showWord 6s infinite;
 }
 
-ul li {
-  animation: slide-up 8s infinite;
+li i {
+  font-size: 3vw;
+}
+
+.adj-list ul li:nth-child(1) {
+  animation-delay: 0s; /* SECURE */
+}
+
+.adj-list ul li:nth-child(2) {
+  animation-delay: 2s; /* SEAMLESS */
+}
+
+.adj-list ul li:nth-child(3) {
+  animation-delay: 4s; /* QUICK */
+}
+
+@keyframes showWord {
+  0% { opacity: 0; transform: translateY(100%); }
+  10% { opacity: 1; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(0); }
+  40% { opacity: 0; transform: translateY(-100%); }
+  100% { opacity: 0; transform: translateY(-100%); }
 }
 
 .heading span {
@@ -118,19 +152,23 @@ ul li {
   margin-bottom: 5vh;
 }
 
+.desc-div {
+  margin-top: -2vw;
+}
 
 .login-box {
   background: rgba(255, 255, 255, 0.251);
   /* Glassmorphism effect */
   backdrop-filter: blur(10px);
   padding: 5vh;
+  padding-bottom: 7vh;
   border-radius: 3vh;
   margin-left: auto;
   margin-right: auto;
   border: 2px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  width: 100%;
+  /* max-width: 400px; */
+  width: 25%;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
