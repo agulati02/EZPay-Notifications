@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import java.util.Calendar;
+
 /**
  * PaymentReminderRepository interface
  * Repository interface for PaymentReminder entity, providing CRUD operations.
@@ -99,7 +101,21 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
      * @param currentDate The current date for comparison.
      * @return List of reminders due within the next 3 days.
      */
-    @Query("FROM PaymentReminder WHERE due_date BETWEEN :currentDate AND :currentDate + 3")
-    List<PaymentReminder> findDueReminders(@Param("currentDate") Date currentDate);
+    // @Query("FROM PaymentReminder WHERE due_date BETWEEN :currentDate AND :currentDate + 3")
+    // List<PaymentReminder> findDueReminders(@Param("currentDate") Date currentDate);
+
+
+	@Query("FROM PaymentReminder WHERE due_date BETWEEN :startDate AND :endDate")
+    List<PaymentReminder> findDueReminders(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+    // Default method to calculate start and end dates
+    default List<PaymentReminder> findDueReminders(Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_MONTH, 3);
+        Date endDate = calendar.getTime();
+        
+        return findDueReminders(currentDate, endDate);
+    }
 
 }
