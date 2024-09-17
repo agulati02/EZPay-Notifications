@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * TransactionConfirmationController class Handles REST API requests for
- * notifications and
- * transactions.
+ * notifications and transactions.
+ * No external module used
  * 
  * @author Akhil Kholia
  * @date 2024-08-31
@@ -34,9 +34,6 @@ public class TransactionConfirmationController {
 	 */
 	@PostMapping("/processTransaction")
 	public void processTransaction(@RequestBody Transaction transaction) {
-		// Log transaction details for debugging
-		// System.out.println(transaction.getId() + "---------" +
-		// transaction.getUserId());
 		transactionConfirmationService.processTransaction(transaction);
 	}
 
