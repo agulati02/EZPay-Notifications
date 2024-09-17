@@ -9,6 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 /**
  * Notification class
  * Represents a notification entity linked to a user and transaction.
+ * No external module used
  * 
  * @author Akhil Kholia
  * @date 2024-08-31
