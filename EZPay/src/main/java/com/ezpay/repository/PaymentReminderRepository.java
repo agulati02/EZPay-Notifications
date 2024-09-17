@@ -21,7 +21,7 @@ import java.util.Calendar;
  * PaymentReminder-related queries.
  * 
  * Author: Doneela Das
- * Date: 02-09-2024
+ * Date: 02-13-2024
  */
 @Repository
 public interface PaymentReminderRepository extends JpaRepository<PaymentReminder, String> {
@@ -108,7 +108,6 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	@Query("FROM PaymentReminder WHERE due_date BETWEEN :startDate AND :endDate")
     List<PaymentReminder> findDueReminders(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
-    // Default method to calculate start and end dates
     default List<PaymentReminder> findDueReminders(Date currentDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);

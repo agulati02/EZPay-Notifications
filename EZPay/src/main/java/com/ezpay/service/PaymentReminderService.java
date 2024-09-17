@@ -23,7 +23,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  * PaymentReminder entities.
  * 
  * Author: Doneela Das
- * Date: 02-09-2024
+ * Date: 02-12-2024
  */
 @Service
 public class PaymentReminderService {
