@@ -93,6 +93,13 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	 */
 	List<PaymentReminder> findByUserId(String userId);
 
-	@Query("SELECT pr FROM PaymentReminder pr WHERE pr.dueDate <= :date")
-	List<PaymentReminder> findDueReminders(@Param("date") Date date);
+	/**
+     * Finds payment reminders that are due within 3 days or on the current date.
+     * 
+     * @param currentDate The current date for comparison.
+     * @return List of reminders due within the next 3 days.
+     */
+    @Query("FROM PaymentReminder WHERE due_date BETWEEN :currentDate AND :currentDate + 3")
+    List<PaymentReminder> findDueReminders(@Param("currentDate") Date currentDate);
+
 }

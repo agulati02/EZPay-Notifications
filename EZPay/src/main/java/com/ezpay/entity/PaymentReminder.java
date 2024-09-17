@@ -1,58 +1,40 @@
 package com.ezpay.entity;
+
 import jakarta.persistence.*;
 import java.util.Date;
-/**
- * This module outlines the attributes and core functionalities of a payment
- * reminder.
- * 
- * Author: Doneela Das
- * Date: 02-09-2024
- */
+
 @Entity
 @Table(name = "payment_reminder")
 public class PaymentReminder {
-    /**
-     * Primary key for a payment reminder.
-     */
+
     @Id
     @Column(name = "reminder_id")
-    private String reminderId;
-    /**
-     * The ID of the user associated with the payment reminder.
-     */
+    private String reminderId;  // Unique identifier for the payment reminder
+
     @Column(name = "user_id")
-    private String userId;
-    /**
-     * The amount due for the payment.
-     */
+    private String userId;  // The ID of the user associated with this payment reminder
+
     @Column(name = "amount")
-    private Double amount;
-    /**
-     * The due date for the payment.
-     */
+    private Double amount;  // The amount that is due for this payment reminder
+
     @Column(name = "due_date")
     @Temporal(TemporalType.DATE)
-    private Date dueDate;
-    /**
-     * The status of the payment reminder (e.g., 'Pending', 'Paid').
-     */
+    private Date dueDate;  // The due date for the payment
+
     @Column(name = "status")
-    private String status;
-    /**
-     * Default constructor.
-     */
+    private String status;  // The status of the reminder (e.g., pending, paid)
+
+    // Mapping userEmail with a ManyToOne relationship to link the user who owns this reminder
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;  // Reference to the User entity. Assuming User entity has an email field.
+
+    // Default constructor
     public PaymentReminder() {
         super();
     }
-    /**
-     * Parameterized constructor.
-     * 
-     * @param reminderId Primary key for a reminder.
-     * @param userId     User ID associated with a reminder.
-     * @param amount     Amount due in the payment.
-     * @param dueDate    Due date of the payment.
-     * @param status     Reminder status.
-     */
+
+    // Parameterized constructor
     public PaymentReminder(String reminderId, String userId, Double amount, Date dueDate, String status) {
         this.reminderId = reminderId;
         this.userId = userId;
@@ -60,97 +42,61 @@ public class PaymentReminder {
         this.dueDate = dueDate;
         this.status = status;
     }
-    /**
-     * Gets the reminder ID.
-     * 
-     * @return the reminder ID.
-     */
+
+    // Getter and setter methods for reminderId
     public String getReminderId() {
         return reminderId;
     }
-    /**
-     * Sets the reminder ID.
-     * 
-     * @param reminderId the reminder ID to set.
-     */
+
     public void setReminderId(String reminderId) {
         this.reminderId = reminderId;
     }
-    /**
-     * Gets the user ID associated with the reminder.
-     * 
-     * @return the user ID.
-     */
+
+    // Getter and setter methods for userId
     public String getUserId() {
         return userId;
     }
-    /**
-     * Sets the user ID associated with the reminder.
-     * 
-     * @param userId the user ID to set.
-     */
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    /**
-     * Gets the amount due for the payment.
-     * 
-     * @return the amount due.
-     */
+
+    // Getter and setter methods for amount
     public Double getAmount() {
         return amount;
     }
-    /**
-     * Sets the amount due for the payment.
-     * 
-     * @param amount the amount to set.
-     */
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-    /**
-     * Gets the due date for the payment.
-     * 
-     * @return the due date.
-     */
+
+    // Getter and setter methods for dueDate
     public Date getDueDate() {
         return dueDate;
     }
-    /**
-     * Sets the due date for the payment.
-     * 
-     * @param dueDate the due date to set.
-     */
+
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
-    /**
-     * Gets the status of the payment reminder.
-     * 
-     * @return the status of the reminder.
-     */
+
+    // Getter and setter methods for status
     public String getStatus() {
         return status;
     }
-    /**
-     * Sets the status of the payment reminder.
-     * 
-     * @param status the status to set.
-     */
+
     public void setStatus(String status) {
         this.status = status;
     }
-    /**
-     * Returns a string representation of the payment reminder.
-     * 
-     * @return string representation of the reminder.
-     */
+
+    // Method to retrieve the email of the associated user, if available
+    public String getUserEmail() {
+        return user != null ? user.getEmail() : null;
+    }
+
+    // toString method for displaying the reminder details
     @Override
     public String toString() {
         return "[REM. ID:" + this.reminderId + "] Payment of Rs. " + String.format("%.2f", this.amount) + " due on "
                 + this.dueDate.toString();
-    }
-    public String getUserEmail() {
-        throw new UnsupportedOperationException("Unimplemented method 'getUserEmail'");
     }
 }

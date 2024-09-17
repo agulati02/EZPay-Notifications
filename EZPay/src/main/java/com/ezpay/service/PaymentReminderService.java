@@ -104,19 +104,27 @@ public class PaymentReminderService {
     /**
      * Get user email associated with the reminder
      */
-    public String getReminderEmail(String reminderId) {
-        Optional<PaymentReminder> reminderOpt = paymentReminderRepository.findById(reminderId);
+    // public String getReminderEmail(String reminderId) {
+    //     Optional<PaymentReminder> reminderOpt = paymentReminderRepository.findById(reminderId);
         
-        if (reminderOpt.isPresent()) {
-            PaymentReminder reminder = reminderOpt.get();
-            Optional<User> userOpt = userRepository.findById(reminder.getUserId());
+    //     if (reminderOpt.isPresent()) {
+    //         PaymentReminder reminder = reminderOpt.get();
+    //         Optional<User> userOpt = userRepository.findById(reminder.getUserId());
             
-            if (userOpt.isPresent()) {
-                return userOpt.get().getEmail();
-            }
-        }
-        return null;
+    //         if (userOpt.isPresent()) {
+    //             return userOpt.get().getEmail();
+    //         }
+    //     }
+    //     return null;
+    // }
+
+    public String getReminderEmail(String reminderId) {
+        return paymentReminderRepository.findById(reminderId)
+            .flatMap(reminder -> userRepository.findById(reminder.getUserId()))
+            .map(User::getEmail)
+            .orElse(null);
     }
+    
     
 
     /**
