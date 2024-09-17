@@ -41,7 +41,6 @@ create table users (
     );
 
 
-
 INSERT INTO users (id, notifications_enabled, username, password, email, registration_date) VALUES ('U01', 1, 'akhil', 'lihka', 'sjai48578@gmail.com', TO_DATE('2023-05-08', 'YYYY-MM-DD'));
 INSERT INTO users (id, notifications_enabled, username, password, email, registration_date) VALUES ('U02', 1, 'xyz', 'oiu', 'sjai48578@gmail.com', TO_DATE('2013-05-18', 'YYYY-MM-DD'));
 INSERT INTO users (id, notifications_enabled, username, password, email, registration_date) VALUES ('U03', 0, 'test', 'tre', 'sjai48578@gmail.com', TO_DATE('2023-09-28', 'YYYY-MM-DD'));

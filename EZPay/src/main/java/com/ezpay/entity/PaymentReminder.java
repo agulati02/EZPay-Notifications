@@ -3,12 +3,6 @@ package com.ezpay.entity;
 import jakarta.persistence.*;
 import java.util.Date;
 
-/**
- * 
- * Author: Doneela Das
- * Date: 02-13-2024
- */
-
 @Entity
 @Table(name = "payment_reminder")
 public class PaymentReminder {

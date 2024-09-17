@@ -1,8 +1,13 @@
 package com.ezpay.entity;
 
-import jakarta.persistence.*;
-import java.util.Set;
 import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 /**
  * User class Represents a user entity with basic authentication and
@@ -17,38 +22,22 @@ public class User {
 	@Id
 //	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
 //    @SequenceGenerator(name = "user_seq", sequenceName = "USER_SEQ", allocationSize = 1)
-
-	@Column(name = "id")
-	private String id;  // Unique identifier for the user
-
-	@Column(name = "username")
-	private String username;  // Username of the user
-
-	@Column(name = "email")
-	private String email;  // Email address of the user
 	
+	private String id;
 	private boolean notificationsEnabled;
-	
+	private String username;
 	private String password;
-	
+	private String email;
 	private Date registrationDate;
-
-	// One-to-many relationship with PaymentReminder. A user can have multiple payment reminders.
-    @OneToMany(mappedBy = "user")
-    private Set<PaymentReminder> paymentReminders;  // Set of payment reminders associated with this user
-
 
 	public User() {
 		notificationsEnabled = true;
 	}
 
-	public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public boolean isNotificationsEnabled() {
 		return notificationsEnabled;
@@ -90,12 +79,4 @@ public class User {
 		this.registrationDate = registrationDate;
 	}
 
-	// Getter and setter methods for paymentReminders
-    public Set<PaymentReminder> getPaymentReminders() {
-        return paymentReminders;
-    }
-
-    public void setPaymentReminders(Set<PaymentReminder> paymentReminders) {
-        this.paymentReminders = paymentReminders;
-    }
 }

@@ -12,8 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import java.util.Calendar;
-
 /**
  * PaymentReminderRepository interface
  * Repository interface for PaymentReminder entity, providing CRUD operations.
@@ -21,7 +19,7 @@ import java.util.Calendar;
  * PaymentReminder-related queries.
  * 
  * Author: Doneela Das
- * Date: 02-13-2024
+ * Date: 02-09-2024
  */
 @Repository
 public interface PaymentReminderRepository extends JpaRepository<PaymentReminder, String> {
@@ -95,26 +93,6 @@ public interface PaymentReminderRepository extends JpaRepository<PaymentReminder
 	 */
 	List<PaymentReminder> findByUserId(String userId);
 
-	/**
-     * Finds payment reminders that are due within 3 days or on the current date.
-     * 
-     * @param currentDate The current date for comparison.
-     * @return List of reminders due within the next 3 days.
-     */
-    // @Query("FROM PaymentReminder WHERE due_date BETWEEN :currentDate AND :currentDate + 3")
-    // List<PaymentReminder> findDueReminders(@Param("currentDate") Date currentDate);
-
-
-	@Query("FROM PaymentReminder WHERE due_date BETWEEN :startDate AND :endDate")
-    List<PaymentReminder> findDueReminders(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
-    default List<PaymentReminder> findDueReminders(Date currentDate) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.DAY_OF_MONTH, 3);
-        Date endDate = calendar.getTime();
-        
-        return findDueReminders(currentDate, endDate);
-    }
-
+	@Query("SELECT pr FROM PaymentReminder pr WHERE pr.dueDate <= :date")
+	List<PaymentReminder> findDueReminders(@Param("date") Date date);
 }

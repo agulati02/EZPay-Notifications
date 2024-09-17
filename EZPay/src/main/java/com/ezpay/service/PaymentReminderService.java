@@ -23,7 +23,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  * PaymentReminder entities.
  * 
  * Author: Doneela Das
- * Date: 02-12-2024
+ * Date: 02-09-2024
  */
 @Service
 public class PaymentReminderService {
@@ -58,6 +58,7 @@ public class PaymentReminderService {
       */
     public boolean addPaymentReminderService(String reminderId, String userId, Double amount, Date dueDate, String status) {
         if (reminderId != null && userId != null) {
+        	sendReminderEmails();
             return paymentReminderRepository.addPaymentReminder(reminderId, userId, amount, dueDate, status);
         }
         return false;
@@ -104,27 +105,19 @@ public class PaymentReminderService {
     /**
      * Get user email associated with the reminder
      */
-    // public String getReminderEmail(String reminderId) {
-    //     Optional<PaymentReminder> reminderOpt = paymentReminderRepository.findById(reminderId);
-        
-    //     if (reminderOpt.isPresent()) {
-    //         PaymentReminder reminder = reminderOpt.get();
-    //         Optional<User> userOpt = userRepository.findById(reminder.getUserId());
-            
-    //         if (userOpt.isPresent()) {
-    //             return userOpt.get().getEmail();
-    //         }
-    //     }
-    //     return null;
-    // }
-
     public String getReminderEmail(String reminderId) {
-        return paymentReminderRepository.findById(reminderId)
-            .flatMap(reminder -> userRepository.findById(reminder.getUserId()))
-            .map(User::getEmail)
-            .orElse(null);
+        Optional<PaymentReminder> reminderOpt = paymentReminderRepository.findById(reminderId);
+        
+        if (reminderOpt.isPresent()) {
+            PaymentReminder reminder = reminderOpt.get();
+            Optional<User> userOpt = userRepository.findById(reminder.getUserId());
+            
+            if (userOpt.isPresent()) {
+                return userOpt.get().getEmail();
+            }
+        }
+        return null;
     }
-    
     
 
     /**
@@ -149,6 +142,7 @@ public class PaymentReminderService {
                     e.printStackTrace();
                 }
             }
+            break;
         }
     }
     
@@ -158,7 +152,7 @@ public class PaymentReminderService {
      */
     @SuppressWarnings("unused")
     private String generateEmailMessage(PaymentReminder reminder, String username) {
-        return "Dear " + username + ",\n\n"
+        return "Dear " + reminder.getUserId() + ",\n\n"
                 + "This is a reminder that your payment of " + reminder.getAmount()
                 + " is due on " + reminder.getDueDate() + ". Please make your payment on or before the due date.\n\n"
                 + "Thank you,\nEZPay Customer Support";
