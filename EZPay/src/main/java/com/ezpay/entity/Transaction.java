@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * Transaction class
  * Represents a financial transaction entity.
- * 
+ * No external module used
  * @author Akhil Kholia
  * @date 2024-08-31
  */
@@ -28,14 +28,13 @@ public class Transaction {
     private String userId;
     private String type;
     private double  amount;
-//    private Timestamp dateOfTransaction;
-    
     @Temporal(TemporalType.DATE)
     private Date dateOfTransaction;
     private String status;
     
     public Transaction() {}
 
+    //Getters and Setters
     public String getType() {
         return type;
     }
@@ -52,42 +51,37 @@ public class Transaction {
         this.amount = amount;
     }
 
-//    public Timestamp getDateOfTransaction() {
-//        return dateOfTransaction;
-//    }
-  public Date getDateOfTransaction() {
-  return dateOfTransaction;
-}
 
-//    public void setDateOfTransaction(Timestamp dateOfTransaction) {
-//        this.dateOfTransaction = dateOfTransaction;
-//    }
-  public void setDateOfTransaction(Date dateOfTransaction) {
-      this.dateOfTransaction = dateOfTransaction;
-  }
+	  public Date getDateOfTransaction() {
+		  return dateOfTransaction;
+	}
+	
+	  public void setDateOfTransaction(Date dateOfTransaction) {
+		  this.dateOfTransaction = dateOfTransaction;
+	}
 
-    public String getStatus() {
-        return status;
+	  public String getStatus() {
+		  return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+	  public void setStatus(String status) {
+		  this.status = status;
     }
 
-    public Long getId() {
-        return id;
+	  public Long getId() {
+		  return id;
     }
     
-    public void setId(Long id) {
-    	this.id = id;
+	  public void setId(Long id) {
+		  this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+	  public String getUserId() {
+		  return userId;
     }
     
-    public void setUserId(String userId) {
-    	this.userId = userId;
+	  public void setUserId(String userId) {
+		  this.userId = userId;
     }
 
     
