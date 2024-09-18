@@ -3,7 +3,7 @@ package com.ezpay.service;
 import com.ezpay.entity.PaymentReminder;
 import com.ezpay.entity.User;
 import com.ezpay.repository.PaymentReminderRepository;
-import com.ezpay.repository.UserRepo;
+import com.ezpay.repository.UserRepository;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -32,13 +32,13 @@ public class PaymentReminderService {
     private PaymentReminderRepository paymentReminderRepository;
     
     @Autowired
-    private UserRepo userRepository;
+    private UserRepository userRepository;
     
     @Autowired
     private JavaMailSender mailSender;
 
     // Constructor injection (optional if using @Autowired)
-    public PaymentReminderService(PaymentReminderRepository paymentReminderRepository, JavaMailSender mailSender, UserRepo userRepository) {
+    public PaymentReminderService(PaymentReminderRepository paymentReminderRepository, JavaMailSender mailSender, UserRepository userRepository) {
         this.paymentReminderRepository = paymentReminderRepository;
         this.mailSender = mailSender;
         this.userRepository = userRepository;
