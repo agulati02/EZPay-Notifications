@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 /**
  * User class Represents a user entity with basic authentication and
  * notification settings.
+ * No external module used
  * 
  * @author Akhil Kholia
  * @date 2024-08-31
@@ -20,9 +21,6 @@ import jakarta.persistence.Table;
 @Table(name="users")
 public class User {
 	@Id
-//	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-//    @SequenceGenerator(name = "user_seq", sequenceName = "USER_SEQ", allocationSize = 1)
-	
 	private String id;
 	private boolean notificationsEnabled;
 	private String username;
@@ -34,7 +32,7 @@ public class User {
 		notificationsEnabled = true;
 	}
 
-
+	//Getters and Setters
 	public void setId(String id) {
 		this.id = id;
 	}
