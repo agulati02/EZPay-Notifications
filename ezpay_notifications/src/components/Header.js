@@ -1,41 +1,53 @@
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/Header.css';
 
+/**
+ * A React component that renders the navigation bar with links for home, logout, reminders, notifications, and profile.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered navigation header
+ */
 const Header = () => {
     const navigate = useNavigate();
+
     return (
         <>
             <div className="navbar">
                 <div className="navbar-left">
-                    <a href="#" class="nav-link" onClick={(e) => { navigate('/home') }} title="Home">
-                        <span style={{'fontSize':'2.5rem', 'marginRight':'0', 'fontStyle':'italic'}}>EZPay</span>
+                    {/* Home link with logo */}
+                    <a href="#" className="nav-link" onClick={(e) => { navigate('/home') }} title="Home">
+                        <span style={{ fontSize: '2.5rem', marginRight: '0', fontStyle: 'italic' }}>EZPay</span>
                     </a>
-                    <a href="#" class="nav-link" onClick={(e) => { navigate('/home') }} title="Home">
-                        <i class="fi fi-ss-house-chimney"></i>
+                    {/* Home icon link */}
+                    <a href="#" className="nav-link" onClick={(e) => { navigate('/home') }} title="Home">
+                        <i className="fi fi-ss-house-chimney"></i>
                     </a>
-                    <a href="#" class="nav-link" onClick={(e) => {
+                    {/* Logout link */}
+                    <a href="#" className="nav-link" onClick={(e) => {
                         localStorage.setItem("userId", null);
                         localStorage.removeItem("loginToken");
                         navigate('/');
                     }} title="Log out">
-                        <i class="fi fi-bs-sign-out-alt"></i>
+                        <i className="fi fi-bs-sign-out-alt"></i>
                     </a>
                 </div>
                 <div className="navbar-right">
-                    <a href="#" class="nav-link" onClick={(e) => { navigate('/reminders') }} title="Reminders">
-                        <i class="fi fi-br-alarm-clock"></i>
-                        {/* Reminder */}
+                    {/* Reminders link */}
+                    <a href="#" className="nav-link" onClick={(e) => { navigate('/reminders') }} title="Reminders">
+                        <i className="fi fi-br-alarm-clock"></i>
                     </a>
-                    <a href="#" class="nav-link" onClick={(e)=> {navigate('/notification')}} title="Notifications">
-                        <i class="fi fi-ss-bell-notification-social-media"></i>
+                    {/* Notifications link */}
+                    <a href="#" className="nav-link" onClick={(e) => { navigate('/notification') }} title="Notifications">
+                        <i className="fi fi-ss-bell-notification-social-media"></i>
                     </a>
-                    <a href="#" class="nav-link">
-                        <i class="fi fi-rs-circle-user" title="Profile"></i>
+                    {/* Profile link */}
+                    <a href="#" className="nav-link">
+                        <i className="fi fi-rs-circle-user" title="Profile"></i>
                     </a>
                 </div>
             </div>
         </>
-    )
+    );
 };
 
 export default Header;
