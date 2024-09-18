@@ -11,12 +11,13 @@ import com.ezpay.entity.User;
  * query methods.
  * This interface allows for interaction with the database to perform operations
  * on User entities.
+ * No external module used
  * 
  * @author Akhil Kholia
  * @date 2024-08-31
  */
 @Repository
-public interface UserRepo extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, String> {
 
      /**
       * Finds a user by their ID.
