@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
  * Repository interface for Transaction entity, providing CRUD operations.
  * This interface allows for interaction with the database for
  * Transaction-related queries.
+ * No external module used
  * 
  * @author Akhil Kholia
  * @date 2024-08-31
  */
 @Repository
-public interface TransactionRepo extends JpaRepository<Transaction, Long> {
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 	// Using default CRUD operations provided by JpaRepository
 }
