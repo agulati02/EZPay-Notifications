@@ -10,12 +10,13 @@ import com.ezpay.entity.Notification;
 /**
  * NotificationRepo interface
  * Repository interface for Notification entity, providing CRUD operations.
+ *  No external module used
  * 
  * @author Akhil Kholia
  * @date 2024-08-31
  */
 @Repository
-public interface NotificationRepo extends JpaRepository<Notification, Long> {
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
      /**
       * Finds notifications by user ID.
