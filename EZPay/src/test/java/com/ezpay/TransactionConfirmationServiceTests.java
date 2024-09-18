@@ -24,9 +24,9 @@ import org.springframework.context.annotation.Configuration;
 import com.ezpay.entity.Notification;
 import com.ezpay.entity.Transaction;
 import com.ezpay.entity.User;
-import com.ezpay.repository.NotificationRepo;
-import com.ezpay.repository.TransactionRepo;
-import com.ezpay.repository.UserRepo;
+import com.ezpay.repository.NotificationRepository;
+import com.ezpay.repository.TransactionRepository;
+import com.ezpay.repository.UserRepository;
 import com.ezpay.service.TransactionConfirmationService;
 
 /**
@@ -44,13 +44,13 @@ public class TransactionConfirmationServiceTests {
 
 
     @Mock
-    private NotificationRepo notificationRepository;
+    private NotificationRepository notificationRepository;
 
     @Mock
-    private UserRepo userRepository;
+    private UserRepository userRepository;
 
     @Mock
-    private TransactionRepo transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @InjectMocks
     private TransactionConfirmationService transactionConfirmationService;
@@ -66,18 +66,18 @@ public class TransactionConfirmationServiceTests {
         }
 
         @Bean
-        public NotificationRepo notificationRepo() {
-            return mock(NotificationRepo.class);
+        public NotificationRepository notificationRepository() {
+            return mock(NotificationRepository.class);
         }
 
         @Bean
-        public UserRepo userRepo() {
-            return mock(UserRepo.class);
+        public UserRepository userRepository() {
+            return mock(UserRepository.class);
         }
 
         @Bean
-        public TransactionRepo transactionRepo() {
-            return mock(TransactionRepo.class);
+        public TransactionRepository transactionRepository() {
+            return mock(TransactionRepository.class);
         }
     }
     
