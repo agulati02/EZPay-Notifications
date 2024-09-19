@@ -4,7 +4,8 @@ import "../assets/styles/PaymentReminder.css";
 import "../assets/styles/common-styles.css";
 import { useEffect, useRef, useState } from "react";
 import BubblesBackground from "./BubblesBackground";
-
+/*Author Name: Anurag Gulati and Doneela Das and Date: 14/09/2024 */
+/*External Module: Header, Reminder Title and Bubbles Background*/
 /**
  * The PaymentReminder component manages payment reminders, including fetching, adding, and deleting reminders.
  * It renders a list of reminders and provides an interface for adding new reminders and confirming deletion of existing ones.
