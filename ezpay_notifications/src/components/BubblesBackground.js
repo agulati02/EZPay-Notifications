@@ -1,5 +1,5 @@
 import '../assets/styles/bg.scss';
-
+/*Author Name: Anurag Gulati & Date: 14/09/2024 */
 /**
  * A React component that renders an animated background of floating bubbles.
  * 
