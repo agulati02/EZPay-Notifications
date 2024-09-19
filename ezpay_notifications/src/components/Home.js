@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import BubblesBackground from './BubblesBackground';
 import { authors } from './AppConstants';
 import AuthorCard from './AuthorCard';
-
+/*Author Name: Anurag Gulati & Jai Singh and Date: 14/09/2024*/
+/*External Module: Author Card, Bubbles Baackground and Header is being Used*/
 /**
  * The Home component serves as the main page of the EZPay application.
  * It includes a header, a background animation of bubbles, a welcome message, and a list of authors.
