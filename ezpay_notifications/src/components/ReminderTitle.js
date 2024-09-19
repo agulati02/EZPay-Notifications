@@ -1,5 +1,7 @@
 import "../assets/styles/ReminderTitle.css";
-
+/*Author Name: Anurag Gulati and Doneela Das 
+Date: 14/09/2024 
+External Module: No External Module*/
 /**
  * ReminderTitle component renders the title section for the payment reminders page.
  * 
