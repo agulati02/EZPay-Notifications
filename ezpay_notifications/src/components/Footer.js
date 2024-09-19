@@ -1,5 +1,6 @@
 import React from 'react';
 /*Author Name: Jai Singh & Date: 14/09/2024*/
+// No External Module has Been Used
 // Footer component
 export const Footer = () => {
   return (
