@@ -12,6 +12,7 @@
  * 
  * @type {Author[]}
  */
+/* Author Name: Anurag Gulati & Date: 14/09/2024*/
 export const authors = [
     {
         name: "Akhil Kholia",
