@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/login.css';
 import BubblesBackground from './BubblesBackground';
-
+/*Author Name: ANurag Gulati , Date: 14/09/2024 and External Module: BubblesBackground*/
 /**
  * The Login component handles user authentication by providing a login form with fields for User ID, password, and terms agreement.
  * It also displays background animations and handles navigation upon successful login.
