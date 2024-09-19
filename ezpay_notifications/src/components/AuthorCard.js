@@ -1,5 +1,5 @@
 import "../assets/styles/AuthorCard.css";
-
+/*Author Name: Anurag Gulati & Date: 14/09/2024*/
 /**
  * A React component that renders a card with author details.
  * 
