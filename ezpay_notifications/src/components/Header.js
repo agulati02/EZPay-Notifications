@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/Header.css';
-
+/*Author Name: Anurag Gulati and Date: 14/09/2024
+external module: header.css has been used for styling purpose*/
 /**
  * A React component that renders the navigation bar with links for home, logout, reminders, notifications, and profile.
  * 
