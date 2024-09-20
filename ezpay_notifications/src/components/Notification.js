@@ -1,3 +1,8 @@
+// src/Component/Notification.js
+
+// Author Names: Akhil Kholia, Jai Singh, Geethapriya T
+// Date: 14/09/2024
+
 import React, { useState, useEffect } from 'react';
 import Header from "./Header"; // Custom Header component
 import { FaTimes } from 'react-icons/fa'; // External module for displaying icons, specifically for delete icon

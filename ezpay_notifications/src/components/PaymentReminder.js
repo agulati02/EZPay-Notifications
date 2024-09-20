@@ -70,7 +70,7 @@ function PaymentReminder() {
             "method": "DELETE"
         });
         if (response.ok) {
-            await fetchPaymentReminders();
+            await fetchPaymentReminders(); // Refresh the reminder list
         } else {
             throw new Error("Reminder Deletion Failed!");
         }
@@ -87,12 +87,13 @@ function PaymentReminder() {
             "method": "POST"
         });
         if (response.ok) {
-            await fetchPaymentReminders();
+            await fetchPaymentReminders(); // Refresh the reminder list
         } else {
             throw new Error("Reminder Addition Failed!");
         }
     }
 
+    // Fetch reminders when the component loads
     useEffect(() => {
         let loginExists = sessionStorage.getItem("loginToken");
         console.log(loginExists);
@@ -139,6 +140,7 @@ function PaymentReminder() {
         setShowPageOverlay(false);
     };
 
+    // Refs for form inputs
     const amountRef = useRef();
     const dueDateRef = useRef();
     const statusRef = useRef();

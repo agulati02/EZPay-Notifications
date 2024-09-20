@@ -100,6 +100,25 @@ export const Login = () => {
               </p>
             </div>
           </div>
+
+          {/* Terms and conditions checkbox */}
+          <div className="form-check mb-3">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              checked={isAgreed}
+              onChange={(e) => setIsAgreed(e.target.checked)}
+              id="agreementCheck"
+            />
+            <label className="form-check-label" htmlFor="agreementCheck">
+              I accept the terms and conditions
+            </label>
+          </div>
+
+          {/* Login button */}
+          <button className="btn login-btn" onClick={handleLogin}>
+            Login
+          </button>
         </div>
         <div className="login-box">
           <h2 className="login-header">
