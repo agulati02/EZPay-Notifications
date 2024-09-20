@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import Header from "./Header";
-import { FaTimes } from 'react-icons/fa'; // Import the delete icon
-import NotificationTitle from './NotificationTitle';
-import '../assets/styles/Notification.css';
-import BubblesBackground from './BubblesBackground';
-import '../assets/styles/common-styles.css';
+import Header from "./Header"; // Custom Header component
+import { FaTimes } from 'react-icons/fa'; // External module for displaying icons, specifically for delete icon
+import NotificationTitle from './NotificationTitle'; // Custom component for displaying notification title
+import '../assets/styles/Notification.css'; // Custom CSS for styling notifications
+import '../assets/styles/common-styles.css'; // Common styles used across the app
 
+/**
+ * A React component to display and manage notifications for the user.
+ * Notifications are categorized based on the time period (Today, Yesterday, Earlier this week, Older).
+ * 
+ * External Modules:
+ * - react-icons: For icon usage (FaTimes for the delete icon)
+ * - Custom components like Header, NotificationTitle, BubblesBackground
+ * - Custom styles imported from Notification.css and common-styles.css
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered notification display with functionality to delete and clear notifications.
+ * 
+ * @author Akhil Kholia
+ * @author Jai Singh
+ * @author Geethapriya T
+ * @date 14/09/2024
+ */
 function Notification() {
-
+    // State to manage notifications in different time categories
     const [notifications, setNotifications] = useState([]);
     const [todayNotif, setTodayNotif] = useState([]);
     const [yesterdayNotif, setYesterdayNotif] = useState([]);
@@ -15,38 +31,35 @@ function Notification() {
     const [olderNotif, setOlderNotif] = useState([]);
     const [message, setMessage] = useState('');
 
+    // useEffect to fetch notifications when the component mounts
     useEffect(() => {
-        fetchNotifications(); // Fetch notifications only if userId exists
-    }, []); 
+        fetchNotifications();
+    }, []);
 
-    // useEffect(() => {
-    //     fetchNotifications(); // Fetch notifications only if userId exists
-    // }, [todayNotif, yesterdayNotif, earlierThisWeekNotif, olderNotif]);
-
+    /**
+     * Function to sort notifications based on the time period (Today, Yesterday, Earlier this Week, Older).
+     * @param {Array} data - Array of notification objects
+     */
     const sortDatesPeriodically = (data) => {
         const startOfDay = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
         const now = new Date();
         const todayStart = startOfDay(now);
-    
-        // Get yesterday's date
         const yesterdayStart = new Date(todayStart);
-        yesterdayStart.setDate(todayStart.getDate() - 1);
-    
-        // Get Monday's date of the current week
+        yesterdayStart.setDate(todayStart.getDate() - 1); // Calculate yesterday's date
         const mondayStart = new Date(todayStart);
-        mondayStart.setDate(todayStart.getDate() - todayStart.getDay() + 1);
-    
-        // Create new arrays to hold categorized notifications
+        mondayStart.setDate(todayStart.getDate() - todayStart.getDay() + 1); // Calculate start of the week (Monday)
+
+        // Initialize arrays for different periods
         const todayArray = [];
         const yesterdayArray = [];
         const earlierThisWeekArray = [];
         const olderArray = [];
-    
-        // Function to categorize the transaction dates
+
+        // Sort notifications based on their date
         data.forEach(notification => {
             const dateString = extractDateFromContent(notification.notificationContent);
             const date = startOfDay(new Date(dateString));
-            
+
             if (date.getTime() === todayStart.getTime()) {
                 todayArray.push(notification);
             } else if (date.getTime() === yesterdayStart.getTime()) {
@@ -57,15 +70,17 @@ function Notification() {
                 olderArray.push(notification);
             }
         });
-    
-        // Update state with new arrays
+
+        // Set state for each time period
         setTodayNotif(todayArray);
         setYesterdayNotif(yesterdayArray);
         setEarlierThisWeekNotif(earlierThisWeekArray);
         setOlderNotif(olderArray);
     }
-    
 
+    /**
+     * Function to fetch notifications from the backend and categorize them by time period.
+     */
     const fetchNotifications = async () => {
         setTodayNotif([]);
         setYesterdayNotif([]);
@@ -73,15 +88,12 @@ function Notification() {
         setOlderNotif([]);
 
         try {
-            const response = await fetch(`http://localhost:9090/api/notifications/${localStorage.getItem("userId")}`);
-
+            const response = await fetch(`http://localhost:9090/api/notifications/${sessionStorage.getItem("userId")}`);
             const data = await response.json();
 
             if (data && data.length > 0) {
-                // Sort notifications by date before setting them
                 const sortedData = sortNotificationsByDate(data);
                 await sortDatesPeriodically(sortedData);
-                // console.log(yesterdayNotif); 
                 setNotifications(sortedData);
                 setMessage('');
             } else {
@@ -93,24 +105,35 @@ function Notification() {
         }
     };
 
+    /**
+     * Helper function to sort notifications by date in descending order (latest first).
+     * @param {Array} data - Array of notification objects
+     * @returns {Array} Sorted array of notification objects
+     */
     const sortNotificationsByDate = (data) => {
-        // Extract date from the notification content using regex
         return data.sort((a, b) => {
             const dateA = extractDateFromContent(a.notificationContent);
             const dateB = extractDateFromContent(b.notificationContent);
-            
-            return new Date(dateB) - new Date(dateA); // Sort by latest date
+            return new Date(dateB) - new Date(dateA);
         });
     };
 
+    /**
+     * Helper function to extract the date from the notification content using regex.
+     * @param {string} content - Notification content string
+     * @returns {string} Extracted date string in 'yyyy-mm-dd' format
+     */
     const extractDateFromContent = (content) => {
-        const dateMatch = content.match(/\d{4}-\d{2}-\d{2}/); // Match the date in yyyy-mm-dd format
-        return dateMatch ? dateMatch[0] : '1970-01-01'; // Default to an old date if no date is found
+        const dateMatch = content.match(/\d{4}-\d{2}-\d{2}/);
+        return dateMatch ? dateMatch[0] : '1970-01-01'; // Default to an old date if not found
     };
 
+    /**
+     * Function to clear all notifications by calling the API.
+     */
     const handleClearNotifications = async () => {
         try {
-            const response = await fetch(`http://localhost:9090/api/clear/${localStorage.getItem("userId")}`, {
+            const response = await fetch(`http://localhost:9090/api/clear/${sessionStorage.getItem("userId")}`, {
                 method: 'DELETE',
             });
 
@@ -121,6 +144,7 @@ function Notification() {
                 setMessage('Error clearing notifications, please try again.');
             }
 
+            // Clear individual notification categories
             setTodayNotif([]);
             setYesterdayNotif([]);
             setEarlierThisWeekNotif([]);
@@ -130,6 +154,10 @@ function Notification() {
         }
     };
 
+    /**
+     * Function to delete a specific notification by ID.
+     * @param {string} notificationId - The ID of the notification to delete
+     */
     const handleDeleteNotification = async (notificationId) => {
         try {
             const response = await fetch(`http://localhost:9090/api/deleteNotification/${notificationId}`, {
@@ -148,6 +176,11 @@ function Notification() {
         }
     };
 
+    /**
+     * Function to format the notification content, adding styles for keywords like 'success' and 'failure'.
+     * @param {string} content - The raw notification content string
+     * @returns {object} Formatted HTML content
+     */
     const formatNotificationContent = (content) => {
         const escapedContent = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -161,7 +194,6 @@ function Notification() {
 
     return (
         <>
-            <BubblesBackground />
             <Header />
             <div className="main-container">
                 <NotificationTitle />
@@ -171,10 +203,11 @@ function Notification() {
                             <i class="fi fi-rs-check-circle"></i><br />
                         </div>
                         <p className="mt-3 message">
-                            <span>No notifications to display. You are all caught up!</span>
+                            <span>{message}</span>
                         </p>
                     </div>
                 )}
+                {/* Display categorized notifications */}
                 {todayNotif.length > 0 && (
                     <div className="mt-3">
                         <div className="today-title-div">
@@ -188,16 +221,14 @@ function Notification() {
                                         className="delete-notification-button"
                                         onClick={() => handleDeleteNotification(notification.id)}
                                     >
-                                        <FaTimes
-                                            className="text-danger position-absolute"
-                                            style={{ cursor: 'pointer', top: '10px', right: '10px' }}
-                                        />
+                                        <FaTimes className="text-danger position-absolute" style={{ cursor: 'pointer', top: '10px', right: '10px' }} />
                                     </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
+                {/* Display Yesterday's notifications */}
                 {yesterdayNotif.length > 0 && (
                     <div className="mt-3">
                         <div className="today-title-div">
@@ -211,16 +242,14 @@ function Notification() {
                                         className="delete-notification-button"
                                         onClick={() => handleDeleteNotification(notification.id)}
                                     >
-                                        <FaTimes
-                                            className="text-danger position-absolute"
-                                            style={{ cursor: 'pointer', top: '10px', right: '10px' }}
-                                        />
+                                        <FaTimes className="text-danger position-absolute" style={{ cursor: 'pointer', top: '10px', right: '10px' }} />
                                     </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
+                {/* Display earlier this week's notifications */}
                 {earlierThisWeekNotif.length > 0 && (
                     <div className="mt-3">
                         <div className="today-title-div">
@@ -234,16 +263,14 @@ function Notification() {
                                         className="delete-notification-button"
                                         onClick={() => handleDeleteNotification(notification.id)}
                                     >
-                                        <FaTimes
-                                            className="text-danger position-absolute"
-                                            style={{ cursor: 'pointer', top: '10px', right: '10px' }}
-                                        />
+                                        <FaTimes className="text-danger position-absolute" style={{ cursor: 'pointer', top: '10px', right: '10px' }} />
                                     </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
+                {/* Display older notifications */}
                 {olderNotif.length > 0 && (
                     <div className="mt-3">
                         <div className="today-title-div">
@@ -257,25 +284,19 @@ function Notification() {
                                         className="delete-notification-button"
                                         onClick={() => handleDeleteNotification(notification.id)}
                                     >
-                                        <FaTimes
-                                            className="text-danger position-absolute"
-                                            style={{ cursor: 'pointer', top: '10px', right: '10px' }}
-                                        />
+                                        <FaTimes className="text-danger position-absolute" style={{ cursor: 'pointer', top: '10px', right: '10px' }} />
                                     </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
-                {notifications.length > 0 && (
-                    <div className="mt-3">
-                        <div className='clear-notif-btn-div'>
-                            <button onClick={handleClearNotifications} className="btn btn-danger mt-3">
-                                Clear Notifications
-                            </button>
-                        </div>
+                {/* Clear all notifications button */}
+                {notifications.length > 0 &&
+                    <div className="d-flex justify-content-center">
+                        <button className="btn btn-danger" onClick={handleClearNotifications}>Clear All</button>
                     </div>
-                )}
+                }
             </div>
         </>
     );

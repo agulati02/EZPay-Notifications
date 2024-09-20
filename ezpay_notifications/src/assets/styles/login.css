@@ -5,24 +5,9 @@
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
-
-/* General Styling */
-@keyframes backgroundZoom {
-  0% {
-    background-size: 100% 100%;
-  }
-
-  50% {
-    background-size: 110% 110%;
-  }
-
-  100% {
-    background-size: 100% 100%;
-  }
-}
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
 .login-container {
-  /* background-image: url('../images/dollar.jpg'); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,9 +20,7 @@
 }
 
 .main-title {
-  /* background-color: #f5c777; */
   display: flex;
-  /* position: absolute; */
   flex-direction: column;
   justify-content: space-evenly;
   width: 50%;
@@ -46,20 +29,12 @@
   color: #fff;
 }
 
-.main-title-div {
-  /* background-color: #05437a; */
-}
-
 .heading-line-1 {
-  /* background-color: #f5c777; */
-  /* height: 10vh; */
   margin-bottom: -2vw;
   margin-top: -1vw;
 }
 
 .heading-line-2 {
-  /* background-color: #f5c777; */
-  /* height: 10vh; */
   margin-top: -4vw;
 }
 
@@ -76,21 +51,11 @@
   flex-direction: column;
   justify-content: space-around;
   height: 6vw;
-  /* background-color: #05437a; */
-  /* text-transform: uppercase; */
-  /* font-style: italic; */
-  /* letter-spacing: 2px; */
-  /* margin-bottom: -2vh; */
-  /* margin-top: -20vh; */
 }
 
 .adj-list ul {
-  /* background-color: #05437a; */
-  /* display: inline-block; */
   position: relative;
   list-style: none;
-  /* margin-top: -4rem; */
-  /* margin-bottom: -4rem; */
   padding: 0;
   line-height: 6vw;
   height: 5vw;
@@ -132,7 +97,6 @@ li i {
 
 .heading span {
   color: #f5c777;
-  /* -webkit-text-stroke: 2px #333; */
 }
 
 .word-secure {
@@ -158,7 +122,6 @@ li i {
 
 .login-box {
   background: rgba(255, 255, 255, 0.251);
-  /* Glassmorphism effect */
   backdrop-filter: blur(10px);
   padding: 5vh;
   padding-bottom: 7vh;
@@ -167,13 +130,11 @@ li i {
   margin-right: auto;
   border: 2px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  /* max-width: 400px; */
   width: 25%;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Login Header */
 .login-header {
   margin-bottom: 20px;
   font-size: 26px;
@@ -186,7 +147,6 @@ li i {
   font-style: italic;
 }
 
-/* Input Fields */
 .form-group {
   margin-bottom: 4vh;
 }
@@ -205,11 +165,9 @@ li i {
 }
 
 .form-control:focus {
-  /* border-color: #0056b3; */
   box-shadow: 0 0 10px rgba(0, 91, 255, 0.3);
 }
 
-/* Checkbox */
 .form-check-input {
   accent-color: #6b6b6b;
 }
@@ -219,7 +177,6 @@ li i {
   font-size: 0.95rem;
 }
 
-/* Button Styling */
 .login-btn {
   width: 100%;
   padding: 12px;
@@ -231,7 +188,6 @@ li i {
   font-weight: bold;
   margin-top: 10px;
   cursor: pointer;
-  /* box-shadow: 0 4px 10px rgba(0, 91, 255, 0.2); */
   transition: background 300ms;
 }
 
@@ -240,12 +196,9 @@ li i {
 }
 
 .login-btn:active {
-  /* background: linear-gradient(135deg, #6b6b6b, #333); */
   transform: translateY(1px);
-  /* Pressed effect */
 }
 
-/* Additional form styling */
 .form-label {
   font-size: 1rem;
   color: #333;

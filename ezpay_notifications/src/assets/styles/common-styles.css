@@ -1,23 +1,17 @@
-/* General Styles */
 .main-container {
     display: flex;
     flex-direction: column;
     height: fit-content;
-    /* Full viewport height */
     width: 92vw;
     background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
     backdrop-filter: blur(10px);
     margin-left: auto;
     margin-right: auto;
-    border-radius: 5vh;
+    border-radius: 2vh;
     padding-bottom: 5vh;
     box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.3);
     margin-top: 2vh;
-    /* background-image: url('../images/dollar.jpg'); Add your background image here */
     background-size: cover;
-    /* Cover the entire container */
     background-position: center;
-    /* Center the background image */
     background-repeat: no-repeat;
-    /* Prevent repeating */
 }

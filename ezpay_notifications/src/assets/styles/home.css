@@ -2,60 +2,36 @@ body {
     background: linear-gradient(to bottom right, #00539b, #a1d8ff);
 }
 
-/* Welcome Section Styles */
 .welcome-section {
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: flex-start; Align items at the start (top) */
-    /* flex-grow: 1; */
     text-align: center;
-    /* position: relative; Ensure relative positioning for the heading */
 }
 
 .welcome-heading {
-    /* position: absolute; */
-    /* top: var(--welcome-heading-top, 1%); Use a CSS variable for top position, default to 1% */
     width: 50%;
     margin-left: auto;
-    /* Center horizontally */
     margin-right: auto;
-    /* text-transform: uppercase; */
-    /* transform: translateX(-50%); Center horizontally */
     font-size: 3rem;
-    /* Very large font size for the heading */
     color: #05437a;
-    /* Black text */
-    /* text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); */
-    /* Remove transition and hover effects */
 }
 
 .welcome-heading span {
     font-style: italic;
 }
 
-/* Authors Heading Styles */
 .authors-heading {
     text-align: center;
-    /* Center align the heading */
     margin: 20px 0;
-    /* Margin around the heading */
 }
 
 .authors-heading h2 {
     font-size: 2rem;
-    /* Font size for the heading */
     color: #05437a;
-    /* Darker color for better readability */
     margin: 0;
-    /* Remove default margin */
 }
 
-/* Author Sections Styles */
 .author-sections {
     display: flex;
     justify-content: space-evenly;
-    /* Space between author sections */
     padding: 1vh;
     flex-wrap: wrap;
-    /* Allow wrapping if needed */
 }
