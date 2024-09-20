@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * TransactionConfirmationService class This service class handles the business
  * logic for
@@ -29,6 +32,8 @@ import java.text.SimpleDateFormat;
  */
 @Service
 public class TransactionConfirmationService {
+	
+	private static final Logger logger = LogManager.getLogger(TransactionConfirmationService.class);
 
 	@Autowired
 	NotificationRepository notificationRepo;
@@ -51,7 +56,7 @@ public class TransactionConfirmationService {
 	public void processTransaction(Transaction transaction) {
 		// Extract the user ID from the transaction
 		String userId = transaction.getUserId();
-		// System.out.println("UID: " + uid);
+		
 		User user = userRepo.findUserById(userId);
 		
 		if (user != null) {
@@ -60,7 +65,7 @@ public class TransactionConfirmationService {
 			try {
 				transactionRepo.save(transaction);
 			} catch (Exception e) {
-				System.out.println("Exception occured while saving Transaction: " + e);
+				logger.error("Exception occurred while saving Transaction: {}", e.getMessage(), e);
 			}
 
 			// Check if notifications are enabled for the user
@@ -81,7 +86,7 @@ public class TransactionConfirmationService {
 				sendNotificationEmail(user.getEmail(),transaction);
 			}
 		} else {
-			System.out.println("User not found with ID: " + userId);
+			logger.warn("User not found with ID: {}", userId);
 		}
 	}
 
@@ -100,11 +105,10 @@ public class TransactionConfirmationService {
 			if (user.isNotificationsEnabled()) {
 				return notificationRepo.findByUserId(userId);
 			} else {
-				System.out.println("Notifications are disabled for user with ID: " + userId);
-				return null;
+				logger.info("Notifications are disabled for user with ID: {}", userId);
 			}
 		} else {
-			System.out.println("User not found with ID: " + userId);
+			logger.warn("User not found with ID: {}", userId);
 		}
 
 		return null;
@@ -133,9 +137,13 @@ public class TransactionConfirmationService {
     public boolean deleteNotificationById(Long notificationId) {
         if (notificationRepo.existsById(notificationId)) {
             notificationRepo.deleteById(notificationId);
+            logger.info("Notification deleted with ID: {}", notificationId);
             return true;
+        } 
+        else {
+            logger.warn("Notification not found with ID: {}", notificationId);
+            return false;
         }
-        return false;
     }
 	
     /**
@@ -170,9 +178,9 @@ public class TransactionConfirmationService {
 
             // Send the email
             mailSender.send(message);
-            
+            logger.info("Email sent to: {}", toEmail);
         } catch (MessagingException e) {
-            System.out.println("Failed to send email: " + e.getMessage());
+        	logger.error("Failed to send email: {}", e.getMessage(), e);
         }
     }
 
