@@ -43,9 +43,9 @@ public class TransactionConfirmationController {
 	 * @param uid User ID for which notifications are fetched.
 	 * @return List of Notification objects.
 	 */
-	@GetMapping("/notifications/{uid}")
-	public List<Notification> getUserNotification(@PathVariable String uid) {
-		return transactionConfirmationService.getNotificationsForUser(uid);
+	@GetMapping("/notifications/{userId}")
+	public List<Notification> getUserNotification(@PathVariable String userId) {
+		return transactionConfirmationService.getNotificationsForUser(userId);
 	}
 	
 	/**
@@ -54,10 +54,10 @@ public class TransactionConfirmationController {
 	 * @param uid User ID for which notifications are fetched.
 	 * @return String indicating if notifications are deleted.
 	 */
-	@DeleteMapping("/clear/{uid}")
-    public String clearNotifications(@PathVariable String uid) {
+	@DeleteMapping("/clear/{userId}")
+    public String clearNotifications(@PathVariable String userId) {
         try {
-            transactionConfirmationService.deleteAllNotifications(uid);
+            transactionConfirmationService.deleteAllNotifications(userId);
             return "Notifications cleared successfully.";
         } catch (Exception e) {
             return "Error clearing notifications.";
