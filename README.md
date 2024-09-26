@@ -2,18 +2,18 @@
 <hr>
 
 #### Table of Contents
-1. [Introduction to EZpay](#1-introduction-to-ezpay)
-  1.1. [Key features](#11-key-features)
-  1.2. [Assumptions](#12-assumptions)
-  1.3. [Constraints](#13-constraints)
-2. [Notifications System](#2-notifications-system)
-  2.1. [User Story 1: Transaction Confirmation](#21-user-story-1-transaction-confirmation)
-  2.2. [User Story 2: Payment Reminders](#22-user-story-2-payment-reminders)
-3. [Backend](#3-backend)
-  3.1. [Setting up the database](#31-setting-up-the-database)
-  3.2. [Launching the backend](#32-launching-the-backend)
-4. [User Interface](#4-user-interface)
-  4.1. [Launching the UI](#41-launching-the-ui)
+1. [Introduction to EZpay](#1-introduction-to-ezpay) <br>
+  1.1. [Key features](#11-key-features) <br>
+  1.2. [Assumptions](#12-assumptions) <br>
+  1.3. [Constraints](#13-constraints) <br>
+2. [Notifications System](#2-notifications-system) <br>
+  2.1. [User Story 1: Transaction Confirmation](#21-user-story-1-transaction-confirmation) <br>
+  2.2. [User Story 2: Payment Reminders](#22-user-story-2-payment-reminders) <br>
+3. [Backend](#3-backend) <br>
+  3.1. [Setting up the database](#31-setting-up-the-database) <br>
+  3.2. [Launching the backend](#32-launching-the-backend) <br>
+4. [User Interface](#4-user-interface) <br>
+  4.1. [Launching the UI](#41-launching-the-ui) <br>
 
 <hr> 
 
