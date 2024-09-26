@@ -1,6 +1,7 @@
 package com.ezpay;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -18,8 +20,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.ezpay.entity.Notification;
 import com.ezpay.entity.Transaction;
@@ -40,7 +45,7 @@ import com.ezpay.service.TransactionConfirmationService;
 
 
 @SpringBootTest
-public class TransactionConfirmationServiceTests {
+class TransactionConfirmationServiceTests {
 
 
     @Mock
@@ -79,6 +84,26 @@ public class TransactionConfirmationServiceTests {
         public TransactionRepository transactionRepository() {
             return mock(TransactionRepository.class);
         }
+        
+        @Bean
+        public JavaMailSender getJavaMailSender() {
+            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+            
+            // Setting mail server properties
+            mailSender.setHost("smtp.gmail.com");
+            mailSender.setPort(587);
+            mailSender.setUsername("ezpay1712@gmail.com");
+            mailSender.setPassword("imhl ehax mvmr trbg");
+
+            // Configuring JavaMail properties
+            Properties props = mailSender.getJavaMailProperties();
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.debug", "true");  // Optional: Enables debug logs for mail sending
+
+            return mailSender;
+        }
     }
     
     @Before
@@ -87,7 +112,7 @@ public class TransactionConfirmationServiceTests {
     }
 
     @Test
-    void testProcessTransactionUserExistsAndNotificationsEnabled() {
+    void processTransactionUserExistsAndNotificationsEnabled() {
         //A completed Transaction with id = 1L with userId = U01 is created
         Transaction transaction = new Transaction();
         transaction.setId(1L);
@@ -113,7 +138,7 @@ public class TransactionConfirmationServiceTests {
     }
 
     @Test
-    void testProcessTransactionUserNotFound() {
+    void processTransactionUserNotFound() {
         //Transaction with userId = U02 is created
         Transaction transaction = new Transaction();
         transaction.setUserId("U02");
@@ -131,7 +156,7 @@ public class TransactionConfirmationServiceTests {
     }
 
     @Test
-    void testGetNotificationsForUserUserExistsAndNotificationsEnabled() {
+    void getNotificationsForUserUserExistsAndNotificationsEnabled() {
     	//An User with id = U01 and notification enabled is created
         User user = new User();
         user.setId("U01");
@@ -160,7 +185,7 @@ public class TransactionConfirmationServiceTests {
     }
 
     @Test
-    void testGetNotificationsForUserUserNotFound() {
+    void getNotificationsForUserUserNotFound() {
     	//User with id = U03 does not exist so return null
         when(userRepository.findUserById("U03")).thenReturn(null);
         
@@ -168,7 +193,7 @@ public class TransactionConfirmationServiceTests {
         List<Notification> result = transactionConfirmationService.getNotificationsForUser("U03");
 
         //check if the number of retrieved notification = 0
-        assertEquals(null, result);
+        assertNull(result);
         //check if findByUserId method of notificationRepository is never called
         verify(notificationRepository, never()).findByUserId("U03");
     }

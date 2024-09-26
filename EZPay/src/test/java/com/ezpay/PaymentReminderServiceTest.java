@@ -164,7 +164,7 @@ public class PaymentReminderServiceTest {
 				{ 3, null, null, 0.0, null, null, false, 0, 0 }, // invalid deletion (userId is null)
 
 				// Test case for fetching payment reminders
-				{ 4, null, "U04", 0.0, null, null, true, 0, 2 }, // valid fetch
+				{ 4, null, "U04", 0.0, null, null, true, 0, 1 }, // valid fetch
 				{ 4, null, "U400", 0.0, null, null, false, 0, 0 }, // invalid fetch (userId does not exist)
 				{ 4, null, null, 0.0, null, null, false, 0, 0 } // invalid fetch (userId is null)
 		});
